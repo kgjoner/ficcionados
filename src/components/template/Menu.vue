@@ -93,8 +93,7 @@ export default {
         text-decoration: none;
     }
 
-    .menu .tree-node.selected > .tree-content,
-    .menu .tree-node .tree-content:hover  {
+    .menu .tree-node.selected > .tree-content, .menu .tree-node .tree-content:hover  {
         background-color: #1d7ed8c9;
     }
 

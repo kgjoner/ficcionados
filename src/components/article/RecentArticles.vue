@@ -44,7 +44,7 @@ export default {
         }
     },
     watch: {
-        $route(to){
+        $route(){
             this.articles = []
             this.page = 1
             this.loadMore = true

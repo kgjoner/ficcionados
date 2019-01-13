@@ -53,9 +53,13 @@ export default {
             axios.post(`${baseApiUrl}/mailer`, this.contact)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
+                    this.reset()
                 })
                 .catch(showError)
                 .finally(() => this.sending = false)
+        },
+        reset() {
+            this.contact = {}
         }
     }
 }
