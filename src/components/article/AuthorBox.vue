@@ -1,0 +1,181 @@
+<template>
+    <div class="author-box">
+        <div>Sobre o Autor</div>
+        <div class="author-box-content">
+            <Gravatar :email="author.email" alt="Author" />
+            <div>
+                <h5>{{author.name}}</h5>
+                <em>{{author.bio}}</em>
+            </div>
+        </div>
+        <div class="author-box-social">
+            <div>
+            <a class="social-icon" v-if="author.facebook" :href="author.facebook" title="Facebook">
+                <i class="fa fa-facebook-f"></i></a>
+            <a class="social-icon" v-if="author.twitter" :href="author.twitter" title="Twitter">
+                <i class="fa fa-twitter"></i></a>
+            <a class="social-icon" v-if="author.instagram" :href="author.instagram" title="Instagram">
+                <i class="fa fa-instagram"></i></a>
+            </div>
+            <div>
+            <span>Suas histórias:</span>
+            <!-- <a :href="/"><i class="fa fa-amazon"></i></a> -->
+            <a class="social-icon" v-if="author.wattpad" :href="author.wattpad" title="Wattpad">
+                <i class="icon-wattpad"></i></a>
+            <a class="button" :href="author.website">
+                <i v-if="author.id === 1" class="icon-velgard"></i>SITE
+            </a>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<script>
+
+import Gravatar from 'vue-gravatar'
+
+export default {
+    name: 'AuthorBox',
+    components: { Gravatar },
+    props: ['author'],
+}
+</script>
+
+<style>
+
+    .icon-velgard:before {
+        font-size: 1.4rem;
+        padding-right: 5px;
+    }
+
+    .author-box {
+        position: relative;
+        margin: 40px auto 0px auto;
+        padding-bottom: 100px;
+        max-width: 45rem;
+    }
+
+    .author-box > div:first-of-type {
+        position: relative;
+        padding: 10px 10px 10px 20px;
+        width: 11rem;
+        background-color: #1d7fd8;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+
+        color: #fafafa;
+        letter-spacing: 0.8px;
+        font-size: 1.2em;
+    }
+
+    .author-box-content {
+        border: solid 1px #ddd;
+        border-top-right-radius: 4px;
+        padding: 40px 20px;
+        
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .author-box img {
+        float: left;
+        width: 80px;
+        margin-right: 20px;
+        border-radius: 4px;
+    }
+
+    .author-box h5 {
+        font-family: 'PT Serif';
+        color: #5c5c5c;
+        font-size: 1.5em;
+    }
+
+    .author-box em {
+        line-height: 175%;
+        letter-spacing: 0.8px;
+        color: #4c4c4c;   
+    }
+
+    .author-box-social {
+        background-color: #eaeaea;
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .author-box-social > div {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 20px 0.5rem 10px;
+    }
+
+    .social-icon {
+        height: 2.5rem;
+        width: 2.5rem;
+        background-color: #fafafa;
+        border-radius: 50%;
+        margin-left: 10px;
+
+        color: #4c4c4c;
+        text-decoration: none;
+        font-size: 1.3rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .social-icon:hover {
+        background-color: #4c4c4c;
+        text-decoration: none;
+        color: #fafafa;
+    }
+
+    .author-box-social span {
+        flex-grow: 1;
+        text-align: right;
+        font-size: 0.9em;
+        letter-spacing: 0.8px;
+        color: #4c4c4c;
+    }
+
+    .author-box-social .button {
+        min-width: 8rem;
+        height: 2.5rem;
+        float: right;
+        margin-left: 10px;
+
+        background-color: #1d7fd8;
+        color: #fafafa;
+        text-decoration: none;
+        outline: 0;
+        border-radius: 8px;
+        border: none;
+        padding: 0 10px;
+        /* font-weight: 500; */
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .author-box-social .button:hover {
+        background-color: #1d7ed8d0;
+        text-decoration: none;
+    }
+
+    @media(max-width: 610px) {
+        .author-box-social {
+            justify-content: flex-end;
+        }
+
+        .author-box-social > div:first-of-type {
+            display: none;
+        }
+    }
+
+</style>
