@@ -6,8 +6,8 @@
                 :class="{'navbar-selected': this.$route.fullPath === '/artigos'
                     || this.$route.fullPath.match(/\/categories\/([0-8]|(\d\d+))\/articles/)
                     || this.$route.fullPath.match(/\/articles\/\d+/)}">ARTIGOS</a></li>
-            <li><a href="/categories/9/articles" 
-                :class="{'navbar-selected': this.$route.fullPath.match(/\/categories\/9\/articles/)}">ENTREVISTAS</a></li>
+            <li><a href="/categories/3/articles" 
+                :class="{'navbar-selected': this.$route.fullPath.match(/\/categories\/3\/articles/)}">ENTREVISTAS</a></li>
             <li><a href="/sobre" :class="{'navbar-selected': this.$route.fullPath === '/sobre'}">SOBRE</a></li>
             <li><a href="/contato" :class="{'navbar-selected': this.$route.fullPath === '/contato'}">CONTATO</a></li>
         </ul>

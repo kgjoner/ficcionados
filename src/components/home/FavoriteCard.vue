@@ -51,7 +51,7 @@ export default {
                 article: this.newStandOut
             }
             axios.put(`${baseApiUrl}/standOutArticles`, paramsStandOut)
-                .then(() => this.$toasted.global.defaultSuccess())
+                .then(this.$toasted.global.defaultSuccess())
                 .then(window.location.reload())
                 .catch(showError)         
         }
