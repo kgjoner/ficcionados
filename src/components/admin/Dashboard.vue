@@ -41,15 +41,12 @@ export default {
 
 <style>
 
-    .dashboard {
-        padding: 20px;
-    }
-
     .stats {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
         margin-top: 20px;
+        padding: 20px;
     }
 
 </style>

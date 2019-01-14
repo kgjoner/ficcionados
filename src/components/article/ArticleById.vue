@@ -4,6 +4,7 @@
             <div>
                 <p>{{articleCategory.name}} ></p>
                 <h1> {{article.name}}</h1>
+                <em>{{article.publishedAt}}</em>
             </div>  
         </div> 
         <div class="pre-article">
@@ -22,7 +23,7 @@
 
 <script>
 
-import { baseApiUrl } from '@/global'
+import { baseApiUrl, toStandardDate } from '@/global'
 import { mapState } from 'vuex'
 import axios from 'axios'
 import AuthorBox from './AuthorBox'
@@ -38,15 +39,18 @@ export default {
             readingTime: '',
         }
     },
-    computed: mapState(['articleCategory']),
+    computed: mapState(['articleCategory']), 
     mounted() {
         const url = `${baseApiUrl}/articles/${this.$route.params.id}`
         axios.get(url)
-            .then(res => this.article = res.data)
+            .then(res => {
+                this.$el.style.setProperty('--bkg-image', `url(${res.data.imageUrl})`)
+                res.data.publishedAt = toStandardDate(res.data.publishedAt)
+                this.article = res.data
+            })
             .then(() => axios.get(`${baseApiUrl}/categories/${this.article.categoryId}`)
                 .then(res => {
                     this.$store.state.articleCategory = res.data
-                    this.$el.style.setProperty('--bkg-image', `url(${this.article.imageUrl})`) 
                 }))
             .then(() => {
                 axios.get(`${baseApiUrl}/users/${this.article.userId}`)

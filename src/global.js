@@ -2,7 +2,7 @@
 import Vue from 'vue'
 
 export const userKey = '__knowledge_user'
-export const baseApiUrl = ' https://ficcionados-backend.herokuapp.com'
+export const baseApiUrl = process.env.BASE_IRL || 'http://localhost:3000' //' https://ficcionados-backend.herokuapp.com'
 
 export function showError(e) {
     if(e && e.response && e.response.data) {
