@@ -69,7 +69,10 @@ export default {
 	},
 	
 	created() {
-		this.validateToken()
+		if(this.$route.fullPath.includes('/admin/') || 
+		this.$route.fullPath === '/') {
+			this.validateToken()
+		}
 	}
 }
 </script>
