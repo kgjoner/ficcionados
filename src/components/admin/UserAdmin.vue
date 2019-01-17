@@ -142,7 +142,7 @@ export default {
             axios[method](`${baseApiUrl}/users${id}`, this.user)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
-                    this.reset()
+                    location.reload()
                 })
                 .catch(e => showError(e))
         },
@@ -151,7 +151,7 @@ export default {
             axios.delete(`${baseApiUrl}/users/${id}`)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
-                    this.reset()
+                    location.reload()
                 })
                 .catch(showError)
         },

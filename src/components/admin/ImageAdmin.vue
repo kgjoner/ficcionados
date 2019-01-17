@@ -31,7 +31,7 @@
                 </b-col>
             </b-row>
             <b-row>
-                <b-col>
+                <b-col class="submit">
                     <b-button variant="primary" v-if="mode === 'create'"
                         @click="create">Criar</b-button>
                     <b-button variant="primary" v-if="mode === 'update'"
@@ -39,6 +39,7 @@
                     <b-button variant="danger" v-if="mode === 'remove'"
                         @click="remove">Excluir</b-button>
                     <b-button class="ml-2" @click="reset">Cancelar</b-button>
+                    <img v-if="loading" src="@/assets/loading2.gif" alt="">
                 </b-col>
             </b-row>    
         </b-form>
@@ -73,7 +74,8 @@ export default {
             image: {},
             images: [],
             baseApiUrl,
-            file: ''
+            file: '',
+            loading: false,
         }
     },
     methods: {
@@ -94,6 +96,7 @@ export default {
             this.loadImages()
         },
         create() {
+            this.loading = true
             var formData = new FormData()
             formData.append('title', this.image.title)
             formData.append('alt', this.image.alt)
@@ -106,25 +109,30 @@ export default {
             })
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
-                    this.reset()
+                    location.reload()
                 })
                 .catch(showError)
+                .finally(() => this.loading = false)
         },
         update() {
+            this.loading = true
             axios.put(`${baseApiUrl}/images/${this.image.$loki}`, this.image)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
-                    this.reset()
+                    location.reload()
                 })
                 .catch(showError)
+                .finally(() => this.loading = false)
         },
         remove() {
+            this.loading = true
             axios.delete(`${baseApiUrl}/images/${this.image.$loki}`)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
-                    this.reset()
+                    location.reload()
                 })
                 .catch(showError)
+                .finally(() => this.loading = false)
         },
         handleFileUpload(event) {
             this.file = event.target.files[0];
@@ -157,6 +165,23 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-items: center;
+}
+
+.image-admin .submit {
+    display: flex;
+    align-items: flex-start;
+    max-height: 80px;
+}
+
+.submit img {
+    height: 80px;
+    position: relative;
+    top: -20px;
+    
+}
+
+.submit button {
+    margin-bottom: 42px;
 }
 
 @media (max-width: 768px) {

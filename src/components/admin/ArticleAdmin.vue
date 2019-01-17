@@ -59,15 +59,13 @@
             </b-row>
             <b-row>
                 <b-col v-show="mode !== 'remove'">
-                    <!-- <input type="checkbox" v-model="htmlEditor"> -->
                     <b-form-group label="Conteúdo:" label-for="article-content">
-                        <VueEditor v-if="!htmlEditor" id="article-content" v-model="article.content" class="mb-4"></VueEditor>
-                        <!-- <textarea v-else id="text" v-model="article.content"/> -->
+                        <VueEditor id="article-content" v-model="article.content" class="mb-4"></VueEditor>
                     </b-form-group>
                 </b-col>
             </b-row>
             <b-row>
-                <b-col>
+                <b-col class="submit">
                     <b-button variant="primary" v-if="mode === 'create'"
                         @click="save">Criar</b-button>
                     <b-button variant="primary" v-if="mode === 'save'"
@@ -75,6 +73,7 @@
                     <b-button variant="danger" v-if="mode === 'remove'"
                         @click="remove">Excluir</b-button>
                     <b-button class="ml-2" @click="reset">Cancelar</b-button>
+                    <img v-if="loading" src="@/assets/loading2.gif" alt="">
                 </b-col>
             </b-row>    
         </b-form>
@@ -122,8 +121,7 @@ export default {
                 {key: 'publishedAt', label: 'Data', sortable: true},
                 {key: 'actions', label: 'Ações'}
             ],
-            htmlEditor: false,
-            baseApiUrl
+            loading: false,
         }
     },
     computed: {
@@ -191,6 +189,7 @@ export default {
             this.loadArticles()
         },
         save() {
+            this.loading = true
             this.article.editedAt = new Date()
             if(!this.article.publishedAt) this.article.publishedAt = this.article.editedAt
             if(!this.article.order) this.article.order = 100
@@ -199,20 +198,23 @@ export default {
             axios[method](`${baseApiUrl}/articles${id}`, this.article)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
-                    this.reset()
+                    location.reload()
                 })
                 .catch(showError)
+                .finally(() => this.loading = false)
         },
         remove() {
+            this.loading = true
             const id = this.article.id
             axios.delete(`${baseApiUrl}/articles/${id}`)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
-                    this.reset()
+                    location.reload()
                 })
                 .catch(showError)
+                .finally(() => this.loading = false)
         },
-        formatSlug(value, event) {
+        formatSlug(value) {
             return value.toLowerCase()
                 .normalize('NFD').replace(/[\u0300-\u036f]/g, "")
                 .split(/[^\w]+|_/).join('-')
@@ -268,6 +270,22 @@ export default {
         font-style: italic;
         margin-top: 3px;
         margin-right: 10px;   
+    }
+
+    .article-admin .submit {
+        display: flex;
+        align-items: flex-start;
+        max-height: 80px;
+    }
+
+    .submit img {
+        height: 80px;
+        position: relative;
+        top: -20px;   
+    }
+
+    .submit button {
+        margin-bottom: 42px;
     }
 
 </style>

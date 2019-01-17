@@ -87,7 +87,7 @@ export default {
             axios[method](`${baseApiUrl}/categories${id}`, this.category)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
-                    this.reset()
+                    location.reload()
                 })
                 .catch(showError)
         },
@@ -96,7 +96,7 @@ export default {
             axios.delete(`${baseApiUrl}/categories/${id}`)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
-                    this.reset()
+                    location.reload()
                 })
                 .catch(showError)
         }
