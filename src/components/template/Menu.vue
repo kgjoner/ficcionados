@@ -1,7 +1,7 @@
 <template>
     <aside class="menu" v-show="isMenuVisible">
         <QueryField />
-        <Tree :data="treeData" :options="treeOptions"
+        <Tree id="tree" :data="treeData" :options="treeOptions"
             :filter="treeFilter" v-model="selected" ref="tree" />
     </aside>
 </template>
@@ -97,7 +97,7 @@ export default {
         background-color: #1d7ed8c9;
     }
 
-    .menu .tree-node .tree-content:hover {
+    #tree .tree-node > .tree-content:hover {
         background-color: #1d7ed8c9;
     }
 

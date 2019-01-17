@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="recent-art">
+        <div v-if="imgQuery2" class="recent-art">
             <div class="art-title">
                 <img src="@/assets/badge-sword.svg" alt="Ícone de lupa" height="70px">
                 <div>
@@ -78,6 +78,7 @@ export default {
             page: 1,
             loadMore: true,
             imgQuery: false,
+            imgQuery2: false
         }
     },
     computed: {
@@ -117,14 +118,17 @@ export default {
                     const imageIds = this.standOutArticles.map(a => a.imageId)
                     this.getImages(imageIds)
                 })
+                .then(this.getRecentArticles())
         },
         getRecentArticles() {
             const url = `${baseApiUrl}/articles?page=${this.page}&order=publishedAt`
             axios(url).then(res => {
                 this.recentArticles = this.recentArticles.concat(res.data.data)
+                const imageIds = this.recentArticles.map(a => a.imageId)
+                this.getImages(imageIds)
                 this.page++
 
-                if (res.data.length === 0) this.loadMore = false
+                if (res.data.data.length < 10) this.loadMore = false
             })
         },
         getImages(ids) {
@@ -134,8 +138,13 @@ export default {
                     res.data.sort((a,b) => {
                         return ids.indexOf(a.$loki) - ids.indexOf(b.$loki)
                     })
-                    this.standOutArticles.forEach((a, i) => a.image = res.data[i] )
-                    this.imgQuery = true
+                    if(!this.imgQuery) {
+                        this.standOutArticles.forEach((a, i) => a.image = res.data[i] )
+                        this.imgQuery = true
+                    } else {
+                        this.recentArticles.forEach((a, i) => a.image = res.data[i] )
+                        this.imgQuery2 = true
+                    }  
                 })
         }
     },

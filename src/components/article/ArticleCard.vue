@@ -27,7 +27,7 @@ export default {
             return toStandardDate(this.article.publishedAt)
         },
         imgUrl() {
-            return `${baseApiUrl}/${this.article.image.filename}`
+            return `${baseApiUrl}/${this.article.image.filename.split('.').join('-240w.')}`
         }
     },
     watch: {

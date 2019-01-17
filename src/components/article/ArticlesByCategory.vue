@@ -65,7 +65,7 @@ export default {
                 this.getImages(imageIds)
                 this.page++
                 
-                if (res.data.length === 0) this.loadMore = false
+                if (res.data.length < 10) this.loadMore = false
             })
         },
         getImages(ids) {

@@ -47,7 +47,7 @@ export default {
                 this.getImages(imageIds)
                 this.page++
 
-                if (res.data.length === 0) this.loadMore = false
+                if (res.data.data.length < 10) this.loadMore = false
             })
         },
         getImages(ids) {
@@ -79,7 +79,7 @@ export default {
             }
         },
     },
-    mounted() {
+    created() {
         this.getArticles()
         if(this.$mq != 'xs' && this.$mq != 'sm') {
             this.$store.commit('toggleMenu', true)

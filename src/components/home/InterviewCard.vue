@@ -1,19 +1,24 @@
 <template>
     <div class="interview-card">
+        <router-link :to="{ name: 'articleById', params: {slug: article.slug} }" class="art-link">
         <div v-if="user" class="admin-artconfig">
             <input type="number" v-model="newStandOut">
             <button @click="updateStandOutArticles">Trocar Artigo</button>
         </div>
         <img :src="imgUrl || `../../assets/article.png`" alt="Imagem do artigo">
-        <h4>{{article.name}}</h4>
-        <span class="info">em <strong>{{publishingDate}}</strong></span>
-        <p>{{article.description}}</p>
-        <router-link :to="{ name: 'articleById', params: {slug: article.slug} }" class="button">LEIA MAIS</router-link>
-        <hr>
-        <span class="interview-category">
-            <i class="fa fa-folder"></i>
-            <router-link :to="`/categorias/9`"> Entrevistas</router-link>
-        </span>
+        <div class="info">
+            <h4>{{article.name}}</h4>
+            <span class="publish">em <strong>{{publishingDate}}</strong></span>
+            <p>{{article.description}}</p>
+        </div>
+        </router-link>
+        <div class="info">
+            <hr>
+            <span class="interview-category">
+                <i class="fa fa-folder"></i>
+                <router-link :to="`/categorias/9`"> Entrevistas</router-link>
+            </span>
+        </div>
     </div>
 </template>
 
@@ -37,7 +42,7 @@ export default {
             return toStandardDate(this.article.publishedAt)
         },
         imgUrl() {
-            return baseApiUrl + "/" + this.article.image.filename
+            return baseApiUrl + "/" + this.article.image.filename.split('.').join('-480w.')
         }
     },
     methods: {
@@ -63,79 +68,69 @@ export default {
         background-color: rgb(242, 242, 242, 1);
         margin: 10px 10px;
         border-radius: 4px;
-        padding: 6px;
-        padding-bottom: 10px;
         max-width: 350px;
-        box-shadow: 0px 1px 5px 1px rgba(0,0,0, 0.2)
+    }
+
+    .interview-card:hover {
+        box-shadow: 0px 8px 20px rgba(0,0,0,0.4)
+    }
+
+    .interview-card .art-link {
+        text-decoration: none;
     }
 
     .interview-card img {
         width: 100%;
-        border-radius: 4px;
+    }
+
+    .interview-card .info {
+        padding: 5px 15px 15px;
     }
 
     .interview-card h4 {
-        font-family: 'PT Serif';
+        font-family: 'Philosopher';
         padding-top: 15px;
-        padding-left: 10px;
         margin: 0px;
-        font-size: 1.5rem;
+        font-weight: 600;
+        color: #4c4c4c;
+        font-size: 1.4rem;
     }
 
-    .info {
-        padding-left: 10px;
-        font-size: 0.9rem;
-        color: rgba(0,0,0,0.6);
+    .interview-card .publish {
+        font-size: 0.8rem;
+        color: #777;
+    }
+
+    .interview-card .publish strong {
+        text-transform: uppercase;
+        font-size: 0.7rem;
     }
 
     .interview-card p {
-        padding: 20px 10px 10px 10px;
-        font-family: Verdana;
-        font-size: 0.8rem;
+        padding: 15px 0;
+        font-size: 0.9rem;
         line-height: 170%;
-    }
-
-    .interview-card .button {
-        height: 40px;
-        width: 160px;
-        margin-left: 10px;
-        margin-bottom: 10px;
-        font-size: 15px;
-        background-color: #4c4c4c;
-        color: #f2f2f2;
-        border: none;
-        border-radius: 5px;
-        box-shadow: 0px 0px 2px 0px #333;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        outline: 0;
-    }
-
-    .interview-card .button:hover {
-        background-color: #1d7fd8;
-        color: #f2f2f2;
+        margin-bottom: 0px;
+        color: #444;
     }
 
     .interview-card hr {
         height: 1px;
-        margin-bottom: 5px;
+        margin: 5px 0;
     }
 
     .interview-category {
-        padding-left: 10px;
-        font-size: 0.7rem;
-        color: rgba(0,0,0,0.6);
+        font-size: 0.8rem;
+        color: rgba(0,0,0,0.5);
     }
 
     .interview-category a {
         text-decoration: none;
+        padding-left: 2px;
         color: rgba(0,0,0,0.6);
     }
 
-    .interview-category a:hover {
+    .interview-category:hover, .interview-category:hover a {
         color: #1d7fd8;
     }
 

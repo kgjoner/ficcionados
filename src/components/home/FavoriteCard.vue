@@ -10,7 +10,6 @@
             <h4>{{article.name}}</h4>
             <span class="publish">por <strong>{{article.author}}</strong> em <strong>{{publishingDate}}</strong></span>
             <p>{{article.description}}</p>
-            <!-- <router-link :to="{ name: 'articleById', params: {slug: article.slug} }" class="button">LEIA MAIS</router-link> -->
         </div>    
         </router-link>
         <div class="info">
@@ -45,7 +44,7 @@ export default {
             return toStandardDate(this.article.publishedAt)
         },
         imgUrl() {
-            return baseApiUrl + "/" + this.article.image.filename
+            return baseApiUrl + "/" + this.article.image.filename.split('.').join('-480w.')
         }
     },
     methods: {
@@ -75,7 +74,7 @@ export default {
     }
 
     .favorite-card:hover {
-        box-shadow: 0px 0px 15px rgba(0,0,0,0.15)
+        box-shadow: 0px 8px 20px #d14e4e55
     }
 
     .favorite-card .art-link {
