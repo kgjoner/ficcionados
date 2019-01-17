@@ -4,15 +4,15 @@
             <input type="number" v-model="newStandOut">
             <button @click="updateStandOutArticles">Trocar Artigo</button>
         </div>
-        <img :src="article.imageUrl || `../../assets/article.png`" alt="Imagem do artigo">
+        <img :src="imgUrl || `../../assets/article.png`" alt="Imagem do artigo">
         <h4>{{article.name}}</h4>
-        <span class="info">em <strong>{{article.publishedAt}}</strong></span>
+        <span class="info">em <strong>{{publishingDate}}</strong></span>
         <p>{{article.description}}</p>
-        <router-link :to="`/articles/${article.id}`" class="button">LEIA MAIS</router-link>
+        <router-link :to="{ name: 'articleById', params: {slug: article.slug} }" class="button">LEIA MAIS</router-link>
         <hr>
         <span class="interview-category">
             <i class="fa fa-folder"></i>
-            <router-link :to="`/categories/9/articles`"> Entrevistas</router-link>
+            <router-link :to="`/categorias/9`"> Entrevistas</router-link>
         </span>
     </div>
 </template>
@@ -24,23 +24,23 @@ import axios from 'axios'
 
 export default {
     name: 'InterviewCard',
-    props: ['whichArticle', 'standOutIndex'],
+    props: ['article', 'standOutIndex'],
     data: function() {
         return {
-            article: '',
             category: '',
             newStandOut: null,
         }
     },
-    computed: mapState(['user']), 
-    methods: {
-        getArticle() {
-            axios.get(`${baseApiUrl}/articles/${this.whichArticle}`)
-                .then(res => {
-                    res.data.publishedAt = toStandardDate(res.data.publishedAt)
-                    this.article = res.data
-                })
+    computed: {
+        ...mapState(['user']),
+        publishingDate() {
+            return toStandardDate(this.article.publishedAt)
         },
+        imgUrl() {
+            return baseApiUrl + "/" + this.article.image.filename
+        }
+    },
+    methods: {
         updateStandOutArticles() {
             const paramsStandOut = {
                 key: 'interviews',
@@ -51,11 +51,6 @@ export default {
                 .then(() => this.$toasted.global.defaultSuccess())
                 .then(window.location.reload())
                 .catch(showError)         
-        }
-    },
-    watch: {
-        whichArticle() {
-            this.getArticle()
         }
     },
 }

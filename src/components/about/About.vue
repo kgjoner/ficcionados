@@ -111,7 +111,7 @@ export default {
         top: 0;
 
         display: block;
-        background-image: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('../../assets/homecover.png');
+        background-image: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('../../assets/homecover.jpg');
         background-size: cover !important;
         background-position: bottom center;
 
@@ -196,6 +196,12 @@ export default {
 
     #mc_embed_signup .mc-field-group input {
         padding:8px 0; text-indent:2%; margin-bottom: 20px;
+    }
+
+    @media (max-width: 850px) and (max-height: 500px), (max-width: 400px) {
+        .about-title h1 {
+            font-size: 2.7rem;
+        }
     }
 
 </style>

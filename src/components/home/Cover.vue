@@ -23,7 +23,7 @@ export default {
         position: relative;
         height: 90vh;
         width: 100%;
-        background-image: url('../../assets/homecover.png');
+        background-image: url('../../assets/homecover.jpg');
         background-size: cover;
         background-position: center bottom;
     }
@@ -65,6 +65,7 @@ export default {
             min-width: 160px;
             max-width: 200px;
             margin-top: 40px;
+            font-size: 15px;
 
             display: flex;
             justify-content: center;
@@ -74,7 +75,6 @@ export default {
     }
 
     .cover .cover-content .main-button {
-        font-size: 15px;
         margin-right: 20px;
         background-color: #4d4d4d;
         color: #fff;
@@ -89,7 +89,6 @@ export default {
     }
 
     .sec-button {
-        font-size: 15px;
         background-color: transparent;
         color: #fff;
         border: solid 1px #fff;
@@ -117,6 +116,10 @@ export default {
     }
 
     @media (max-width: 768px) {
+        .cover {
+             background-image: url('../../assets/homecover-66.jpg');
+        }
+
         .cover-content {
             padding-left: 12vw;
             padding-right: 10vw;
@@ -127,12 +130,60 @@ export default {
         .cover-content {
             padding-left: 5vw;
             padding-right: 5vw;
+            padding-bottom: 23vh;
         }
     }
 
     @media (max-width: 396px) {
+        .cover {
+             background-image: url('../../assets/homecover-vt.jpg');
+        }
+
         .cover-content {
             padding-bottom: 20vh;
+            padding-left: 10px;
+            padding-right: 5px;
+        }
+    }
+
+    @media (max-width: 850px) and (max-height: 500px) {
+        .cover-content {
+            padding-bottom: 23vh;
+        }
+
+        .cover-content .button {
+            height: 40px;
+            margin-top: 10px;
+            font-size: 13px;
+            width: 160px;
+        }
+
+        .home-title {
+            font-size: 2.3rem;
+            line-height: 120%;
+        }
+
+        .home-sub {
+            font-size: 0.9rem;
+            line-height: 120%;
+        }
+    }
+
+    @media (max-width: 325px) {
+        .cover-content .button {
+            margin-top: 20px;
+            font-size: 12px;
+            min-width: 135px;
+        }
+
+        .home-title {
+            font-size: 2.3rem;
+            line-height: 120%;
+        }
+
+        .home-sub {
+            font-size: 0.9rem;
+            line-height: 120%;
         }
     }
 

@@ -1,9 +1,9 @@
 <template>
     <div class="article-card">
-        <router-link :to="{ name: 'articleById', params: {id: article.id} }">
+        <router-link :to="{ name: 'articleById', params: {slug: article.slug} }">
             <div class="article-img">
-                <img v-if="!!article.imageUrl" :src="article.imageUrl" alt="">
-                <img v-else src="../../assets/article.png" alt="">
+                <img :src="imgUrl" :alt="article.image.alt" :title="article.image.title">
+                <!-- <img v-else src="../../assets/article.png" alt=""> -->
             </div>
             <div class="article-prev">
                 <h4><strong>{{article.name}}</strong></h4>
@@ -17,17 +17,22 @@
 
 <script>
 
-import { toStandardDate } from '@/global'
+import { toStandardDate, baseApiUrl } from '@/global'
 
 export default {
     name: 'ArticleCard',
     props: ['article'],
     computed: {
-        trueImg() {
-            return this.imgUrl ? this.imgUrl : '../../assets/article.png'
-        },
         publishingDate() {
             return toStandardDate(this.article.publishedAt)
+        },
+        imgUrl() {
+            return `${baseApiUrl}/${this.article.image.filename}`
+        }
+    },
+    watch: {
+        article() {
+            
         }
     }
 }

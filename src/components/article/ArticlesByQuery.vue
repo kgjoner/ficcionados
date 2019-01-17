@@ -1,7 +1,7 @@
 <template>
     <div class="articles-by-query">
         <PageTitle :main="$route.query.s" sub="Buscar por:" />
-        <ul>
+        <ul v-if="didGetImg">
             <li v-for="article in articles" :key="article.id">
                 <ArticleCard :article="article" />
             </li>
@@ -30,6 +30,12 @@ export default {
             articles: [],
             page: 1,
             loadMore: true,
+            imgQuery: false,
+        }
+    },
+    computed: {
+        didGetImg() {
+            return this.imgQuery
         }
     },
     methods: {
@@ -37,10 +43,23 @@ export default {
             const url = `${baseApiUrl}/search?s=${this.$route.query.s}&page=${this.page}`
             axios(url).then(res => {
                 this.articles = this.articles.concat(res.data)
+                const imageIds = this.articles.map(a => a.imageId)
+                this.getImages(imageIds)
                 this.page++
 
                 if (res.data.length === 0) this.loadMore = false
             })
+        },
+        getImages(ids) {
+            const url = `${baseApiUrl}/cardimages?ids=[${ids}]`
+            axios.get(url)
+                .then(res => {
+                    res.data.sort((a,b) => {
+                        return ids.indexOf(a.$loki) - ids.indexOf(b.$loki)
+                    })
+                    this.articles.forEach((a, i) => a.image = res.data[i] )
+                    this.imgQuery = true
+                })
         }
     },
     watch: {
@@ -48,6 +67,7 @@ export default {
             this.articles = []
             this.page = 1
             this.loadMore = true
+            this.imgQuery = false
 
             this.getArticles()
         },

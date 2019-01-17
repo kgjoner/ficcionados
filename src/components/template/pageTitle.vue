@@ -25,7 +25,7 @@ export default {
         top: 0;
 
         display: block;
-        background-image: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('../../assets/blankcover.png');
+        background-image: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('../../assets/blankcover.jpg');
         background-size: cover !important;
         background-position: bottom center;
 
@@ -72,6 +72,16 @@ export default {
         height: 1px;
         background: linear-gradient(to right, rgba(250,250,250,0.4), rgba(250,250,250, 0.8),
             rgba(250,250,250, 0.8), rgba(250,250,250, 0.8), rgba(250,250,250,0.4));
+    }
+
+    @media (max-width: 450px) {
+        .page-title div {
+            padding-left: 20px;
+        }
+
+        .page-title h1 {  
+            font-size: 2.7rem;
+        }
     }
 
 </style>

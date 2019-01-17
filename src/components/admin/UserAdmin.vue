@@ -56,7 +56,7 @@
             <b-row>
                 <b-col md="6" sm="12">
                     <b-form-group label="Bio:" label-for="user-bio">
-                        <textarea id="user-bio" style="white-space: pre-wrap;"
+                        <b-form-textarea id="user-bio" style="white-space: pre-wrap;"
                             v-model="user.bio" 
                             placeholder="  Breve biografia do usuário" />
                     </b-form-group>
@@ -170,5 +170,9 @@ export default {
 </script>
 
 <style>
+
+    #user-bio {
+        min-height: 210px;
+    }
 
 </style>

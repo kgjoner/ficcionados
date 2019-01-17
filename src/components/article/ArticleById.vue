@@ -2,14 +2,14 @@
     <div class="article-by-id">
         <div class="artpage-title">         
             <div>
-                <p>{{articleCategory.name}} ></p>
+                <p>{{article.category}} ></p>
                 <h1> {{article.name}}</h1>
                 <em>{{article.publishedAt}}</em>
             </div>  
         </div> 
         <div class="pre-article">
-            <Gravatar :email="author.email" alt="Author" />
-            <span>{{author.name}}</span>
+            <Gravatar :email="article.email" alt="Autor" />
+            <span>{{article.author}}</span>
             <em>{{readingTime}}min de leitura</em>
             <hr>
         </div>
@@ -24,7 +24,6 @@
 <script>
 
 import { baseApiUrl, toStandardDate } from '@/global'
-import { mapState } from 'vuex'
 import axios from 'axios'
 import AuthorBox from './AuthorBox'
 import Gravatar from 'vue-gravatar'
@@ -35,31 +34,48 @@ export default {
     data: function() {
         return {
             article: {},
-            author: {},
             readingTime: '',
         }
     },
-    computed: mapState(['articleCategory']), 
-    mounted() {
-        const url = `${baseApiUrl}/articles/${this.$route.params.id}`
-        axios.get(url)
-            .then(res => {
-                this.$el.style.setProperty('--bkg-image', `url(${res.data.imageUrl})`)
-                res.data.publishedAt = toStandardDate(res.data.publishedAt)
-                this.article = res.data
-            })
-            .then(() => axios.get(`${baseApiUrl}/categories/${this.article.categoryId}`)
+    computed: {
+        author() {
+            return {
+                name: this.article.author,
+                email: this.article.email,
+                bio: this.article.bio,
+                website: this.article.website,
+                facebook: this.article.facebook,
+                twitter: this.article.twitter,
+                instagram: this.article.instagram,
+                wattpad: this.article.wattpad
+            }
+        }
+    },
+    methods: {
+        getArticle() {
+            const url = `${baseApiUrl}/${this.$route.params.slug}`
+            axios.get(url)
                 .then(res => {
-                    this.$store.state.articleCategory = res.data
-                }))
-            .then(() => {
-                axios.get(`${baseApiUrl}/users/${this.article.userId}`)
-                .then(res => this.author = res.data)
-            })
-            .then(() => {
-                const artWords = this.article.content.split(' ').length
-                this.readingTime = Math.ceil(artWords/200)
-            })
+                    this.getImage(res.data.imageId)
+                    res.data.publishedAt = toStandardDate(res.data.publishedAt)
+                    this.article = res.data
+                    this.$store.state.articleCategory = res.data.category
+                })
+                .then(() => {
+                    const artWords = this.article.content.split(' ').length
+                    this.readingTime = Math.ceil(artWords/200)
+                })
+        },
+        getImage(id) {
+            axios.get(`${baseApiUrl}/images/${id}`)
+                .then(res => {
+                    this.article.image = res.data
+                    this.$el.style.setProperty('--bkg-image', `url(${baseApiUrl}/${this.article.image.filename})`)
+                })
+        }
+    },
+    created() {
+        this.getArticle()
         this.$store.commit('toggleMenu', false)   
     }
 }
@@ -97,6 +113,7 @@ export default {
         padding-top: 20px;
         color: #fafafa;
         height: 70vh;
+        overflow: hidden;
 
         background-color:rgb(39, 68, 95);
         border: solid 4px rgb(39, 68, 95);
@@ -208,6 +225,26 @@ export default {
 
     .article-content :last-child {
         margin-bottom: 0px;
+    }
+
+    @media(max-width:450px), (max-width:850px) and (max-height:500px) {
+
+        .artpage-title {
+            height: auto;
+            padding-top: 40px;
+        }
+
+        .artpage-title div {
+            margin-bottom: 10vh;
+        }
+
+        .artpage-title h1 {       
+            font-size: 2.7rem;
+        }
+
+        .artpage-title p {
+            font-size: 0.8rem;
+        }
     }
 
 </style>

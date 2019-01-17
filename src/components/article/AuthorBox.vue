@@ -23,7 +23,7 @@
             <a class="social-icon" v-if="author.wattpad" :href="author.wattpad" title="Wattpad">
                 <i class="icon-wattpad"></i></a>
             <a class="button" :href="author.website">
-                <i v-if="author.id === 1" class="icon-velgard"></i>SITE
+                <i v-if="author.name.includes('Kaio')" class="icon-velgard"></i>SITE
             </a>
             </div>
         </div>

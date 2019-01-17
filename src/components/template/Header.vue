@@ -1,14 +1,14 @@
 <template>
     <header class="header">
         <a class="toggle" @click="toggleMenu" v-if="!hideToggle">
-            <img src="@/assets/logomarca.png" class="brand" :class="icon">
+            <img src="@/assets/logomarca.svg" class="brand" :class="icon">
         </a>
         <router-link to="/" class="toggle toggle-off" v-else>
-            <img  src="@/assets/logomarca.png" class="brand" :class="icon">
+            <img  src="@/assets/logomarca.svg" class="brand" :class="icon">
         </router-link>
         <h1 class="title">
             <router-link to="/">
-                <img src="@/assets/logotipo.png" class="logotype">
+                <img src="@/assets/logotipo.svg" class="logotype">
             </router-link>
         </h1>
         <Navbar v-if="!hideNavbar"></Navbar>
@@ -71,7 +71,7 @@ export default {
         align-items: center;
     }
 
-    .title {
+    .header .title {
         flex-grow: 1;
         /* text-align: center; */
     }
@@ -112,6 +112,13 @@ export default {
         height: 50px;
         padding-top: 5px;
         margin-left: 5px;
+    }
+
+    @media (max-width: 916px) {
+        .logotype {
+            height: 40px;
+            margin-left: 0; 
+        }
     }
 
 </style>

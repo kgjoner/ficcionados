@@ -1,6 +1,6 @@
 <template>
     <div class="directive">
-        <router-link to="/categories/1/articles" class="directive-option">
+        <router-link to="/categorias/1" class="directive-option">
             <div class="option-sign">
                 <i class="icon-quill"></i>
             </div>
@@ -9,7 +9,7 @@
             <p>Dicas para refinar seus roteiros, encontrar seu estilo e ganhar 
                 confiança em seus textos.</p>
         </router-link>
-        <router-link :to="{ path: '/categories/2/articles' }" class="directive-option">
+        <router-link :to="{ path: '/categorias/2' }" class="directive-option">
             <div class="option-sign">
                 <i class="icon-book"></i>
             </div>
@@ -69,7 +69,7 @@ export default {
     }
 
     .directive-option h2 {
-        font-family: 'PT Serif';
+        font-family: 'Philosopher';
         font-size: 1.8rem;
         text-align: center;
     }

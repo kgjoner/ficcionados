@@ -14,6 +14,9 @@
                     <b-tab title="Usuários">
                         <UserAdmin />
                     </b-tab>
+                    <b-tab title="Imagens">
+                        <ImageAdmin />
+                    </b-tab>
                 </b-tabs>
             </b-card>
         </div>
@@ -26,10 +29,11 @@ import PageTitle from '../template/pageTitle'
 import ArticleAdmin from './ArticleAdmin'
 import CategoryAdmin from './CategoryAdmin'
 import UserAdmin from './UserAdmin'
+import ImageAdmin from './ImageAdmin'
 
 export default {
     name: 'AdminPages',
-    components: {PageTitle, ArticleAdmin, CategoryAdmin, UserAdmin}
+    components: {PageTitle, ArticleAdmin, CategoryAdmin, UserAdmin, ImageAdmin}
 }
 </script>
 

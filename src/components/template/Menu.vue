@@ -55,7 +55,7 @@ export default {
     },
     watch: {
         articleCategory() {
-            this.selected = this.$refs.tree.find(this.articleCategory.name)
+            this.selected = this.$refs.tree.find(this.articleCategory)
             this.selectAdjust = true
             this.selected.select()
             this.selectAdjust = false
@@ -63,8 +63,8 @@ export default {
         },
 
         $route(to) {
-            if(!to.path.match(/\/categories\/\d+\/articles/) 
-                && !to.path.includes("/articles/") && this.selected) {
+            if(!to.path.match(/\/categorias\/\d+/) 
+                && !to.path.includes('/artigo/') && this.selected) {
                 this.selected.unselect()
             }
         }
@@ -93,7 +93,11 @@ export default {
         text-decoration: none;
     }
 
-    .menu .tree-node.selected > .tree-content, .menu .tree-node .tree-content:hover  {
+    .menu .tree-node.selected > .tree-content {
+        background-color: #1d7ed8c9;
+    }
+
+    .menu .tree-node .tree-content:hover {
         background-color: #1d7ed8c9;
     }
 

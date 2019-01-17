@@ -4,10 +4,11 @@
             <li><a href="/" :class="{'navbar-selected': this.$route.fullPath === '/'}">INÍCIO</a></li>
             <li><a href="/artigos"
                 :class="{'navbar-selected': this.$route.fullPath === '/artigos'
-                    || this.$route.fullPath.match(/\/categories\/([0-8]|(\d\d+))\/articles/)
-                    || this.$route.fullPath.match(/\/articles\/\d+/)}">ARTIGOS</a></li>
-            <li><a href="/categories/3/articles" 
-                :class="{'navbar-selected': this.$route.fullPath.match(/\/categories\/3\/articles/)}">ENTREVISTAS</a></li>
+                    || this.$route.fullPath.match(/\/categorias\/([0-2]|[4-9]|(\d\d+))/)
+                    || this.$route.fullPath.includes('/artigo/')}">ARTIGOS</a></li>
+            <li><a href="/categorias/3" 
+                :class="{'navbar-selected': this.$route.fullPath.match(/\/categorias\/3/)
+                    || this.$route.fullPath.includes('/entrevista/')}">ENTREVISTAS</a></li>
             <li><a href="/sobre" :class="{'navbar-selected': this.$route.fullPath === '/sobre'}">SOBRE</a></li>
             <li><a href="/contato" :class="{'navbar-selected': this.$route.fullPath === '/contato'}">CONTATO</a></li>
         </ul>

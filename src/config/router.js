@@ -36,12 +36,8 @@ const routes = [{
     component: RecentArticles
 },{
     name: 'articlesByCategory',
-    path: '/categories/:id/articles',
+    path: '/categorias/:id',
     component: ArticlesByCategory
-}, {
-    name: 'articleById',
-    path: '/articles/:id',
-    component: ArticleById
 }, {
     name: 'admin',
     path: '/admin',
@@ -58,6 +54,10 @@ const routes = [{
     name: 'articlesByQuery',
     path: '/busca',
     component: ArticlesByQuery
+}, {
+    name: 'articleById',
+    path: '/artigo/:slug',
+    component: ArticleById
 }]
 
 const router = new VueRouter({

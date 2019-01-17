@@ -4,51 +4,51 @@
         <Directives />
         <div class="favorite-articles">
             <div class="art-title">
-                <img src="@/assets/badge-heart.png" alt="Ícone de coração" height="70px">
+                <img src="@/assets/badge-heart.svg" alt="Ícone de coração" height="70px">
                 <div>
-                    <h2>ARTIGOS RECOMENDADOS</h2>
+                    <h2>Artigos Recomendados</h2>
                     <hr>
                 </div>
             </div>
-            <div class="fav-card-list">
-                <FavoriteCard :whichArticle="standOutArticles.recommended[0]" standOutIndex="0"/>
-                <FavoriteCard :whichArticle="standOutArticles.recommended[1]" standOutIndex="1"/>
-                <FavoriteCard :whichArticle="standOutArticles.recommended[2]" standOutIndex="2"/>
+            <div v-if="didGetImg" class="fav-card-list">
+                <div v-for="(article, i) in favArticles" :key="article.slug">
+                    <FavoriteCard :article="article" :standOutIndex="i"/>
+                </div>
             </div>
         </div>
 
         <div class="interviews">
             <div class="art-title">
-                <img src="@/assets/badge-magnifier.png" alt="Ícone de lupa" height="70px">
+                <img src="@/assets/badge-magnifier.svg" alt="Ícone de lupa" height="70px">
                 <div>
-                    <h2>ENTREVISTAS</h2>
+                    <h2>Entrevistas</h2>
                     <hr>
                 </div>
             </div>
-            <div class="fav-card-list">
-                <InterviewCard :whichArticle="standOutArticles.interviews[0]" standOutIndex="0"/>
-                <InterviewCard :whichArticle="standOutArticles.interviews[1]" standOutIndex="1"/>
-                <InterviewCard :whichArticle="standOutArticles.interviews[2]" standOutIndex="2"/>
+            <div v-if="didGetImg" class="fav-card-list">
+                <div v-for="(interview, i) in interviewArticles" :key="interview.slug">
+                    <InterviewCard :article="interview" :standOutIndex="i"/>
+                </div>
             </div>
         </div>
 
         <div class="recent-art">
             <div class="art-title">
-                <img src="@/assets/badge-magnifier.png" alt="Ícone de lupa" height="70px">
+                <img src="@/assets/badge-sword.svg" alt="Ícone de lupa" height="70px">
                 <div>
-                    <h2>ARTIGOS RECENTES</h2>
+                    <h2>Artigos Recentes</h2>
                     <hr>
                 </div>
             </div>
             <ul>
-                <li v-for="article in articles" :key="article.id">
+                <li v-for="article in recentArticles" :key="article.id">
                     <ArticleCard :article="article" />
                 </li>
             </ul>
             <div class="load-more">
                 <button v-if="loadMore"
                     class="btn btn-lg btn-outline-primary"
-                    @click="getArticles">Mais</button>
+                    @click="getRecentArticles">Mais</button>
             </div>
         </div>
     </div>
@@ -69,34 +69,79 @@ export default {
     components: { Cover, Directives, FavoriteCard, InterviewCard, ArticleCard },
     data: function() {
         return {
-            standOutArticles: {
+            standOutArticlesIds: {
                 recommended: [],
                 interviews: [],
             },
-            articles:[],
+            standOutArticles: [],
+            recentArticles:[],
             page: 1,
             loadMore: true,
+            imgQuery: false,
         }
     },
-    methods: {
-        getStandOutArticles() {
-            axios.get(`${baseApiUrl}/standOutArticles`)
-                .then(res => this.standOutArticles = res.data)
+    computed: {
+        favArticles() {
+            const filtered = this.standOutArticles.filter(a => {
+                return this.standOutArticlesIds.recommended.includes(a.id)
+            })
+            return filtered.sort((a,b) => {
+                this.standOutArticlesIds.recommended.indexOf(a.id) - this.standOutArticlesIds.recommended.indexOf(b.id)
+            })
         },
-        getArticles() {
+        interviewArticles() {
+            const filtered = this.standOutArticles.filter(a => {
+                return this.standOutArticlesIds.interviews.includes(a.id)
+            })
+            return filtered.sort((a,b) => {
+                this.standOutArticlesIds.interviews.indexOf(a.id) - this.standOutArticlesIds.interviews.indexOf(b.id)
+            })
+        },
+        didGetImg() {
+            return this.imgQuery
+        },
+    },
+    methods: {
+        getStandOutArticlesIds() {
+            axios.get(`${baseApiUrl}/standOutArticles`)
+                .then(res => {
+                    this.standOutArticlesIds = res.data
+                    this.getStandOutArticles()
+                })
+        },
+        getStandOutArticles() {
+            let favIds = [...this.standOutArticlesIds.recommended, ...this.standOutArticlesIds.interviews]
+            axios.get(`${baseApiUrl}/favarticles?articles=[${favIds}]`)
+                .then(res => {
+                    this.standOutArticles = res.data
+                    const imageIds = this.standOutArticles.map(a => a.imageId)
+                    this.getImages(imageIds)
+                })
+        },
+        getRecentArticles() {
             const url = `${baseApiUrl}/articles?page=${this.page}&order=publishedAt`
             axios(url).then(res => {
-                this.articles = this.articles.concat(res.data.data)
+                this.recentArticles = this.recentArticles.concat(res.data.data)
                 this.page++
 
                 if (res.data.length === 0) this.loadMore = false
             })
+        },
+        getImages(ids) {
+            const url = `${baseApiUrl}/cardimages?ids=[${ids}]`
+            axios.get(url)
+                .then(res => {
+                    res.data.sort((a,b) => {
+                        return ids.indexOf(a.$loki) - ids.indexOf(b.$loki)
+                    })
+                    this.standOutArticles.forEach((a, i) => a.image = res.data[i] )
+                    this.imgQuery = true
+                })
         }
     },
     created() {
         //this.$store.commit('toggleMenu', false)
-        this.getStandOutArticles()
-        this.getArticles()
+        this.getStandOutArticlesIds()
     }
 }
 </script>
@@ -127,6 +172,7 @@ export default {
         flex: 1;
         margin-top: 20px;
         font-family: 'Kaushan Script';
+        font-size: 2.4rem;
         color: rgba(50,50,50,0.8);
     }
 
@@ -146,9 +192,7 @@ export default {
     }
 
     .interviews {
-        background-image: url('../../assets/blankcover.png');
-        background-size: cover;
-        background-position: center bottom;
+        background-image: url('../../assets/blankcover.jpg');
         padding: 50px 50px;
     }
 
@@ -201,10 +245,22 @@ export default {
             padding-left: 10px;
         }
 
-        .interviews {
-            padding: 50px 20px;
+         img[height] {
+             height: 60px;
+         }
+
+         .art-title h2 {
+             font-size: 2.2rem;
+         }
+
+         .art-title hr {
+             width: 200px;
+         }
+
+         .favorite-articles, .interviews, .recent-art {
+            padding: 50px 10px;
         }
-    }
+     }
 
 
 </style>

@@ -1,19 +1,25 @@
 <template>
     <div class="favorite-card">
+        <router-link :to="{ name: 'articleById', params: {slug: article.slug} }" class="art-link">
         <div v-if="user" class="admin-artconfig">
             <input type="number" v-model="newStandOut">
             <button @click="updateStandOutArticles">Trocar Artigo</button>
         </div>
-        <img :src="article.imageUrl || `../../assets/article.png`" alt="Imagem do artigo">
-        <h4>{{article.name}}</h4>
-        <span class="info">por <strong>{{article.author}}</strong> em <strong>{{article.publishedAt}}</strong></span>
-        <p>{{article.description}}</p>
-        <router-link :to="`/articles/${article.id}`" class="button">LEIA MAIS</router-link>
-        <hr>
-        <span class="fav-category">
-            <i class="fa fa-folder"></i>
-            <router-link :to="`/categories/${category.id}/articles`"> {{category.name}}</router-link>
-        </span>
+        <img :src="imgUrl || `../../assets/article.png`" alt="Imagem do artigo">
+        <div class="info">
+            <h4>{{article.name}}</h4>
+            <span class="publish">por <strong>{{article.author}}</strong> em <strong>{{publishingDate}}</strong></span>
+            <p>{{article.description}}</p>
+            <!-- <router-link :to="{ name: 'articleById', params: {slug: article.slug} }" class="button">LEIA MAIS</router-link> -->
+        </div>    
+        </router-link>
+        <div class="info">
+            <hr>
+            <span class="fav-category">
+                <i class="fa fa-folder"></i>
+                <router-link :to="`/categorias/${article.categoryId}`"> {{article.category}}</router-link>
+            </span>
+        </div>
     </div>
 </template>
 
@@ -25,25 +31,24 @@ import axios from 'axios'
 
 export default {
     name: 'FavoriteCard',
-    props: ['whichArticle', 'standOutIndex'],
+    props: ['article', 'standOutIndex'],
     data: function() {
         return {
-            article: '',
             category: '',
             newStandOut: null,
+            baseApiUrl
         }
     },
-    computed: mapState(['user']), 
-    methods: {
-        getArticle() {
-            axios.get(`${baseApiUrl}/articles/${this.whichArticle}`)
-                .then(res => {
-                    res.data.publishedAt = toStandardDate(res.data.publishedAt)
-                    this.article = res.data
-                    axios.get(`${baseApiUrl}/categories/${this.article.categoryId}`)
-                        .then(res => this.category = res.data)
-                })
+    computed: {
+        ...mapState(['user']),
+        publishingDate() {
+            return toStandardDate(this.article.publishedAt)
         },
+        imgUrl() {
+            return baseApiUrl + "/" + this.article.image.filename
+        }
+    },
+    methods: {
         updateStandOutArticles() {
             const paramsStandOut = {
                 key: 'recommended',
@@ -55,12 +60,7 @@ export default {
                 .then(window.location.reload())
                 .catch(showError)         
         }
-    },
-    watch: {
-        whichArticle() {
-            this.getArticle()
-        }
-    },
+    }
 }
 </script>
 
@@ -68,83 +68,72 @@ export default {
 
     .favorite-card {
         position: relative;
-        background-color: rgb(255, 255, 255, 0.6);
+        background-color: rgb(255, 255, 255, 0.8);
         margin: 10px 10px;
         border-radius: 4px;
-        padding: 6px;
-        padding-bottom: 10px;
         max-width: 350px;
-        box-shadow: 0px 1px 5px 1px rgba(0,0,0, 0.2)
+    }
+
+    .favorite-card:hover {
+        box-shadow: 0px 0px 15px rgba(0,0,0,0.15)
+    }
+
+    .favorite-card .art-link {
+        text-decoration: none;
     }
 
     .favorite-card img {
         width: 100%;
-        border-radius: 4px;
+    }
+
+    .favorite-card .info {
+        padding: 5px 15px 15px;
     }
 
     .favorite-card h4 {
-        font-family: 'PT Serif';
+        font-family: 'Philosopher';
         padding-top: 15px;
-        padding-left: 10px;
         margin: 0px;
-        font-size: 1.5rem;
+        font-weight: 600;
+        color: #4c4c4c;
+        font-size: 1.4rem;
     }
 
-    .info {
-        padding-left: 10px;
-        font-size: 0.9rem;
-        color: rgba(0,0,0,0.6);
+    .favorite-card .publish {
+        font-size: 0.8rem;
+        color: #777;
+    }
+
+    .favorite-card .publish strong {
+        text-transform: uppercase;
+        font-size: 0.7rem;
     }
 
     .favorite-card p {
-        padding: 20px 10px 10px 10px;
-        font-family: Verdana;
-        font-size: 0.8rem;
+        padding: 15px 0;
+        font-size: 0.9rem;
         line-height: 170%;
-    }
-
-    .favorite-card .button {
-        height: 40px;
-        width: 160px;
-        margin-left: 10px;
-        margin-bottom: 10px;
-        font-size: 15px;
-        background-color: #4c4c4c;
-        color: #f2f2f2;
-        border: none;
-        border-radius: 5px;
-        box-shadow: 0px 0px 2px 0px #333;
-
-		display: flex;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        outline: 0;
-
-    }
-
-    .favorite-card .button:hover {
-        background-color: #d14e4e;
-        color: #f2f2f2;
+        margin-bottom: 0px;
+        color: #444;
     }
 
     .favorite-card hr {
         height: 1px;
-        margin-bottom: 5px;
+        margin: 5px 0;
     }
 
     .fav-category {
-        padding-left: 10px;
-        font-size: 0.7rem;
-        color: rgba(0,0,0,0.6);
+        font-size: 0.8rem;
+        color: rgba(0,0,0,0.5);
     }
 
     .fav-category a {
         text-decoration: none;
+        padding-left: 2px;
         color: rgba(0,0,0,0.6);
     }
 
-    .fav-category a:hover {
+    .fav-category:hover, .fav-category:hover a {
         color: #d14e4e;
     }
 

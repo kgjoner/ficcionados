@@ -3,74 +3,66 @@
         <b-form>
             <input id="article-id" type="hidden" v-model="article.id" />
             <b-row>
-                <b-col md="7" sm="12">
+                <b-col md="6" sm="12">
                     <b-form-group label="Título:" label-for="article-name">
                         <b-form-input id="article-name" type="text" class="mb-3"
                             v-model="article.name" required
                             :readonly="mode === 'remove'"
                             placeholder="Informe o título do artigo" />
                     </b-form-group>
-                </b-col>
-                <b-col md="5" sm="12">
+                    <b-form-group label="Slug:" label-for="article-slug">
+                        <b-form-input id="article-slug" type="text" class="mb-5"
+                            v-model="article.slug" required :formatter="formatSlug"
+                            :readonly="mode === 'remove'" lazy-formatter
+                            placeholder="Informe o slug do artigo" />
+                    </b-form-group>
                     <b-form-group label="Autor:" label-for="article-author">
                         <b-form-select id="article-author" v-model="article.userId" class="mb-3"
                             :disabled="mode === 'remove'">
                             <option v-for="u in adminUsers" :value="u.id" :key="u.id">{{u.name}}</option>
                         </b-form-select>
                     </b-form-group>
-                </b-col>
-            </b-row>
-            <b-row>
-                <b-col md="7" sm="12">
-                    <b-form-group label="Descrição:" label-for="article-description">
-                        <b-form-input id="article-description" type="text" class="mb-3"
-                            v-model="article.description" required
-                            :readonly="mode === 'remove'"
-                            placeholder="Informe a descrição do artigo" />
-                    </b-form-group>
-                </b-col>
-                <b-col md="5" sm="12">
                     <b-form-group label="Categoria:" label-for="article-category">
                         <b-form-select id="article-category" v-model="article.categoryId" class="mb-3"
                             :disabled="mode === 'remove'">
                             <option v-for="c in categories" :value="c.id" :key="c.id">{{c.path}}</option>
                         </b-form-select>
                     </b-form-group>
-                </b-col>
-            </b-row>
-            <b-row>
-                <b-col md="5" sm="12">
-                    <b-form-group label="Imagem:" label-for="article-imageUrl">
-                        <b-form-input id="article-imageUrl" type="text" 
-                            v-model="article.imageUrl" required
+                    <b-form-group label="Descrição:" label-for="article-description">
+                        <b-form-textarea id="article-description"
+                            v-model="article.description" required
                             :readonly="mode === 'remove'"
-                            placeholder="Informe a url da imagem" />
-                        <div id='article-image-div'>
-                            <img id='article-image' :src="article.imageUrl" alt="">   
-                        </div>
+                            placeholder="Informe a descrição do artigo" />
+                        <p class="mb-3 text-right">{{article.description? article.description.length : '0'}}/120</p>
                     </b-form-group>
                 </b-col>
-                <b-col md="2" sm="12">
-                </b-col>
+                <b-col md='1' sm='12'></b-col>
                 <b-col md="5" sm="12">
-                    <b-form-group label="Data de publicação:" label-for="article-publishing-date">
+                     <b-form-group label="Data de publicação:" label-for="article-publishing-date">
                         <b-form-input id="article-publishing-date" type="date" class="mb-3"
                             v-model="article.publishedAt"
                             :readonly="mode === 'remove' || mode === 'save'" />
                     </b-form-group>
                     <b-form-group label="Ordem:" label-for="article-order">
-                        <b-form-input id="article-order" type="number" class="mb-3"
-                            v-model="article.order"
+                        <b-form-input id="article-order" type="number" class="mb-5"
+                            v-model="article.order" placeholder="Informe a ordem didática"
                             :readonly="mode === 'remove'" />
+                    </b-form-group>
+                    <b-form-group label="Imagem:" label-for="article-imageId">
+                        <model-select id="article-imageId" :options="imgSelectOptions" v-model="article.imageId"
+                            class="mb-3" :disabled="mode === 'remove'" required placeholder="Selecione uma Imagem"/>
+                        <div id='article-image-div'>
+                            <img id='article-image' :src="imgUrl" alt="">   
+                        </div>
                     </b-form-group>
                 </b-col>
             </b-row>
             <b-row>
                 <b-col v-show="mode !== 'remove'">
-                    <input type="checkbox" v-model="htmlEditor">
+                    <!-- <input type="checkbox" v-model="htmlEditor"> -->
                     <b-form-group label="Conteúdo:" label-for="article-content">
                         <VueEditor v-if="!htmlEditor" id="article-content" v-model="article.content" class="mb-4"></VueEditor>
-                        <textarea v-else id="text" v-model="article.content"/>
+                        <!-- <textarea v-else id="text" v-model="article.content"/> -->
                     </b-form-group>
                 </b-col>
             </b-row>
@@ -104,21 +96,21 @@
 
 <script>
 
-//acrescentar Data, Ordem, Destaque
-
 import { VueEditor } from 'vue2-editor'
+import { ModelSelect } from 'vue-search-select'
 import { baseApiUrl, showError } from '@/global'
 import axios from 'axios'
 
 export default {
     name: 'ArticleAdmin',
-    components: { VueEditor },
+    components: { VueEditor, ModelSelect },
     data: function() {
         return {
             mode: 'create',
             articles: [],
             categories: [],
             adminUsers: [],
+            images: [],
             article: {},
             currentPage: 1,
             count: 0,
@@ -131,6 +123,19 @@ export default {
                 {key: 'actions', label: 'Ações'}
             ],
             htmlEditor: false,
+            baseApiUrl
+        }
+    },
+    computed: {
+        imgSelectOptions() {
+            return this.images.map(img => {
+                return { value: img.$loki, text: img.filename }
+            })
+        },
+        imgUrl() {
+            const choosenImg = this.images.filter(img => img.$loki === this.article.imageId)[0]
+            if(!choosenImg) return ''
+            return (baseApiUrl + '/' + choosenImg.filename)
         }
     },
     methods: {
@@ -148,6 +153,8 @@ export default {
                 .then(res => this.adminUsers = res.data.filter(u => u.admin))
             axios.get(`${baseApiUrl}/categories`)
                 .then(res => this.categories = res.data)
+            axios.get(`${baseApiUrl}/images`)
+                .then(res => this.images = res.data)
         },
         loadArticle(article, mode) {
             this.mode = mode
@@ -163,6 +170,7 @@ export default {
                     }
                     this.article = res.data
                     this.article.publishedAt = this.article.publishedAt.split('T')[0]
+                    scroll(0,260)
                 })
         },
         transpileContent(content) {
@@ -204,11 +212,17 @@ export default {
                 })
                 .catch(showError)
         },
+        formatSlug(value, event) {
+            return value.toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+                .split(/[^\w]+|_/).join('-')
+                
+        }
     },
     watch: {
         currentPage() {
             this.loadArticles()
-        }
+        },
     },
     mounted() {
         this.loadArticles()
@@ -221,9 +235,11 @@ export default {
 
     #article-image-div {
         min-height: 100px;
+        width: 80%;
         margin: 20px 0px;
         border-radius: 5px;
-        border: solid 2px rgba(0, 0, 0, 0.15);
+        border: solid 2px rgba(0, 0, 0, 0.05);
+        background-color: #fafafa;
     }
 
     #article-image {
@@ -243,14 +259,15 @@ export default {
 
     }
 
-    /* tbody tr:hover {
-        background-color: #1d7fd840 !important;
-    } */
+    #article-description {
+        min-height: 70px;
+    }
 
-    textarea {
-        min-height: 200px;
-        width: 100%;
-        white-space:pre-wrap;
+    #article-description + p {
+        font-size: 0.9em;
+        font-style: italic;
+        margin-top: 3px;
+        margin-right: 10px;   
     }
 
 </style>

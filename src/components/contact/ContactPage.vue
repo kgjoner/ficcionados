@@ -101,4 +101,8 @@ export default {
         
     }
 
+    .contact-form textarea.form-control {
+        min-height: 200px;
+    }
+
 </style>
