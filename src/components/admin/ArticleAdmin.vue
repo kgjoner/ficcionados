@@ -97,7 +97,7 @@
 
 import { VueEditor } from 'vue2-editor'
 import { ModelSelect } from 'vue-search-select'
-import { baseApiUrl, showError } from '@/global'
+import { baseApiUrl, baseImgUrl, showError } from '@/global'
 import axios from 'axios'
 
 export default {
@@ -127,13 +127,13 @@ export default {
     computed: {
         imgSelectOptions() {
             return this.images.map(img => {
-                return { value: img.$loki, text: img.filename }
+                return { value: img._id, text: img.filename }
             })
         },
         imgUrl() {
-            const choosenImg = this.images.filter(img => img.$loki === this.article.imageId)[0]
+            const choosenImg = this.images.filter(img => img._id === this.article.imageId)[0]
             if(!choosenImg) return ''
-            return (baseApiUrl + '/' + choosenImg.filename)
+            return (baseImgUrl + choosenImg.filename)
         }
     },
     methods: {

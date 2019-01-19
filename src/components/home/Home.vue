@@ -114,6 +114,9 @@ export default {
             let favIds = [...this.standOutArticlesIds.recommended, ...this.standOutArticlesIds.interviews]
             axios.get(`${baseApiUrl}/favarticles?articles=[${favIds}]`)
                 .then(res => {
+                    res.data.sort((a,b) => {
+                        return favIds.indexOf(a.id) - favIds.indexOf(b.id)
+                    })
                     this.standOutArticles = res.data
                     const imageIds = this.standOutArticles.map(a => a.imageId)
                     this.getImages(imageIds)
@@ -132,11 +135,11 @@ export default {
             })
         },
         getImages(ids) {
-            const url = `${baseApiUrl}/cardimages?ids=[${ids}]`
+            const url = `${baseApiUrl}/cardimages?ids=${ids}`
             axios.get(url)
                 .then(res => {
                     res.data.sort((a,b) => {
-                        return ids.indexOf(a.$loki) - ids.indexOf(b.$loki)
+                        return ids.indexOf(a._id) - ids.indexOf(b._id)
                     })
                     if(!this.imgQuery) {
                         this.standOutArticles.forEach((a, i) => a.image = res.data[i] )

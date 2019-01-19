@@ -1,7 +1,7 @@
 <template>
     <div class="image-admin">
         <b-form>
-            <input id="image-id" type="hidden" v-model="image.$loki" />
+            <input id="image-id" type="hidden" v-model="image._id" />
             <b-row>
                 <b-col md="6" sm="12">
                     <b-form-group label="Nome:" label-for="image-name">
@@ -22,8 +22,10 @@
                             :readonly="mode === 'remove' || mode == 'update'"
                             placeholder="Selecione o arquivo" />
                     </b-form-group>
-                    <b-form-group v-else label="Url:" label-for="image-url">
-                        <b-input-group :prepend="`${baseApiUrl}/`">
+                </b-col>
+                <b-col md="10" sm="12">
+                    <b-form-group v-if="mode !== 'create'" label="Url:" label-for="image-url">
+                        <b-input-group :prepend="`${baseImgUrl}`">
                         <b-form-input id="image-url" type="text"
                             v-model="image.filename" readonly />
                         </b-input-group>
@@ -45,8 +47,8 @@
         </b-form>
         <hr>
         <div class="stored-imgs">
-            <div class="stored-img" v-for="storedImg in images" :key="storedImg.$loki">
-                <img :src="`${baseApiUrl}/${storedImg.filename}`" alt="">
+            <div class="stored-img" v-for="storedImg in images" :key="storedImg._id">
+                <img :src="`${baseImgUrl}${storedImg.filename}`" alt="">
                 <span>{{storedImg.filename}}</span>
                 <div class="mt-3">
                     <b-button variant="warning" @click="loadImg(storedImg, 'update')" class="mr-1 ml-1 mb-5">
@@ -63,7 +65,7 @@
 
 <script>
 
-import { baseApiUrl, showError } from '@/global'
+import { baseApiUrl, baseImgUrl, showError } from '@/global'
 import axios from 'axios'
 
 export default {
@@ -76,6 +78,7 @@ export default {
             baseApiUrl,
             file: '',
             loading: false,
+            baseImgUrl
         }
     },
     methods: {
@@ -85,7 +88,7 @@ export default {
         },
         loadImg(storedImg, mode) {
             this.mode = mode
-            axios.get(`${baseApiUrl}/images/${storedImg.$loki}`)
+            axios.get(`${baseApiUrl}/images/${storedImg._id}`)
                 .then(res => this.image = res.data)
         },
         reset() {
@@ -116,7 +119,7 @@ export default {
         },
         update() {
             this.loading = true
-            axios.put(`${baseApiUrl}/images/${this.image.$loki}`, this.image)
+            axios.put(`${baseApiUrl}/images/${this.image._id}`, this.image)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
                     location.reload()
@@ -126,7 +129,7 @@ export default {
         },
         remove() {
             this.loading = true
-            axios.delete(`${baseApiUrl}/images/${this.image.$loki}`)
+            axios.delete(`${baseApiUrl}/images/${this.image._id}`)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
                     location.reload()

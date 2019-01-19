@@ -51,11 +51,11 @@ export default {
             })
         },
         getImages(ids) {
-            const url = `${baseApiUrl}/cardimages?ids=[${ids}]`
+            const url = `${baseApiUrl}/cardimages?ids=${ids}`
             axios.get(url)
                 .then(res => {
                     res.data.sort((a,b) => {
-                        return ids.indexOf(a.$loki) - ids.indexOf(b.$loki)
+                        return ids.indexOf(a._id) - ids.indexOf(b._id)
                     })
                     this.articles.forEach((a, i) => a.image = res.data[i] )
                     this.imgQuery = true

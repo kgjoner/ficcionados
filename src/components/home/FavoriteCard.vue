@@ -1,10 +1,10 @@
 <template>
     <div class="favorite-card">
-        <router-link :to="{ name: 'articleById', params: {slug: article.slug} }" class="art-link">
         <div v-if="user" class="admin-artconfig">
             <input type="number" v-model="newStandOut">
             <button @click="updateStandOutArticles">Trocar Artigo</button>
         </div>
+        <router-link :to="{ name: 'articleById', params: {slug: article.slug} }" class="art-link">
         <img :src="imgUrl || `../../assets/article.png`" alt="Imagem do artigo">
         <div class="info">
             <h4>{{article.name}}</h4>
@@ -25,7 +25,7 @@
 <script>
 
 import { mapState } from 'vuex'
-import { baseApiUrl, showError, toStandardDate } from '@/global'
+import { baseApiUrl, baseImgUrl, showError, toStandardDate } from '@/global'
 import axios from 'axios'
 
 export default {
@@ -35,7 +35,6 @@ export default {
         return {
             category: '',
             newStandOut: null,
-            baseApiUrl
         }
     },
     computed: {
@@ -44,7 +43,7 @@ export default {
             return toStandardDate(this.article.publishedAt)
         },
         imgUrl() {
-            return baseApiUrl + "/" + this.article.image.filename.split('.').join('-480w.')
+            return baseImgUrl + this.article.image.filename.split('.').join('-480w.')
         }
     },
     methods: {
@@ -54,7 +53,7 @@ export default {
                 index: this.standOutIndex,
                 article: this.newStandOut
             }
-            axios.put(`${baseApiUrl}/standOutArticles`, paramsStandOut)
+            axios.put(`${baseApiUrl}/standoutarticles`, paramsStandOut)
                 .then(this.$toasted.global.defaultSuccess())
                 .then(window.location.reload())
                 .catch(showError)         
@@ -138,8 +137,8 @@ export default {
 
     .admin-artconfig {
         position: absolute;
-        top: 10px;
-        left: 10px;
+        bottom: 10px;
+        right: 10px;
 
         visibility: hidden;
         opacity: 0;

@@ -17,7 +17,7 @@
 
 <script>
 
-import { toStandardDate, baseApiUrl } from '@/global'
+import { toStandardDate, baseImgUrl } from '@/global'
 
 export default {
     name: 'ArticleCard',
@@ -27,14 +27,9 @@ export default {
             return toStandardDate(this.article.publishedAt)
         },
         imgUrl() {
-            return `${baseApiUrl}/${this.article.image.filename.split('.').join('-240w.')}`
+            return `${baseImgUrl}/${this.article.image.filename.split('.').join('-240w.')}`
         }
     },
-    watch: {
-        article() {
-            
-        }
-    }
 }
 
 </script>

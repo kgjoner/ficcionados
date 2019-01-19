@@ -23,7 +23,7 @@
 
 <script>
 
-import { baseApiUrl, toStandardDate } from '@/global'
+import { baseApiUrl, baseImgUrl, toStandardDate } from '@/global'
 import axios from 'axios'
 import AuthorBox from './AuthorBox'
 import Gravatar from 'vue-gravatar'
@@ -70,7 +70,7 @@ export default {
             axios.get(`${baseApiUrl}/images/${id}`)
                 .then(res => {
                     this.article.image = res.data
-                    this.$el.style.setProperty('--bkg-image', `url(${baseApiUrl}/${this.article.image.filename})`)
+                    this.$el.style.setProperty('--bkg-image', `url(${baseImgUrl}/${this.article.image.filename})`)
                 })
         }
     },
