@@ -4,7 +4,7 @@
         <hr>
         <ul>
             <li v-for="article in articles" :key="article.id">
-                <router-link :to="`/${article.slug}`">
+                <router-link :to="`/artigo/${article.slug}`">
                     <div class="proper-link">
                     <span>{{article.name}}</span>
                     </div>
