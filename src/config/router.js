@@ -11,6 +11,7 @@ import ArticlesByQuery from '@/components/article/ArticlesByQuery'
 import Auth from '@/components/auth/Auth'
 import About from '@/components/about/About'
 import Contact from '@/components/contact/ContactPage'
+import EbookLP from '@/components/landingPage/EbookLP'
 
 import { userKey } from '@/global'
 
@@ -58,6 +59,10 @@ const routes = [{
     name: 'articleById',
     path: '/artigo/:slug',
     component: ArticleById
+}, {
+    name: 'landingPage',
+    path: '/desbloqueando-a-escrita',
+    component: EbookLP
 }]
 
 const router = new VueRouter({

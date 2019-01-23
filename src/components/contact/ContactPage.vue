@@ -41,6 +41,15 @@ import axios from 'axios'
 export default {
     name: 'ContactPage',
     components: { PageTitle, Loading },
+    head: {
+        title: function() {
+            return {
+            inner: "Contato",
+            separator: "»",
+            complement: "Ficcionados"
+            }
+        },
+    },
     data: function() {
         return {
             contact: {},

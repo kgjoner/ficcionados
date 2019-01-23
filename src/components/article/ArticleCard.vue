@@ -10,6 +10,7 @@
                 <p>{{article.description}}</p>
                 <span class="author">por <strong>{{article.author}} </strong>
                     em <strong>{{publishingDate}}</strong></span>
+                <button>Leia</button>
             </div>
         </router-link>
     </div>
@@ -45,6 +46,10 @@ export default {
         box-shadow: 0px 1px 5px rgba(0,0,0,0.15);
     }
 
+    .article-card:hover {
+        border-color: #1d7fd8;
+    }
+
     .article-card a {
         display: flex;
         align-items: flex-start;
@@ -77,6 +82,7 @@ export default {
         flex-direction: column;
         align-self: stretch;
         justify-content: flex-end;
+        position: relative;
     }
 
     .article-prev p {
@@ -99,6 +105,27 @@ export default {
     .article-prev .author strong {
         text-transform: uppercase;
         padding: 0px 5px;
+    }
+
+    .article-prev button {
+        width: 100px;
+        border: solid 1px #bbb;
+        border-radius: 4px;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        background-color: #fff;
+        padding: 5px;
+        color: #4c4c4c;
+        position: absolute;
+        right: 15px;
+        /* bottom: 10px; */
+        cursor: pointer;
+    }
+
+    .article-card:hover button {
+        background-color: #1d7fd8;
+        border-color: #1d7fd8;
+        color: #fafafa;
     }
 
     

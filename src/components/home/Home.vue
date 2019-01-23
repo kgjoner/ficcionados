@@ -17,6 +17,8 @@
             </div>
         </div>
 
+        <HomeBanner />
+
         <div class="interviews">
             <div class="art-title">
                 <img src="@/assets/badge-magnifier.svg" alt="Ícone de lupa" height="70px">
@@ -25,9 +27,9 @@
                     <hr>
                 </div>
             </div>
-            <div v-if="didGetImg" class="fav-card-list">
+            <div v-if="didGetImg" class="interview-card-list">
                 <div v-for="(interview, i) in interviewArticles" :key="interview.slug">
-                    <InterviewCard :article="interview" :standOutIndex="i"/>
+                    <InterviewCard :slot="`${i}`" :article="interview" :standOutIndex="i"/>
                 </div>
             </div>
         </div>
@@ -56,17 +58,30 @@
 
 <script>
 
+import { baseApiUrl } from '@/global'
+import axios from 'axios'
+
 import Cover from './Cover'
 import Directives from './Directives'
 import FavoriteCard from './FavoriteCard'
 import InterviewCard from './InterviewCard'
+import HomeBanner from './HomeBanner'
 import ArticleCard from '../article/ArticleCard'
-import { baseApiUrl } from '@/global'
-import axios from 'axios'
 
 export default {
     name: 'Home',
-    components: { Cover, Directives, FavoriteCard, InterviewCard, ArticleCard },
+    components: { Cover, Directives, FavoriteCard, InterviewCard, HomeBanner, ArticleCard },
+    head: {
+        title: {
+            inner: "Ficcionados",
+            separator: "»",
+            complement: "Trazendo a ficção para a realidade"
+        },
+        meta: [
+            {name: "description", content: `Coloque suas histórias no papel sem medo. Aqui você encontra dicas
+            de escrita, roteiro e publicação e conversas com a galera do nicho literário nacional. o/ `}
+        ]
+    },
     data: function() {
         return {
             standOutArticlesIds: {
@@ -161,7 +176,7 @@ export default {
 <style>
 
     .favorite-articles {
-        background-color: rgba(182, 150, 150, 0.2);
+        background-color: #fdfdfd;
         padding: 50px 50px;
     }
 
@@ -203,17 +218,64 @@ export default {
         align-items: stretch;
     }
 
+    .interview-card-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    [slot="1"] {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    [slot='1'] a {
+        flex-direction: row-reverse;
+    }
+
     .interviews {
-        background-image: url('../../assets/blankcover.jpg');
+        /* background-image: url('../../assets/blankcover.jpg'); */
         padding: 50px 50px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .interviews:before {
+        content: " ";
+        position: absolute;
+        top: -15vw;
+        left: -15vw;
+        transform: rotate(-10deg);
+        width: 150vw;
+        height: 400px;
+        background-color: #1d7fd8;
+    }
+
+    .interviews:after {
+        content: " ";
+        position: absolute;
+        bottom: -15vw;
+        right: -4vw;
+        transform: rotate(10deg);
+        width: 150vw;
+        height: 400px;
+        background-color: #1d7fd8;
+    }
+
+    .interviews .art-title img {
+        z-index: 2;
     }
 
     .interviews .art-title h2 {
         color: #f2f2f2;
+        z-index: 2;
     }
 
     .interviews .art-title hr {
         width: 150px;
+        z-index: 2;
         background: linear-gradient(to right, rgba(250,250,250,0.4), rgba(250,250,250, 0.8),
             rgba(250,250,250, 0.8), rgba(250,250,250, 0.8), rgba(250,250,250,0.4));
     }

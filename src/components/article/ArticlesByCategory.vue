@@ -37,6 +37,15 @@ import ArticleCard from './ArticleCard'
 export default {
     name: 'ArticlesByCategory',
     components: { PageTitle, ArticleCard },
+    head: {
+        title: function() {
+            return {
+            inner: this.category.name,
+            separator: "»",
+            complement: "Ficcionados"
+            }
+        },
+    },
     data: function() {
         return {
             category: {},
@@ -55,7 +64,10 @@ export default {
     methods: {
         getCategory() {
             const url = `${baseApiUrl}/categories/${this.category.id}`
-            axios(url).then(res => this.category = res.data)
+            axios(url).then(res => {
+                this.category = res.data
+                this.$emit('updateHead')
+            })
         },
         getArticles() {
             const url = `${baseApiUrl}/categories/${this.category.id}/articles?page=${this.page}&order=${this.orderParam}`

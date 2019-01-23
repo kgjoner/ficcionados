@@ -1,13 +1,13 @@
 <template>
-	<div id="app" :class="{'showMenu': isMenuVisible, 'loginScreen': this.$route.fullPath === '/admin'}">
-		<Header v-if="this.$route.fullPath !== '/admin'" 
+	<div id="app" :class="{'showMenu': isMenuVisible, 'loginScreen': hideHeader}">
+		<Header v-if="!hideHeader" 
 			:hideToggle="this.$route.fullPath === 'insert-url-with-no-menu'" 
 			:hideUserDropdown="!user"></Header>
 		<Menu />
 		<Loading v-if="validatingToken" />
 		<Content v-else />
 		<GoToTop />
-		<Footer />
+		<Footer v-if="!hideHeader"/>
 	</div>
 </template>
 
@@ -26,11 +26,16 @@ import GoToTop from '@/components/template/goToTop'
 export default {
 	name: "App",
 	components: { Header, Menu, Content, Footer, Loading, GoToTop },
-	computed: mapState(['isMenuVisible', 'user']),
 	data: function() {
 		return {
 			validatingToken: false,
 			isLoginScreen: false,
+		}
+	},
+	computed: {
+		...mapState(['isMenuVisible', 'user']),
+		hideHeader() {
+			return this.$route.fullPath === '/admin' || this.$route.fullPath === '/desbloqueando-a-escrita'
 		}
 	},
 	methods: {
@@ -131,7 +136,7 @@ export default {
 		grid-template-areas:
 			"content content"
 			"content content"
-			"footer footer";
+			"content content";
 	}
 
 </style>

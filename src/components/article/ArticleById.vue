@@ -14,9 +14,10 @@
             <hr>
         </div>
         <div class="article-content" v-html="article.content"></div>
-        <div class="post-article">
+        <div v-if="article.author" class="post-article">
             <hr>
             <AuthorBox :author="author"></AuthorBox>
+            <RelatedArticles v-if="article.author" :parentId="article.parentId || 3" :currentArticle="article.id" />
         </div>
     </div>
 </template>
@@ -26,11 +27,26 @@
 import { baseApiUrl, baseImgUrl, toStandardDate } from '@/global'
 import axios from 'axios'
 import AuthorBox from './AuthorBox'
+import RelatedArticles from './RelatedArticles'
 import Gravatar from 'vue-gravatar'
 
 export default {
     name: 'ArticleById',
-    components: { AuthorBox, Gravatar },
+    components: { AuthorBox, RelatedArticles, Gravatar },
+    head: {
+        title: function() {
+            return {
+            inner: this.article.name,
+            separator: "»",
+            complement: "Ficcionados"
+            }
+        },
+        meta: function() {
+            return [
+                {name: "description", content: this.article.description}
+            ]
+        },
+    },
     data: function() {
         return {
             article: {},
@@ -49,7 +65,7 @@ export default {
                 instagram: this.article.instagram,
                 wattpad: this.article.wattpad
             }
-        }
+        },
     },
     methods: {
         getArticle() {
@@ -59,6 +75,7 @@ export default {
                     this.getImage(res.data.imageId)
                     res.data.publishedAt = toStandardDate(res.data.publishedAt)
                     this.article = res.data
+                    this.$emit('updateHead')
                     this.$store.state.articleCategory = res.data.category
                 })
                 .then(() => {
@@ -149,7 +166,7 @@ export default {
         margin-left: auto;
         margin-right: auto;     
         max-width: 45rem;
-        margin-top: 30px;
+        margin-top: 50px;
         color: #808080;
     }
 
@@ -221,10 +238,15 @@ export default {
 
     .article-content img {
         max-width: 100%;
+        align-content: center;
     }
 
     .article-content :last-child {
         margin-bottom: 0px;
+    }
+
+    .article-content hr {
+        color: #4c4c4c
     }
 
     @media(max-width:450px), (max-width:850px) and (max-height:500px) {

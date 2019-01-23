@@ -25,6 +25,20 @@ import ArticleCard from './ArticleCard'
 export default {
     name: 'RecentArticles',
     components: { PageTitle, ArticleCard },
+    head: {
+        title: function() {
+            return {
+            inner: "Artigos Recentes",
+            separator: "»",
+            complement: "Ficcionados"
+            }
+        },
+        meta: function() {
+            return [
+                {name: "description", content: "Confira os últimos artigos publicados!"}
+            ]
+        }
+    },
     data: function() {
         return {
             articles: [],
@@ -45,6 +59,7 @@ export default {
                 this.articles = this.articles.concat(res.data.data)
                 const imageIds = this.articles.map(a => a.imageId)
                 this.getImages(imageIds)
+                this.$emit('updateHead')
                 this.page++
 
                 if (res.data.data.length < 10) this.loadMore = false

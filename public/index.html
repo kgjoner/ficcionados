@@ -33,7 +33,20 @@
         
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
-        }
+      }
+      
+      function openAccordion(evt) {               
+          evt.currentTarget.classList.toggle("active");
+
+          var panel = evt.currentTarget.nextElementSibling;
+          console.log(panel)
+          if (panel.style.maxHeight){
+            panel.style.maxHeight = null;
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+          } 
+      }
+
     </script>
   </body>
 </html>

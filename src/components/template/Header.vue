@@ -83,6 +83,7 @@ export default {
         color: #fff;
         text-decoration: none;
         justify-self: flex-start;
+        cursor: pointer;
 
         display: flex;
         justify-content: center;

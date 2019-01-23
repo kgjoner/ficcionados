@@ -5,20 +5,18 @@
             <button @click="updateStandOutArticles">Trocar Artigo</button>
         </div>
         <router-link :to="{ name: 'articleById', params: {slug: article.slug} }" class="art-link">
-        <img :src="imgUrl || `../../assets/article.png`" alt="Imagem do artigo">
-        <div class="info">
-            <h4>{{article.name}}</h4>
-            <span class="publish">em <strong>{{publishingDate}}</strong></span>
-            <p>{{article.description}}</p>
-        </div>
+            <div class="art-image" ref="img">&nbsp;</div>
+            <div class="info">
+                <p>{{article.description}}</p>
+                <hr>
+                <div>
+                    <h4>{{article.name}}</h4>
+                    <span class="publish">em <strong>{{publishingDate}}</strong></span>
+                    <button>Leia</button>
+                </div> 
+            </div>
         </router-link>
-        <div class="info">
-            <hr>
-            <span class="interview-category">
-                <i class="fa fa-folder"></i>
-                <router-link :to="`/categorias/9`"> Entrevistas</router-link>
-            </span>
-        </div>
+        
     </div>
 </template>
 
@@ -58,6 +56,9 @@ export default {
                 .catch(showError)         
         }
     },
+    mounted() {
+        this.$refs.img.style.setProperty('background-image', `url(${this.imgUrl})`)
+    }
 }
 </script>
 
@@ -65,34 +66,50 @@ export default {
 
     .interview-card {
         position: relative;
-        background-color: rgb(242, 242, 242, 1);
-        margin: 10px 10px;
-        border-radius: 4px;
-        max-width: 350px;
+        margin: 10px 10px 40px;
+        background-color: #fafafa;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        max-width: 800px;
+        border: solid 1px #ccc;
+        z-index: 2;
     }
 
     .interview-card:hover {
-        box-shadow: 0px 8px 20px rgba(0,0,0,0.4)
+        border-color: #4c4c4c;
+    }
+
+    .interview-card a {
+        display: flex;
     }
 
     .interview-card .art-link {
         text-decoration: none;
     }
 
-    .interview-card img {
-        width: 100%;
+    .interview-card .art-image {
+        position: relative;
+        flex-grow: 2;
+        min-width: 180px;
+        height: 250px;
+        background-position: 0% 20%;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
     .interview-card .info {
-        padding: 5px 15px 15px;
+        padding: 5px 15px 5px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
     }
 
     .interview-card h4 {
         font-family: 'Philosopher';
-        padding-top: 15px;
+        padding-top: 5px;
         margin: 0px;
         font-weight: 600;
-        color: #4c4c4c;
+        color: #777;
         font-size: 1.4rem;
     }
 
@@ -107,11 +124,33 @@ export default {
     }
 
     .interview-card p {
-        padding: 15px 0;
-        font-size: 0.9rem;
+        padding: 15px 0 8px;
+        font-size: 1.1rem;
+        font-style: italic;
         line-height: 170%;
-        margin-bottom: 0px;
+        margin-bottom: 10px;
         color: #444;
+    }
+
+    .interview-card .info button {
+        width: 100px;
+        border: solid 1px #bbb;
+        border-radius: 4px;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        background-color: #fafafa;
+        padding: 5px;
+        color: #4c4c4c;
+        position: absolute;
+        right: 15px;
+        bottom: 20px;
+        cursor: pointer;
+    }
+
+    .interview-card:hover .info button {
+        background-color: #4c4c4c;
+        border-color: #4c4c4c;
+        color: #fafafa;
     }
 
     .interview-card hr {
@@ -128,6 +167,7 @@ export default {
         text-decoration: none;
         padding-left: 2px;
         color: rgba(0,0,0,0.6);
+        display: inline-block;
     }
 
     .interview-category:hover, .interview-category:hover a {

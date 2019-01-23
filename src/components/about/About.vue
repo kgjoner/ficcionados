@@ -46,6 +46,21 @@
 <script>
 export default {
     name: "About",
+    head: {
+        title: function() {
+            return {
+            inner: "O Manifesto do Escritor de Ficção",
+            separator: "»",
+            complement: "Ficcionados"
+            }
+        },
+        meta: function() {
+            return [
+                {name: "description", content: `Apaixonado pela escrita? Já pensou em escrever um conto ou dois? 
+                Um livro? Talvez já tenha começado? Terminado?`}
+            ]
+        }
+    },
     data: function() {
         return {
             content: `

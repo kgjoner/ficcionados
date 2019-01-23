@@ -1,0 +1,45 @@
+.accordion {
+    background-color: #eee;
+    color: #444;
+    font-weight: 500;
+    font-family: "Philosopher";
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    line-height: 100%;
+    border-radius: 8px;
+    outline: none !important;
+  }
+  
+  .accordion:hover {
+    background-color: #ccc;
+  }
+
+  .accordion.active {
+      background-color: #1d7fd8;
+      color: #f2f2f2;
+  }
+
+  .accordion:after {
+    content: '\002B';
+    font-weight: 600;
+    float: right;
+    margin-left: 5px;
+  }
+  
+  .active:after {
+    content: "\2013";
+    color: #f2f2f2;
+  }
+  
+  .accordion-panel {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }

@@ -158,30 +158,56 @@ export default {
             this.mode = mode
             axios.get(`${baseApiUrl}/articles/${article.id}`)
                 .then(res => {
-                    let tabs = res.data.content.split('<div class="tab">')
-                    if(tabs.length>1){
-                        tabs = tabs.map(tab => {
-                            if(!tab.match('tablinks')) return tab
-                            return this.transpileContent(tab)
-                        })
-                        res.data.content = tabs.join('')
-                    }
+                    res.data.content = this.transpileContent(res.data.content)
                     this.article = res.data
                     this.article.publishedAt = this.article.publishedAt.split('T')[0]
                     scroll(0,260)
                 })
         },
         transpileContent(content) {
-            let toBeTranspiled = content.split('</div>')
-            const result = toBeTranspiled.map(tab => {
-                const title = tab.match(/(id=")(.+)(?=" class)/i)
-                if(!title && tab.match('tablinks')) return `[[tabs]]</p>`
-                if(!title) return '[[/tabs]]'+tab
-                const open = tab.match('active') ? ' open' : ''
-                const tabContent = tab.match(/(>)(((.?)+\r?\n?)+)(?=<)/)[2]
-                return `[[tab title="${title[2]}"${open}]]${tabContent}[[/tab]]`
-            })
-            return result.join('')
+            function revertTabs (content) {
+                let toBeTranspiled = content.split('</div>')
+                const result = toBeTranspiled.map(tab => {
+                    const title = tab.match(/(id=")(.+)(?=" class)/i)
+                    if(!title && tab.match('tablinks')) return `[[tabs]]</p>`
+                    if(!title) return '[[/tabs]]'+tab
+                    const open = tab.match('active') ? ' open' : ''
+                    const tabContent = tab.match(/(>)(((.?)+\r?\n?)+)(?=<)/)[2]
+                    return `[[tab title="${title[2]}"${open}]]${tabContent}[[/tab]]`
+                })
+                return result.join('')
+            }
+
+            function revertAccordion (content) {
+                const toBeTranspiled = content.split('</div></div>')[0]
+                const rest = content.split('</div></div>')[1]
+
+                const title = toBeTranspiled.split(/<\/button>(\s+)<div class="accordion-panel">/)[0]
+                const panel = toBeTranspiled.split(/<\/button>(\s+)<div class="accordion-panel">/)[2]
+
+                const result = `[[accordion title="${title}"]]${panel}[[/accordion]]`
+                return result + rest
+            }
+
+            let tabs = content.split('<div class="tab">')
+            if(tabs.length>1){
+                tabs = tabs.map(tab => {
+                    if(!tab.match('tablinks')) return tab
+                    return revertTabs(tab)
+                })
+                content = tabs.join('')
+            }
+
+            let accordions = content.split(/<div><button class="accordion((?!>).)+>/i)
+            if(accordions.length>1){
+                accordions = accordions.map(accordion => {
+                    if(!accordion.match('accordion-panel')) return accordion
+                    return revertAccordion(accordion)
+                })
+                content = accordions.join('')
+            }
+
+            return content
         },
         reset() {
             this.mode = 'create'

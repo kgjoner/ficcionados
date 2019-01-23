@@ -1,9 +1,10 @@
 <template>
     <div class="navbar-dropdown">
-        <div class="navbar-button">
+        <button class="navbar-button" :class="{'navbar-button-selected': !hideDropdown}" 
+            @click="toggleDropdown">
             <i class="fa fa-bars"></i>
-        </div>
-        <div class="navbar-dropdown-content">
+        </button>
+        <div v-show="!hideDropdown" class="navbar-dropdown-content">
             <Navbar></Navbar>
         </div>
     </div>
@@ -16,6 +17,16 @@ import Navbar from './navbar'
 export default {
     name: 'NavDropdown',
     components: { Navbar },
+    data: function() {
+        return {
+            hideDropdown: true,
+        }
+    },
+    methods: {
+        toggleDropdown() {
+            this.hideDropdown = !this.hideDropdown
+        }
+    }
 }
 </script>
 
@@ -27,7 +38,7 @@ export default {
         z-index: 98;
     }
 
-    .navbar-button {
+    .navbar-dropdown .navbar-button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -39,10 +50,16 @@ export default {
         width: 40px;
         margin: 10px;
         border-radius: 4px;
+        border: none;
+        outline: none;
     }
 
     .navbar-dropdown:hover .navbar-button {
-        color: #1d7fd8;
+        background-color: rgba(0,0,0,0.2);
+    }
+
+    .navbar-dropdown .navbar-button-selected {
+        background-color: #1d7fd8 !important;
     }
 
     .navbar-dropdown-content {
@@ -59,10 +76,6 @@ export default {
         flex-direction: column;
         flex-wrap: wrap;
         align-items: flex-end;
-
-        visibility: hidden;
-        opacity: 0;
-        transition: visibility 0s, opacity 0.5s linear;
     }
 
     .navbar-dropdown-content .navbar ul {
@@ -79,9 +92,9 @@ export default {
         padding: 5px 100px;
     }
 
-    .navbar-dropdown:hover .navbar-dropdown-content {
+    /* .navbar-dropdown:hover .navbar-dropdown-content {
         visibility: visible;
         opacity: 1;
-    }
+    } */
 
 </style>
