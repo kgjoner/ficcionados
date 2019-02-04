@@ -43,8 +43,8 @@
                 </div>
             </div>
             <ul>
-                <li v-for="article in recentArticles" :key="article.id">
-                    <ArticleCard :article="article" />
+                <li v-for="rarticle in recentArticles" :key="rarticle.id">
+                    <ArticleCard :article="rarticle" />
                 </li>
             </ul>
             <div class="load-more">

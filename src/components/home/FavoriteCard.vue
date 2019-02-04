@@ -150,6 +150,7 @@ export default {
         margin-right: 10px;
         background-color: transparent;
         padding: 5px;
+        cursor: pointer;
     }
 
     .favorite-card:hover .info button {

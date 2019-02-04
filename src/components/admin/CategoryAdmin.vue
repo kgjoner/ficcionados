@@ -7,7 +7,13 @@
                     <b-form-input id="category-name" type="text" 
                         v-model="category.name" required
                         :readonly="mode === 'remove'"
-                        placeholder="Informe o Nome do categoria" />
+                        placeholder="Informe o Nome da categoria" />
+                </b-form-group>
+                 <b-form-group label="Ordem:" label-for="category-order">
+                    <b-form-input id="category-order" type="number" 
+                        v-model="category.order" required
+                        :readonly="mode === 'remove'"
+                        placeholder="Informe a Ordem da categoria" />
                 </b-form-group>
             </b-col>
             <b-col md="6" sm="12">
@@ -27,6 +33,7 @@
                 <b-button variant="danger" v-if="mode === 'remove'"
                     @click="remove">Excluir</b-button>
                 <b-button class="ml-2" @click="reset">Cancelar</b-button>
+                <img v-if="loading" src="@/assets/loading2.gif" alt="">
             </b-col>    
         </b-form>
         <hr>
@@ -61,6 +68,7 @@ export default {
                 {key: 'path', label: 'Caminho', sortable: true},
                 {key: 'actions', label: 'Ações'}
             ],
+            loading: false,
         }
     },
     methods: {
@@ -73,8 +81,10 @@ export default {
             this.category = {
                 id: category.id,
                 name: category.name,
-                parentId: category.parentId
+                parentId: category.parentId,
+                order: category.order
             }
+            scroll(0,260)
         },
         reset() {
             this.mode = 'create'
@@ -82,14 +92,17 @@ export default {
             this.loadCategories()
         },
         save() {
+            this.loading = true
             const method = this.category.id ? 'put' : 'post'
             const id = this.category.id ? `/${this.category.id}` : ''
             axios[method](`${baseApiUrl}/categories${id}`, this.category)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
-                    location.reload()
+                    this.reset()
+                    if(method=="post") location.reload()
                 })
                 .catch(showError)
+                .finally(() => this.loading = false)
         },
         remove() {
             const id = this.category.id

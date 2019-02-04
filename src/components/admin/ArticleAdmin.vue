@@ -44,9 +44,11 @@
                             :readonly="mode === 'remove' || mode === 'save'" />
                     </b-form-group>
                     <b-form-group label="Ordem:" label-for="article-order">
+                        <b-input-group :prepend="`${categoryOrder}`">
                         <b-form-input id="article-order" type="number" class="mb-5"
                             v-model="article.order" placeholder="Informe a ordem didática"
                             :readonly="mode === 'remove'" />
+                         </b-input-group>
                     </b-form-group>
                     <b-form-group label="Imagem:" label-for="article-imageId">
                         <model-select id="article-imageId" :options="imgSelectOptions" v-model="article.imageId"
@@ -134,14 +136,23 @@ export default {
             const choosenImg = this.images.filter(img => img._id === this.article.imageId)[0]
             if(!choosenImg) return ''
             return (baseImgUrl + choosenImg.filename)
+        },
+        categoryOrder() {
+            const category = this.categories.filter(c => c.id == this.article.categoryId)[0]
+            return category? category.order : '-'
         }
     },
     methods: {
         loadArticles() {
-            axios.get(`${baseApiUrl}/articles?page=${this.currentPage}&order=publishedAt`)
+            axios.get(`${baseApiUrl}/articles?page=${this.currentPage}&order=publishedAt&scheduled=1`)
                 .then(res => {
                     this.articles = res.data.data
-                    this.articles.forEach(a => a.publishedAt = a.publishedAt.split('T')[0].split('-').reverse().join('/'))
+                    const now = new Date()
+                    this.articles.forEach(a => {
+                        const publishingDate = new Date(a.publishedAt)
+                        if (publishingDate.getTime() > now.getTime()) a.publishedAt = '& [Agendado]-' + a.publishedAt
+                        a.publishedAt = a.publishedAt.split('T')[0].split('-').reverse().join('/').split('/&')
+                    })
                     this.count = res.data.count
                     this.limit = res.data.limit
                 })
@@ -159,6 +170,7 @@ export default {
             axios.get(`${baseApiUrl}/articles/${article.id}`)
                 .then(res => {
                     res.data.content = this.transpileContent(res.data.content)
+                    res.data.order = res.data.order.toString().split('').slice(3)
                     this.article = res.data
                     this.article.publishedAt = this.article.publishedAt.split('T')[0]
                     scroll(0,260)
@@ -212,10 +224,13 @@ export default {
         reset() {
             this.mode = 'create'
             this.article = {}
+            this.loading = false
             this.loadArticles()
         },
         save() {
             this.loading = true
+            this.article.order = Number(this.categoryOrder.toString()+this.article.order.toString())
+            console.log(this.article.order)
             this.article.editedAt = new Date()
             if(!this.article.publishedAt) this.article.publishedAt = this.article.editedAt
             if(!this.article.order) this.article.order = 100
@@ -312,6 +327,10 @@ export default {
 
     .submit button {
         margin-bottom: 42px;
+    }
+
+    .input-group-prepend {
+        height: 100%;
     }
 
 </style>
