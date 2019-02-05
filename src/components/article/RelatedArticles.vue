@@ -35,6 +35,11 @@ export default {
             })
         }
     },
+    watch: {
+        $route() {
+            this.getArticles()
+        }
+    },
     mounted() {
         this.getArticles()
     }

@@ -226,11 +226,11 @@ export default {
             this.article = {}
             this.loading = false
             this.loadArticles()
+            scroll(0,260)
         },
         save() {
             this.loading = true
             this.article.order = Number(this.categoryOrder.toString()+this.article.order.toString())
-            console.log(this.article.order)
             this.article.editedAt = new Date()
             if(!this.article.publishedAt) this.article.publishedAt = this.article.editedAt
             if(!this.article.order) this.article.order = 100

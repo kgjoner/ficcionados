@@ -80,11 +80,21 @@ export default {
 <style>
     .menu {
         grid-area: menu;
+        position: relative;
         background: linear-gradient(to right, #232536,#414345);
 
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
+    }
+
+    .menu .tree {
+        position: absolute;
+        height: calc(100% - 70px);
+        width: 100%;
+        left: 0px;
+        top: 70px;
+        overflow: auto;
     }
 
     .menu a,
@@ -134,6 +144,14 @@ export default {
         color: #CCC;
         margin-left: 20px;
         font-size: 1.2rem;
+    }
+
+    @media (max-width: 767px) {
+        .menu .tree {
+            position: static;
+            height: 100%;
+            width: 100%;
+        }
     }
 
 

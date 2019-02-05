@@ -12,6 +12,7 @@ import Auth from '@/components/auth/Auth'
 import About from '@/components/about/About'
 import Contact from '@/components/contact/ContactPage'
 import EbookLP from '@/components/landingPage/EbookLP'
+import NotFound from '@/components/notFound/notFound'
 
 import { userKey } from '@/global'
 
@@ -63,6 +64,15 @@ const routes = [{
     name: 'landingPage',
     path: '/desbloqueando-a-escrita',
     component: EbookLP
+}, {
+    name: '404',
+    path: '/404/:slug',
+    component: NotFound
+}, {
+    path: '/*',
+    redirect: to => {
+        return `/artigo${to.path}`
+    }
 }]
 
 const router = new VueRouter({

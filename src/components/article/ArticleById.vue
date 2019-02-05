@@ -17,7 +17,7 @@
         <div v-if="article.author" class="post-article">
             <hr>
             <AuthorBox :author="author"></AuthorBox>
-            <RelatedArticles v-if="article.author" :parentId="article.parentId || 3" :currentArticle="article.id" />
+            <RelatedArticles v-if="article.parentId" :parentId="article.parentId || 3" :currentArticle="article.id" />
         </div>
     </div>
 </template>
@@ -82,6 +82,7 @@ export default {
                     const artWords = this.article.content.split(' ').length
                     this.readingTime = Math.ceil(artWords/200)
                 })
+                .catch(() => this.$router.push({name: '404', params: {slug: this.$route.params.slug}}))
         },
         getImage(id) {
             axios.get(`${baseApiUrl}/images/${id}`)
@@ -89,6 +90,14 @@ export default {
                     this.article.image = res.data
                     this.$el.style.setProperty('--bkg-image', `url(${baseImgUrl}/${this.article.image.filename})`)
                 })
+        }
+    },
+    watch: {
+        $route(){
+            this.article = {}
+            this.readingTime = ''
+            this.getArticle()
+            this.$store.commit('toggleMenu', false)
         }
     },
     created() {

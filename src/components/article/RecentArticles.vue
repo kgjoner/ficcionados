@@ -1,15 +1,16 @@
 <template>
     <div class="recent-articles">
         <PageTitle main="Artigos Recentes" />
-        <ul v-if="didGetImg">
+        <ul>
             <li v-for="article in articles" :key="article.id">
-                <ArticleCard :article="article" />
+                <ArticleCard :article="article" :didGetImg="didGetImg" />
             </li>
         </ul>
         <div class="load-more">
             <button v-if="loadMore"
                 class="btn btn-lg btn-outline-primary"
                 @click="getArticles">Mais</button>
+            <img v-show="loading" class="loading-art" src="@/assets/loading2.gif">
         </div>
     </div>
 </template>
@@ -44,7 +45,8 @@ export default {
             articles: [],
             page: 1,
             loadMore: true,
-            imgQuery: false
+            imgQuery: false,
+            loading: false
         }
     },
     computed: {
@@ -54,6 +56,8 @@ export default {
     },
     methods: {
         getArticles() {
+            this.loading = true
+            this.imgQuery = false
             const url = `${baseApiUrl}/articles?page=${this.page}&order=publishedAt`
             axios(url).then(res => {
                 this.articles = this.articles.concat(res.data.data)
@@ -61,7 +65,7 @@ export default {
                 this.getImages(imageIds)
                 this.$emit('updateHead')
                 this.page++
-
+                this.loading = false
                 if (res.data.data.length < 10) this.loadMore = false
             })
         },
@@ -83,6 +87,7 @@ export default {
             this.page = 1
             this.loadMore = true
             this.imgQuery = false
+            this.loading = false
 
             this.getArticles()
         },

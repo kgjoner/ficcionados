@@ -3,7 +3,8 @@
     color: #444;
     font-weight: 500;
     font-family: "Philosopher";
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    letter-spacing: .8px;
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -11,7 +12,7 @@
     border: none;
     outline: none;
     transition: 0.4s;
-    line-height: 100%;
+    line-height: 175%;
     border-radius: 8px;
     outline: none !important;
   }
@@ -32,7 +33,7 @@
     margin-left: 5px;
   }
   
-  .active:after {
+  .accordion.active:after {
     content: "\2013";
     color: #f2f2f2;
   }

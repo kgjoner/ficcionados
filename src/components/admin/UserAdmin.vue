@@ -135,6 +135,7 @@ export default {
             this.mode = 'create'
             this.user = {}
             this.loadUsers()
+            scroll(0,260)
         },
         save() {
             const method = this.user.id ? 'put' : 'post'

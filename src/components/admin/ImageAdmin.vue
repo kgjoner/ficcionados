@@ -97,6 +97,7 @@ export default {
             this.images = []
 
             this.loadImages()
+            scroll(0,260)
         },
         create() {
             this.loading = true

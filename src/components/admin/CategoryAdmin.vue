@@ -25,7 +25,7 @@
                     </b-form-select>
                 </b-form-group>
             </b-col>
-            <b-col>
+            <b-col class="submit">
                 <b-button variant="primary" v-if="mode === 'create'"
                     @click="save">Criar</b-button>
                 <b-button variant="primary" v-if="mode === 'save'"
@@ -90,6 +90,7 @@ export default {
             this.mode = 'create'
             this.category = {}
             this.loadCategories()
+            scroll(0,260)
         },
         save() {
             this.loading = true
