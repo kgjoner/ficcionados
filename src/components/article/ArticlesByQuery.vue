@@ -1,9 +1,9 @@
 <template>
     <div class="articles-by-query">
         <PageTitle :main="$route.query.s" sub="Buscar por:" />
-        <ul v-if="didGetImg">
+        <ul>
             <li v-for="article in articles" :key="article.id">
-                <ArticleCard :article="article" />
+                <ArticleCard :article="article" :didGetImg="didGetImg" />
             </li>
         </ul>
         <div class="load-more">
