@@ -15,7 +15,11 @@ import './config/head'
 import store from './config/store'
 import router from './config/router'
 
+import LazyLoad from './directives/lazyLoad'
+
 Vue.config.productionTip = false
+
+Vue.directive('lazyload', LazyLoad)
 
 new Vue({
   router,

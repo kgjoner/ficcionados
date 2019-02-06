@@ -74,7 +74,7 @@ export default {
 	},
 	
 	created() {
-		if(this.$route.fullPath.includes('/admin/') || 
+		if(this.$route.fullPath.includes('/admin') || 
 		this.$route.fullPath === '/') {
 			this.validateToken()
 		}

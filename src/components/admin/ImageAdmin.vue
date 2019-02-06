@@ -48,7 +48,7 @@
         <hr>
         <div class="stored-imgs">
             <div class="stored-img" v-for="storedImg in images" :key="storedImg._id">
-                <img :src="`${baseImgUrl}${storedImg.filename}`" alt="">
+                <img v-lazyload :data-url="`${baseImgUrl}${storedImg.filename}`" src="@/assets/loading2.gif" alt="">
                 <span>{{storedImg.filename}}</span>
                 <div class="mt-3">
                     <b-button variant="warning" @click="loadImg(storedImg, 'update')" class="mr-1 ml-1 mb-5">

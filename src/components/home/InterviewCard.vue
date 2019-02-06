@@ -1,11 +1,11 @@
 <template>
     <div class="interview-card">
-        <div v-if="user" class="admin-artconfig">
+        <div v-if="false" class="admin-artconfig">
             <input type="number" v-model="newStandOut">
             <button @click="updateStandOutArticles">Trocar Artigo</button>
         </div>
         <router-link :to="{ name: 'articleById', params: {slug: article.slug} }" class="art-link">
-            <div class="art-image" ref="img">&nbsp;</div>
+            <div v-lazyload="'background'" class="art-image" :data-url="imgUrl">&nbsp;</div>
             <div class="info">
                 <p>{{article.description}}</p>
                 <hr>
@@ -56,9 +56,6 @@ export default {
                 .catch(showError)         
         }
     },
-    mounted() {
-        this.$refs.img.style.setProperty('background-image', `url(${this.imgUrl})`)
-    }
 }
 </script>
 
