@@ -41,7 +41,7 @@
                      <b-form-group label="Data de publicação:" label-for="article-publishing-date">
                         <b-form-input id="article-publishing-date" type="date" class="mb-3"
                             v-model="article.publishedAt"
-                            :readonly="mode === 'remove' || mode === 'save'" />
+                            :readonly="mode === 'remove'" />
                     </b-form-group>
                     <b-form-group label="Ordem:" label-for="article-order">
                         <b-input-group :prepend="`${categoryOrder}`">
