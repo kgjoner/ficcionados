@@ -39,6 +39,7 @@
           evt.currentTarget.classList.toggle("active");
 
           var panel = evt.currentTarget.nextElementSibling;
+          console.log(panel.style.maxHeight, evt.currentTarget.classList.value)
           if (panel.style.maxHeight){
             panel.style.maxHeight = null;
           } else {

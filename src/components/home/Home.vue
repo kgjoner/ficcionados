@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <div v-if="imgQuery2" class="recent-art">
+        <div class="recent-art">
             <div class="art-title">
                 <img src="@/assets/badge-sword.svg" alt="Ícone de lupa" height="70px">
                 <div>

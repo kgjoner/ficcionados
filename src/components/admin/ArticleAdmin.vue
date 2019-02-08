@@ -170,7 +170,7 @@ export default {
             axios.get(`${baseApiUrl}/articles/${article.id}`)
                 .then(res => {
                     res.data.content = this.transpileContent(res.data.content)
-                    res.data.order = res.data.order.toString().split('').slice(3)
+                    res.data.order = res.data.order.toString().split('').slice(3).join('')
                     this.article = res.data
                     this.article.publishedAt = this.article.publishedAt.split('T')[0]
                     scroll(0,260)
@@ -201,6 +201,16 @@ export default {
                 return result + rest
             }
 
+            function revertImg (content) {
+                const url = content.match(/(src="https:\/\/)(.+)(\/)(((?!\s).)+)(")/i)[4]
+                const align = content.match(/(img-align-)(((?!\s).)+)(")/i)[2]
+                const size = content.match(/(max-width:)(((?!\s).)+)(;)/i)[2]
+                
+                const result = `[[img src="${url}" align="${align}" size="${size}"/]]`
+                const rest = content.split(/class="img-align-(((?!>).)+)(>)/)[4]
+                return result + rest
+            }
+
             let tabs = content.split('<div class="tab">')
             if(tabs.length>1){
                 tabs = tabs.map(tab => {
@@ -211,13 +221,23 @@ export default {
             }
 
             let accordions = content.split(/<div><button class="accordion((?!>).)+>/i)
-            if(accordions.length>1){
-                accordions = accordions.map(accordion => {
-                    if(!accordion.match('accordion-panel')) return accordion
-                    return revertAccordion(accordion)
+                if(accordions.length>1){
+                    accordions = accordions.map(accordion => {
+                        if(!accordion.match('accordion-panel')) return accordion
+                        return revertAccordion(accordion)
+                    })
+                    content = accordions.join('')
+                }
+
+            let imgs = content.split('<img')
+            if(imgs.length>1){
+                imgs = imgs.map(img => {
+                    if(!img.match('src')) return img
+                    return revertImg(img)
                 })
-                content = accordions.join('')
+                content = imgs.join('')
             }
+
 
             return content
         },

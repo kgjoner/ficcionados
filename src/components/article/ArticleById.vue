@@ -81,6 +81,7 @@ export default {
                 .then(() => {
                     const artWords = this.article.content.split(' ').length
                     this.readingTime = Math.ceil(artWords/200)
+                    this.checkActiveAccordions()
                 })
                 .catch(() => this.$router.push({name: '404', params: {slug: this.$route.params.slug}}))
         },
@@ -90,6 +91,13 @@ export default {
                     this.article.image = res.data
                     this.$el.style.setProperty('--bkg-image', `url(${baseImgUrl}/${this.article.image.filename})`)
                 })
+        },
+        checkActiveAccordions() {
+            const activeEls = document.getElementsByClassName('active')
+            Array.from(activeEls).forEach(el => {
+                const panel = el.nextElementSibling;
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            })
         }
     },
     watch: {
@@ -276,6 +284,16 @@ export default {
         .artpage-title p {
             font-size: 0.8rem;
         }
+    }
+
+    .img-align-left {
+        float: left;
+        margin: 10px 20px 10px 0px;
+    }
+
+    .img-align-right {
+        float: right;
+        margin: 10px 0 10px 20px;
     }
 
 </style>
