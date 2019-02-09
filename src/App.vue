@@ -30,12 +30,14 @@ export default {
 		return {
 			validatingToken: false,
 			isLoginScreen: false,
+			maintenance: true
 		}
 	},
 	computed: {
 		...mapState(['isMenuVisible', 'user']),
 		hideHeader() {
 			return this.$route.fullPath === '/admin' || this.$route.fullPath === '/desbloqueando-a-escrita'
+				|| this.$route.fullPath === '/manutencao' || this.maintenance
 		}
 	},
 	methods: {
@@ -50,6 +52,9 @@ export default {
 				this.validatingToken = false
 				if(this.$route.fullPath.includes('/admin')) {
 					this.$router.push({ name: 'admin' })
+					this.maintenance = false
+				} else if (this.maintenance) {
+					this.$router.push({ name: 'maintenance' })
 				}
 				return
 			}
@@ -58,6 +63,7 @@ export default {
 
 			if(res.data) {
 				this.$store.commit('setUser', userData)
+				this.maintenance = false
 				if(this.$route.fullPath === '/admin') {
 					this.$store.commit('toggleMenu', false)
 					this.$router.push({ name: 'board' })
@@ -75,7 +81,7 @@ export default {
 	
 	created() {
 		if(this.$route.fullPath.includes('/admin') || 
-		this.$route.fullPath === '/') {
+		this.$route.fullPath === '/' || this.maintenance) {
 			this.validateToken()
 		}
 	}

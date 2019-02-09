@@ -13,6 +13,7 @@ import About from '@/components/about/About'
 import Contact from '@/components/contact/ContactPage'
 import EbookLP from '@/components/landingPage/EbookLP'
 import NotFound from '@/components/notFound/notFound'
+import Maintenance from '@/components/maintenance/Maintenance'
 
 import { userKey } from '@/global'
 
@@ -22,7 +23,7 @@ const routes = [{
     name: 'home',
     path: '/',
     component: Home
-},{
+}, {
     name: 'board',
     path: '/admin/board',
     component: Dashboard,
@@ -32,11 +33,11 @@ const routes = [{
     path: '/admin/edit',
     component: AdminPages,
     meta: { requiresAdmin: true }
-},{
+}, {
     name: 'recentArticles',
     path: '/artigos',
     component: RecentArticles
-},{
+}, {
     name: 'articlesByCategory',
     path: '/categorias/:id',
     component: ArticlesByCategory
@@ -68,6 +69,10 @@ const routes = [{
     name: '404',
     path: '/404/:slug',
     component: NotFound
+}, {
+    name: 'maintenance',
+    path: '/manutencao',
+    component: Maintenance
 }, {
     path: '/*',
     redirect: to => {
