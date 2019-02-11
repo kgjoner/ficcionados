@@ -93,7 +93,7 @@ export default {
                 })
         },
         checkActiveAccordions() {
-            const activeEls = document.getElementsByClassName('active')
+            const activeEls = document.getElementsByClassName('accordion active')
             Array.from(activeEls).forEach(el => {
                 const panel = el.nextElementSibling;
                 panel.style.maxHeight = panel.scrollHeight + "px";

@@ -33,7 +33,12 @@
 
 <script>
 export default {
-    name: "Maintenance"
+    name: "Maintenance",
+    head: {
+        meta: [
+            {name: "robots", content: "noindex"}
+        ]
+    }
 }
 </script>
 
