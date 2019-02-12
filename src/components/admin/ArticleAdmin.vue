@@ -229,14 +229,14 @@ export default {
                     content = accordions.join('')
                 }
 
-            let imgs = content.split('<img')
-            if(imgs.length>1){
-                imgs = imgs.map(img => {
-                    if(!img.match('src')) return img
-                    return revertImg(img)
-                })
-                content = imgs.join('')
-            }
+            // let imgs = content.split('<img')
+            // if(imgs.length>1){
+            //     imgs = imgs.map(img => {
+            //         if(!img.match('src')) return img
+            //         return revertImg(img)
+            //     })
+            //     content = imgs.join('')
+            // }
 
 
             return content
