@@ -203,9 +203,9 @@ export default {
 
             function revertImg (content) {
                 try {
-                    const url = content.match(/(src="https:\/\/)(.+)(\/)(((?!\s).)+)(")/i)[4]
+                    const url = content.match(/(src="https:\/\/)(((?!\s).)+)(\/)(((?!\s).)+)(")/i)[4]
                     const align = content.match(/(img-align-)(((?!\s).)+)(")/i)[2]
-                    const size = content.match(/(max-width:)(((?!\s).)+)(;)/i)[2]
+                    const size = content.match(/(max-width:)(((?!\s).)+)(;")/i)[2]
                     
                     const result = `[[img src="${url}" align="${align}" size="${size}"/]]`
                     const rest = content.split(/class="img-align-(((?!>).)+)(>)/)[4]
