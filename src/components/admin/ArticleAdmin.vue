@@ -202,13 +202,17 @@ export default {
             }
 
             function revertImg (content) {
-                const url = content.match(/(src="https:\/\/)(.+)(\/)(((?!\s).)+)(")/i)[4]
-                const align = content.match(/(img-align-)(((?!\s).)+)(")/i)[2]
-                const size = content.match(/(max-width:)(((?!\s).)+)(;)/i)[2]
-                
-                const result = `[[img src="${url}" align="${align}" size="${size}"/]]`
-                const rest = content.split(/class="img-align-(((?!>).)+)(>)/)[4]
-                return result + rest
+                try {
+                    const url = content.match(/(src="https:\/\/)(.+)(\/)(((?!\s).)+)(")/i)[4]
+                    const align = content.match(/(img-align-)(((?!\s).)+)(")/i)[2]
+                    const size = content.match(/(max-width:)(((?!\s).)+)(;)/i)[2]
+                    
+                    const result = `[[img src="${url}" align="${align}" size="${size}"/]]`
+                    const rest = content.split(/class="img-align-(((?!>).)+)(>)/)[4]
+                    return result + rest
+                } catch(e) {
+                    return "<img" + content
+                }
             }
 
             let tabs = content.split('<div class="tab">')
@@ -229,14 +233,14 @@ export default {
                     content = accordions.join('')
                 }
 
-            // let imgs = content.split('<img')
-            // if(imgs.length>1){
-            //     imgs = imgs.map(img => {
-            //         if(!img.match('src')) return img
-            //         return revertImg(img)
-            //     })
-            //     content = imgs.join('')
-            // }
+            let imgs = content.split('<img')
+            if(imgs.length>1){
+                imgs = imgs.map(img => {
+                    if(!img.match('src')) return img
+                    return revertImg(img)
+                })
+                content = imgs.join('')
+            }
 
 
             return content

@@ -296,4 +296,9 @@ export default {
         margin: 10px 0 10px 20px;
     }
 
+    .img-align-center {
+        display: block;
+        margin: 10px auto 10px auto;
+    }
+
 </style>
