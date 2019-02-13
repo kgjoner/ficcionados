@@ -159,7 +159,7 @@ export default {
 }
 
 .stored-img img {
-    max-width: 20vw;
+    width: 20vw;
     margin: 10px;
     flex-grow: 1;
 }
@@ -169,6 +169,7 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-items: center;
+    max-width: calc(20vw + 20px)
 }
 
 .image-admin .submit {
@@ -190,13 +191,25 @@ export default {
 
 @media (max-width: 768px) {
     .stored-img img {
-        max-width: 35vw;
+        width: 35vw;
+    }
+
+    .stored-img {
+        max-width: calc(35vw + 20px)
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 590px) {
+    .stored-imgs {
+        justify-content: center;
+    }
+
     .stored-img img {
-        max-width: 50vw;
+        width: 50vw;
+    }
+
+    .stored-img {
+        max-width: calc(50vw + 20px)
     }
 }
 

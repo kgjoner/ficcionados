@@ -34,6 +34,7 @@ export default {
         margin: 15px;
         margin-top: 20px;
         border-bottom: 1px solid #aaa;
+        width: calc(100% - 30px)
 
     }
 
