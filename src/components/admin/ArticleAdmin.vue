@@ -180,7 +180,7 @@ export default {
             function revertTabs (content) {
                 let toBeTranspiled = content.split('</div>')
                 const result = toBeTranspiled.map(tab => {
-                    const title = tab.match(/(id="\d-)(.+)(?=" class)/i)
+                    const title = tab.match(/(id="\d-)(.+)(?=" class)/i) || tab.match(/(id=")(.+)(?=" class)/i)
                     if(!title && tab.match('tablinks')) return `[[tabs]]`
                     if(!title) return '[[/tabs]]' + tab
                     const open = tab.match('active') ? ' open' : ''
