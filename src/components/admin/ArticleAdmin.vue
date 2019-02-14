@@ -180,11 +180,11 @@ export default {
             function revertTabs (content) {
                 let toBeTranspiled = content.split('</div>')
                 const result = toBeTranspiled.map(tab => {
-                    const title = tab.match(/(id=")(.+)(?=" class)/i)
-                    if(!title && tab.match('tablinks')) return `[[tabs]]</p>`
-                    if(!title) return '[[/tabs]]'+tab
+                    const title = tab.match(/(id="\d-)(.+)(?=" class)/i)
+                    if(!title && tab.match('tablinks')) return `[[tabs]]`
+                    if(!title) return '[[/tabs]]' + tab
                     const open = tab.match('active') ? ' open' : ''
-                    const tabContent = tab.match(/(>)(((.?)+\r?\n?)+)(?=<)/)[2]
+                    const tabContent = tab.match(/(p>)(((.?)+\r?\n?)+)(?=<)/)[2]
                     return `[[tab title="${title[2]}"${open}]]${tabContent}[[/tab]]`
                 })
                 return result.join('')
@@ -215,16 +215,20 @@ export default {
                 }
             }
 
-            let tabs = content.split('<div class="tab">')
-            if(tabs.length>1){
-                tabs = tabs.map(tab => {
-                    if(!tab.match('tablinks')) return tab
-                    return revertTabs(tab)
-                })
-                content = tabs.join('')
+            function pipeTabs (content) {
+                let tabs = content.split('<div class="tab">')
+                if(tabs.length>1){
+                    tabs = tabs.map(tab => {
+                        if(!tab.match('tablinks')) return tab
+                        return revertTabs(tab)
+                    })
+                    content = tabs.join('')
+                }
+                return content
             }
 
-            let accordions = content.split(/<div><button class="accordion((?!>).)+>/i)
+            function pipeAccordion (content) {
+                let accordions = content.split(/<div><button class="accordion((?!>).)+>/i)
                 if(accordions.length>1){
                     accordions = accordions.map(accordion => {
                         if(!accordion.match('accordion-panel')) return accordion
@@ -232,16 +236,24 @@ export default {
                     })
                     content = accordions.join('')
                 }
-
-            let imgs = content.split('<img')
-            if(imgs.length>1){
-                imgs = imgs.map(img => {
-                    if(!img.match('src')) return img
-                    return revertImg(img)
-                })
-                content = imgs.join('')
+                return content
             }
 
+            function pipeImgs (content) {
+                let imgs = content.split('<img')
+                if(imgs.length>1){
+                    imgs = imgs.map(img => {
+                        if(!img.match('src')) return img
+                        return revertImg(img)
+                    })
+                    content = imgs.join('')
+                }
+                return content
+            }
+
+            content = pipeTabs(pipeAccordion(pipeImgs(content)))
+            content = content.split("\"[[accordion").join("[[accordion")
+            content = content.split("/tabs]]</p><p><br>").join("/tabs]]")
 
             return content
         },

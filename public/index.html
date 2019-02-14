@@ -20,13 +20,23 @@
     <script>
       function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
-        
-            tabcontent = document.getElementsByClassName("tabcontent");
+
+            if(tabName.match(/(\d)-/)) {
+              var nRef = "tab" + tabName.match(/(\d)-/)[1] + " "
+            } else {
+              var nRef = ""
+            }
+            const tabcontentClass = nRef + "tabcontent"
+            const tablinksCLass = nRef + "tablinks"
+
+            console.log
+
+            tabcontent = document.getElementsByClassName(tabcontentClass);
             for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
             }
         
-            tablinks = document.getElementsByClassName("tablinks");
+            tablinks = document.getElementsByClassName(tablinksCLass);
             for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
@@ -39,7 +49,6 @@
           evt.currentTarget.classList.toggle("active");
 
           var panel = evt.currentTarget.nextElementSibling;
-          console.log(panel.style.maxHeight, evt.currentTarget.classList.value)
           if (panel.style.maxHeight){
             panel.style.maxHeight = null;
           } else {
