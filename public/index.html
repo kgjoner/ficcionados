@@ -22,14 +22,12 @@
             var i, tabcontent, tablinks;
 
             if(tabName.match(/(\d)-/)) {
-              var nRef = "tab" + tabName.match(/(\d)-/)[1] + " "
+              var tabNumber = "tab" + tabName.match(/(\d)-/)[1] + " "
             } else {
-              var nRef = ""
+              var tabNumber = ""
             }
-            const tabcontentClass = nRef + "tabcontent"
-            const tablinksCLass = nRef + "tablinks"
-
-            console.log
+            const tabcontentClass = tabNumber + "tabcontent"
+            const tablinksCLass = tabNumber + "tablinks"
 
             tabcontent = document.getElementsByClassName(tabcontentClass);
             for (i = 0; i < tabcontent.length; i++) {

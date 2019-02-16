@@ -4,7 +4,7 @@
             <img src="@/assets/logomarca.svg" alt="Ficcionados">
             <h1>Ops... Estamos em manutenção</h1>
             <hr>
-            <p>Voltamos quinta, 14 de fev, com um site novinho!</p>
+            <p>Voltamos segunda, 18 de fev, com um site novinho!</p>
             <div id="mc_embed_signup">
                 <form action="//ficcionados.us15.list-manage.com/subscribe/post?u=27613588b850606cebd9fa4cd&amp;id=c022e8edfb"
                     method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"

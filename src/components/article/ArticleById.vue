@@ -74,6 +74,9 @@ export default {
                 .then(res => {
                     this.getImage(res.data.imageId)
                     res.data.publishedAt = toStandardDate(res.data.publishedAt)
+                    if (res.data.name.length>50) {
+                        document.getElementsByClassName("artpage-title")[0].classList.add("long-title")
+                    }
                     this.article = res.data
                     this.$emit('updateHead')
                     this.$store.state.articleCategory = res.data.category
@@ -265,6 +268,12 @@ export default {
     .article-content hr {
         color: #4c4c4c
     }
+
+    .long-title.artpage-title {
+        height: auto;
+        padding-top: 40px;
+    }
+
 
     @media(max-width:450px), (max-width:850px) and (max-height:500px) {
 
