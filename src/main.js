@@ -12,6 +12,7 @@ import './config/msgs'
 import './config/axios'
 import './config/mq'
 import './config/head'
+import './config/disqus'
 import store from './config/store'
 import router from './config/router'
 

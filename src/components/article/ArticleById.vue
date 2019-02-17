@@ -19,6 +19,7 @@
             <AuthorBox :author="author"></AuthorBox>
             <RelatedArticles v-if="article.parentId" :parentId="article.parentId || 3" :currentArticle="article.id" />
         </div>
+        <vue-disqus shortname="ficcionados" :identifier="this.$route.params.slug" :url="this.$route.fullPath"></vue-disqus>
     </div>
 </template>
 
@@ -101,7 +102,7 @@ export default {
                 const panel = el.nextElementSibling;
                 panel.style.maxHeight = panel.scrollHeight + "px";
             })
-        }
+        },
     },
     watch: {
         $route(){
@@ -308,6 +309,10 @@ export default {
     .img-align-center {
         display: block;
         margin: 10px auto 10px auto;
+    }
+
+    #disqus_thread {
+        padding-bottom: 40px;
     }
 
 </style>
