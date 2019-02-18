@@ -2,9 +2,10 @@
     <div class="article-card">
         <router-link :to="{ name: 'articleById', params: {slug: article.slug} }">
             <div v-if="didGetImg" class="article-img">
-                <img v-lazyload :data-url="imgUrl" src="@/assets/loading.gif" :alt="article.image.alt" :title="article.image.title">
+                <img v-lazyload :data-url="imgUrl" src="@/assets/loading2.gif" :alt="article.image.alt" :title="article.image.title">
                 <!-- <img v-else src="../../assets/article.png" alt=""> -->
             </div>
+            <div v-else class="article-img"></div>
             <div class="article-prev">
                 <h4><strong>{{article.name}}</strong></h4>
                 <p>{{article.description}}</p>
@@ -61,6 +62,7 @@ export default {
 
     .article-img {
         height: 150px;
+        min-width: 220px;
         padding-right: 20px;
         margin-top: 20px;
         align-self: center;

@@ -19,7 +19,7 @@
             <AuthorBox :author="author"></AuthorBox>
             <RelatedArticles v-if="article.parentId" :parentId="article.parentId || 3" :currentArticle="article.id" />
         </div>
-        <vue-disqus shortname="ficcionados" :identifier="this.$route.params.slug" :url="this.$route.fullPath"></vue-disqus>
+        <disqus shortname="ficcionados" :identifier="this.$route.params.slug" :url="this.$route.fullPath"></disqus>
     </div>
 </template>
 
