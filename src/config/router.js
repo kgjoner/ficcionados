@@ -24,6 +24,11 @@ const routes = [{
     path: '/',
     component: Home
 }, {
+    path: '/home',
+    redirect: () => {
+        return `/`
+    }
+}, {
     name: 'board',
     path: '/admin/board',
     component: Dashboard,

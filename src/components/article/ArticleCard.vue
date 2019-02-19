@@ -1,7 +1,7 @@
 <template>
     <div class="article-card">
         <router-link :to="{ name: 'articleById', params: {slug: article.slug} }">
-            <div v-if="didGetImg" class="article-img">
+            <div v-if="didGetImg || haveAlreadyGottenImg" class="article-img">
                 <img v-lazyload :data-url="imgUrl" src="@/assets/loading2.gif" :alt="article.image.alt" :title="article.image.title">
                 <!-- <img v-else src="../../assets/article.png" alt=""> -->
             </div>
@@ -24,6 +24,11 @@ import { toStandardDate, baseImgUrl } from '@/global'
 export default {
     name: 'ArticleCard',
     props: ['article', 'didGetImg'],
+    data: function () {
+        return {
+            haveAlreadyGottenImg: false
+        }
+    },
     computed: {
         publishingDate() {
             return toStandardDate(this.article.publishedAt)
@@ -32,6 +37,13 @@ export default {
             return `${baseImgUrl}/${this.article.image.filename.split('.').join('-240w.')}`
         }
     },
+    watch: {
+        didGetImg() {
+            if(this.didGetImg) {
+                this.haveAlreadyGottenImg = true
+            }
+        }
+    }
 }
 
 </script>

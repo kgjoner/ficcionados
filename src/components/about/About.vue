@@ -13,8 +13,9 @@
                 <p>Curtiu? Você também é um ficcionado?</p>
                 <p>Então fique por dentro de tudo o que acontece aqui no blog!</p>
             </div>
+            <i class="fa fa-angle-double-down"></i>
             <!-- <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css"> -->
-            <div id="mc_embed_signup">
+            <!-- <div id="mc_embed_signup">
                 <form action="//ficcionados.us15.list-manage.com/subscribe/post?u=27613588b850606cebd9fa4cd&amp;id=c022e8edfb"
                     method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
                     novalidate>
@@ -30,14 +31,14 @@
                         <div id="mce-responses" class="clear">
                             <div class="response" id="mce-error-response" style="display:none"></div>
                             <div class="response" id="mce-success-response" style="display:none"></div>
-                        </div>
+                        </div> -->
                         <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_27613588b850606cebd9fa4cd_c022e8edfb"
+                        <!-- <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_27613588b850606cebd9fa4cd_c022e8edfb"
                                 tabindex="-1" value=""></div>
                         <div class="clear"><input type="submit" value="Junte-se a nós!" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
                     </div>
                 </form>
-            </div>
+            </div> -->
         </div>
 
     </div>
@@ -68,7 +69,7 @@ export default {
 <p>Já pensou em escrever um conto ou dois? Um livro?</p>
 <p>Talvez já tenha começado? Terminado?</p>
 <br> 
-<p>Se você respondeu sim ou com certeza para ao menos uma das perguntas acima, pode relaxar… as chances são que você também seja um ficcionado.</p>
+<p>Se você respondeu sim ou com certeza para uma dessas perguntas, pode relaxar… as chances são que você também seja um ficcionado.</p>
 <br>
 <br>
 <h3><strong>Uma Insatisfação Positiva</strong></h3>
@@ -98,18 +99,16 @@ export default {
 <li> E compartilhar o que estamos descobrindo ao longo do caminho.</li>
 </ul>
 <br><p>O primeiro é o mais importante, afinal, se você não estivesse aqui, o último seria inconsistente.</p>
-<br><p>Quanto ao conteúdo, vamos compartilhá-lo em duas frentes, dividindo-o por assuntos da seguinte forma:</p>
+<br><p>Quanto ao conteúdo, vamos compartilhá-lo em duas frentes:</p>
 <br><ul>
 <li><strong>Escrita:</strong> a arte de escrever em si.<ul>
-<li>Roteiro</li>
-<li>Forma</li></ul></li>
+<li>Forma: questões de prosa e estilo</li>
+<li>Roteiro: questões de enredo</li></ul></li>
 <br>
 <li><strong>Metaescrita:</strong> o lado empreendedor de viver da escrita.<ul>
-<li>Organização Pessoal</li>
-<li>Planejamento e Publicação</li></ul></li>
-</ul>
-<br>
-<em>Bacana, mas e quem são vocês?</em> `
+<li>Desenvolvimento: sobre se tornar um escritor melhor</li>
+<li>Publicação: sobre colocar sua história na frente de outras pessoas</li></ul></li>
+</ul>`
         }
     }
 }
@@ -211,6 +210,14 @@ export default {
 
     #mc_embed_signup .mc-field-group input {
         padding:8px 0; text-indent:2%; margin-bottom: 20px;
+    }
+
+    .about i {
+        margin-top: 50px;
+        margin-left: 20vw;
+        font-size: 4rem;
+        font-weight: bold;
+        color: rgba(0,0,0,0.6)
     }
 
     @media (max-width: 850px) and (max-height: 500px), (max-width: 400px) {

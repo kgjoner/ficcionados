@@ -30,7 +30,7 @@ export default {
 		return {
 			validatingToken: false,
 			isLoginScreen: false,
-			maintenance: true
+			maintenance: false,
 		}
 	},
 	computed: {
@@ -110,7 +110,7 @@ export default {
 
 		height: 100vh;
 		display: grid;
-		grid-template-rows: 60px 1fr 40px;
+		grid-template-rows: 60px 1fr 1fr;
 		grid-template-columns: 230px 1fr;
 		grid-template-areas:
 			"header header"

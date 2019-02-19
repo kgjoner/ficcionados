@@ -3,7 +3,7 @@
         <PageTitle main="Artigos Recentes" />
         <ul>
             <li v-for="article in articles" :key="article.id">
-                <ArticleCard :article="article" :didGetImg="didGetImg" />
+                <ArticleCard :article="article" :didGetImg="didGetImg"/>
             </li>
         </ul>
         <div class="load-more">
@@ -46,13 +46,13 @@ export default {
             page: 1,
             loadMore: true,
             imgQuery: false,
-            loading: false
+            loading: false,
         }
     },
     computed: {
         didGetImg() {
             return this.imgQuery
-        }
+        },
     },
     methods: {
         getArticles() {
@@ -76,9 +76,14 @@ export default {
                     res.data.sort((a,b) => {
                         return ids.indexOf(a._id) - ids.indexOf(b._id)
                     })
-                    this.articles.forEach((a, i) => a.image = res.data[i] )
+                    this.articles.forEach((a, i) => {
+                        a.image = res.data[i]
+                    })
                     this.imgQuery = true
                 })
+        },
+        alreadyLoaded(i){
+            return this.articles[i].loaded
         }
     },
     watch: {
