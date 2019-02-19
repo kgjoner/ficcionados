@@ -30,7 +30,7 @@ export default {
 		return {
 			validatingToken: false,
 			isLoginScreen: false,
-			maintenance: false,
+			maintenance: true,
 		}
 	},
 	computed: {
