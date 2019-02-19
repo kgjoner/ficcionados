@@ -19,7 +19,9 @@
             <AuthorBox :author="author"></AuthorBox>
             <RelatedArticles v-if="article.parentId" :parentId="article.parentId || 3" :currentArticle="article.id" />
         </div>
-        <disqus shortname="ficcionados" :identifier="this.$route.params.slug" :url="this.$route.fullPath"></disqus>
+        <div class="comments">
+            <vue-disqus shortname="ficcionados" :identifier="this.$route.params.slug" :url="'https://www.ficcionados.com.br' + this.$route.fullPath"></vue-disqus>
+        </div>
     </div>
 </template>
 
@@ -273,6 +275,12 @@ export default {
     .long-title.artpage-title {
         height: auto;
         padding-top: 40px;
+    }
+
+    .comments {
+        max-width: 50rem;
+        margin: 0px auto;
+        padding: 20px 0;
     }
 
 
