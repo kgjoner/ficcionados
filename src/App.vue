@@ -92,7 +92,83 @@ export default {
 
 	@font-face {
 		font-family: 'Roboto';
-		src: url('./assets/Roboto-Regular.ttf')
+		font-display: auto;
+		src: url('./assets/fonts/Roboto-Regular.ttf')
+	}
+
+	@font-face {
+		font-family: 'Kaushan Script';
+		font-display: auto;
+		src: url('./assets/fonts/KaushanScript-Regular.ttf');
+	}
+
+	@font-face {
+		font-family: 'Philosopher';
+		font-display: auto;
+		src: url('./assets/fonts/Philosopher-Regular.ttf');
+	}
+	@font-face {
+		font-family: 'Philosopher';
+		font-display: auto;
+		src: url('./assets/fonts/Philosopher-Italic.ttf');
+		font-style: italic;
+	}
+	@font-face {
+		font-family: 'Philosopher';
+		font-display: auto;
+		src: url('./assets/fonts/Philosopher-Bold.ttf');
+		font-weight: bold;
+	}
+	@font-face {
+		font-family: 'Philosopher';
+		font-display: auto;
+		src: url('./assets/fonts/Philosopher-Bold.ttf');
+		font-weight: 600;
+	}
+	@font-face {
+		font-family: 'Philosopher';
+		font-display: auto;
+		src: url('./assets/fonts/Philosopher-BoldItalic.ttf');
+		font-weight: bold;
+		font-style: italic;
+	}
+	@font-face {
+		font-family: 'Philosopher';
+		font-display: auto;
+		src: url('./assets/fonts/Philosopher-BoldItalic.ttf');
+		font-weight: 600;
+		font-style: italic;
+	}
+
+	@font-face {
+		font-family: 'Lato';
+		font-display: auto;
+		src: url('./assets/fonts/Lato-Regular.ttf');
+	}
+	@font-face {
+		font-family: 'Lato';
+		font-display: auto;
+		src: url('./assets/fonts/Lato-Italic.ttf');
+		font-style: italic;
+	}
+	@font-face {
+		font-family: 'Lato';
+		font-display: auto;
+		src: url('./assets/fonts/Lato-Bold.ttf');
+		font-weight: bold;
+	}
+	@font-face {
+		font-family: 'Lato';
+		font-display: auto;
+		src: url('./assets/fonts/Lato-Bold.ttf');
+		font-weight: 600;
+	}
+	@font-face {
+		font-family: 'Lato';
+		font-display: auto;
+		src: url('./assets/fonts/Lato-BoldItalic.ttf');
+		font-weight: bold;
+		font-style: italic;
 	}
 
 

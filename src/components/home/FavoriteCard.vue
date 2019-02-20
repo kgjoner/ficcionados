@@ -115,7 +115,8 @@ export default {
         margin: 0px;
         font-weight: 600;
         color: #4c4c4c;
-        font-size: 1.4rem;
+        font-size: 1.42rem;
+        letter-spacing: -0.6px;
     }
 
     .favorite-card .publish {

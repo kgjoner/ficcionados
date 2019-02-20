@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="home" ref="home">
         <Cover />
         <Directives />
         <div class="favorite-articles">
@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        <HomeBanner />
+        <HomeBanner ref="banner"/>
 
         <div class="interviews">
             <div class="art-title">
@@ -95,7 +95,7 @@ export default {
             loadMore: true,
             imgQuery: false,
             imgQuery2: false,
-            loading: false
+            loading: false,
         }
     },
     computed: {
@@ -171,11 +171,23 @@ export default {
                         this.imgQuery2 = true
                     }
                 })
+        },
+        canUseWebP() {
+            var elem = document.createElement('canvas');
+
+            if (elem.getContext && elem.getContext('2d')) {
+                if(elem.toDataURL('image/webp').indexOf('data:image/webp') == 0) {
+                    this.$refs.home.classList.add('webp')
+                }
+            }
         }
     },
     created() {
         //this.$store.commit('toggleMenu', false)
         this.getStandOutArticlesIds()
+    },
+    mounted() {
+        this.canUseWebP()
     }
 }
 </script>

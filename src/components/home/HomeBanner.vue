@@ -12,7 +12,7 @@
 
 <script>
 export default {
-    name: "HomeBanner"
+    name: "HomeBanner",
 }
 </script>
 
@@ -28,6 +28,10 @@ export default {
         display: flex;
         justify-content: space-between;
         align-content: center;
+    }
+
+    .webp .home-banner {
+        background-image: url('../../assets/homebanner.webp');
     }
 
     .home-banner h3 {
@@ -84,6 +88,11 @@ export default {
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            background-image: url('../../assets/homebanner-66.jpg');
+        }
+
+        .webp .home-banner {
+            background-image: url('../../assets/homebanner-66.webp');
         }
 
         .home-banner h3, .home-banner p {

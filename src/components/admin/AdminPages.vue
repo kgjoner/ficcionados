@@ -33,7 +33,12 @@ import ImageAdmin from './ImageAdmin'
 
 export default {
     name: 'AdminPages',
-    components: {PageTitle, ArticleAdmin, CategoryAdmin, UserAdmin, ImageAdmin}
+    components: {PageTitle, ArticleAdmin, CategoryAdmin, UserAdmin, ImageAdmin},
+    head: {
+        meta: [
+            {name: "robots", content: "noindex"}
+        ]
+    }
 }
 </script>
 

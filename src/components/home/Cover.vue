@@ -28,6 +28,10 @@ export default {
         background-position: center bottom;
     }
 
+    .webp .cover {
+        background-image: url('../../assets/homecover.webp');
+    }
+
 
     .cover-content {
         position: absolute;
@@ -118,6 +122,10 @@ export default {
     @media (max-width: 768px) {
         .cover {
              background-image: url('../../assets/homecover-66.jpg');
+        }
+
+        .webp .cover {
+            background-image: url('../../assets/homecover-66.webp');
         }
 
         .cover-content {

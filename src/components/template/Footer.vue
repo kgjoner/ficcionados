@@ -12,7 +12,8 @@
                                 <input type="text" v-model="name" value="" name="FNAME" class="required" id="mce-FNAME" placeholder="Nome">
                             </div> -->
                             <div class="mc-field-group">
-                                <input type="email" v-model="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="E-mail">
+                                <label for="mce-EMAIL" style="display: none;">Email</label>
+                                <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="E-mail">
                             </div>
                             <input type="checkbox" value="4" name="group[3581][4]" id="mce-group[3581]-3581-0" checked="true" style="display:none">
                             <div id="mce-responses" class="clear">

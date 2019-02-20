@@ -23,6 +23,11 @@ import {baseApiUrl} from "@/global"
 export default {
     name: 'Dashboard',
     components: { PageTitle, Stat },
+    head: {
+        meta: [
+            {name: "robots", content: "noindex"}
+        ]
+    },
     data: function() {
         return {
             stat: {}
@@ -47,6 +52,7 @@ export default {
         flex-wrap: wrap;
         margin-top: 20px;
         padding: 20px;
+        min-height: 70vh;
     }
 
 </style>

@@ -49,6 +49,11 @@ export default {
                 {name: "description", content: this.article.description}
             ]
         },
+        link: function() {
+            return [
+                {rel: 'canonical', href: `https://www.ficcionados.com.br${this.$route.fullPath}`, id: 'canonical' }
+            ]
+        }
     },
     data: function() {
         return {
@@ -81,8 +86,8 @@ export default {
                         document.getElementsByClassName("artpage-title")[0].classList.add("long-title")
                     }
                     this.article = res.data
-                    this.$emit('updateHead')
                     this.$store.state.articleCategory = res.data.category
+                    this.$emit('updateHead')
                 })
                 .then(() => {
                     const artWords = this.article.content.split(' ').length

@@ -36,6 +36,11 @@ export default {
             user: {}
         }
     },
+    head: {
+        meta: [
+            {name: "robots", content: "noindex"}
+        ]
+    },
     computed: mapState(['expiredSession']),
     methods: {
         signin() {

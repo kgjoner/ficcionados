@@ -1,14 +1,14 @@
 <template>
     <header class="header">
         <a class="toggle" @click="toggleMenu" v-if="!hideToggle">
-            <img src="@/assets/logomarca.svg" class="brand" :class="icon">
+            <img src="@/assets/logomarca.svg" class="brand" alt="ficcionados logomarca" :class="icon">
         </a>
         <router-link to="/" class="toggle toggle-off" v-else>
-            <img  src="@/assets/logomarca.svg" class="brand" :class="icon">
+            <img  src="@/assets/logomarca.svg" class="brand" alt="ficcionados logomarca" :class="icon">
         </router-link>
         <h1 class="title">
             <router-link to="/">
-                <img src="@/assets/logotipo.svg" class="logotype">
+                <img src="@/assets/logotipo.svg" alt="ficcionados logotipo" class="logotype">
             </router-link>
         </h1>
         <Navbar v-if="!hideNavbar"></Navbar>
