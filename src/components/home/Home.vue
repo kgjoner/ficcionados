@@ -330,6 +330,12 @@ export default {
         }
     }
 
+    @media (max-width: 768px) {
+        [slot='1'] a {
+            flex-direction: row;
+        }
+    }
+
     @media (max-width: 400px) {
         .art-title {
             padding-left: 0;
