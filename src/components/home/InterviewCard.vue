@@ -194,5 +194,17 @@ export default {
         color: #fafafa;
     }
 
+    @media(max-width: 768px) {
+        .interview-card a {
+            display: flex;
+            flex-direction: column;
+            max-width: 380px;
+        }
+
+        .interview-card .info {
+            padding-bottom: 50px;
+        }
+    }
+
 
 </style>

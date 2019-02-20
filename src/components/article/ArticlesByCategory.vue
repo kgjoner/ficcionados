@@ -150,6 +150,7 @@ export default {
         flex-direction: column;
         align-items: center;
         margin: 25px 0px;
+        padding-bottom: 20vh;
     }
 
     /* Customize the label (the container) */

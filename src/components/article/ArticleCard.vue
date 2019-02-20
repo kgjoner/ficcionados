@@ -113,7 +113,9 @@ export default {
 
     .article-prev .author {
         font-size: 0.8rem;
+        line-height: 150%;
         margin-top: 10px;
+        width: 65%;
     }
 
     .article-prev .author strong {
@@ -132,7 +134,7 @@ export default {
         color: #4c4c4c;
         position: absolute;
         right: 15px;
-        /* bottom: 10px; */
+        /* bottom: 5px; */
         cursor: pointer;
     }
 
@@ -140,6 +142,34 @@ export default {
         background-color: #1d7fd8;
         border-color: #1d7fd8;
         color: #fafafa;
+    }
+
+
+    @media(max-width: 700px) {
+        .article-card a {
+            padding: 10px;
+            flex-direction: column;
+        }
+
+        .article-card .article-img {
+            padding-right: 0px;
+            padding-left: 5px;
+        }
+
+        .article-prev {
+            /* padding-bottom: 50px; */
+            border-top: solid 1px rgba(0,0,0,0.2);
+            padding-top: 20px;
+            padding-left: 0px;
+            border-left: none;
+            margin-left: none;
+        }
+    }
+
+    @media(max-width: 480px) {
+        .article-prev .author {
+            width: 50%;
+        }
     }
 
     

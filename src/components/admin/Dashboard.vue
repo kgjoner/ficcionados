@@ -52,7 +52,7 @@ export default {
         flex-wrap: wrap;
         margin-top: 20px;
         padding: 20px;
-        min-height: 70vh;
+        margin-bottom: 40vh;
     }
 
 </style>
