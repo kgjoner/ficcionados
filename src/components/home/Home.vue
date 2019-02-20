@@ -223,6 +223,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: stretch;
+        flex-wrap: wrap;
     }
 
     .interview-card-list {
