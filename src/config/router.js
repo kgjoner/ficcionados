@@ -71,6 +71,11 @@ const routes = [{
     path: '/desbloqueando-a-escrita',
     component: EbookLP
 }, {
+    path: '/entrevista-com-:person',
+    redirect: to => {
+        return `/artigo/${to.params.person}`
+    }
+}, {
     name: '404',
     path: '/404/:slug',
     component: NotFound
