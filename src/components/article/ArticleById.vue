@@ -71,7 +71,8 @@ export default {
                 facebook: this.article.facebook,
                 twitter: this.article.twitter,
                 instagram: this.article.instagram,
-                wattpad: this.article.wattpad
+                wattpad: this.article.wattpad,
+                sweek: this.article.sweek
             }
         },
     },

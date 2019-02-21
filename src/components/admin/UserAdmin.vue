@@ -10,12 +10,19 @@
                             :readonly="mode === 'remove'"
                             placeholder="Informe o Nome do usuário" />
                     </b-form-group>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col md="6" sm="12">
                     <b-form-group label="Email:" label-for="user-email">
                         <b-form-input id="user-email" type="text" 
                             v-model="user.email" required
                             :readonly="mode === 'remove'"
                             placeholder="Informe o E-mail do usuário" />
                     </b-form-group>
+                </b-col>
+                <b-col md="6" sm="12">
+                    Links externos (opcionais):
                 </b-col>
             </b-row>
             <b-row>
@@ -26,7 +33,10 @@
                     </b-form-checkbox>
                 </b-col>
                 <b-col md="6" sm="12">
-                    Links externos (opcionais):
+                    <b-form-group label="Website:" label-for="user-website">
+                        <b-form-input id="user-website" type="text" 
+                            v-model="user.website" />
+                    </b-form-group>
                 </b-col>
             </b-row>
             <b-row v-show="mode !== 'remove'">
@@ -43,13 +53,13 @@
                     </b-form-group>
                 </b-col>
                 <b-col>
-                    <b-form-group label="Website:" label-for="user-website">
-                        <b-form-input id="user-website" type="text" 
-                            v-model="user.website" />
-                    </b-form-group>
                     <b-form-group label="Facebook:" label-for="user-facebook">
                         <b-form-input id="user-facebook" type="text" 
                             v-model="user.facebook" />
+                    </b-form-group>
+                     <b-form-group label="Twitter:" label-for="user-twitter">
+                        <b-form-input id="user-twitter" type="text" 
+                            v-model="user.twitter"/>
                     </b-form-group>
                 </b-col>
             </b-row>
@@ -62,10 +72,6 @@
                     </b-form-group>
                 </b-col>
                 <b-col md="6" sm="12">
-                    <b-form-group label="Twitter:" label-for="user-twitter">
-                        <b-form-input id="user-twitter" type="text" 
-                            v-model="user.twitter"/>
-                    </b-form-group>
                     <b-form-group label="Instagram:" label-for="user-instagram">
                         <b-form-input id="user-instagram" type="text" 
                             v-model="user.instagram" />
@@ -73,6 +79,10 @@
                     <b-form-group label="Wattpad:" label-for="user-wattpad">
                         <b-form-input id="user-wattpad" type="text" 
                             v-model="user.wattpad" />
+                    </b-form-group>
+                    <b-form-group label="Sweek:" label-for="user-sweek">
+                        <b-form-input id="user-sweek" type="text" 
+                            v-model="user.sweek" />
                     </b-form-group>
                 </b-col>
             </b-row>

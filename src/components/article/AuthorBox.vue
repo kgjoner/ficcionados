@@ -22,6 +22,8 @@
             <!-- <a :href="/"><i class="fa fa-amazon"></i></a> -->
             <a class="social-icon" v-if="author.wattpad" :href="author.wattpad" title="Wattpad">
                 <i class="icon-wattpad"></i></a>
+            <a class="social-icon" v-if="author.sweek" :href="author.sweek" title="Sweek">
+                <i class="icon-sweek"></i></a>
             <a class="button" :href="author.website">
                 <i v-if="author.name.includes('Kaio')" class="icon-velgard"></i>SITE
             </a>

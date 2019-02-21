@@ -22,17 +22,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-ficcionados .path1:before {
+.icon-ficcionados:before {
   content: "\66";
 }
-.icon-ficcionados .path2:before {
-  content: "\67";
-  margin-left: -1em;
-}
-.icon-ficcionados .path3:before {
-  content: "\68";
-  margin-left: -1em;
-}
+
 .icon-velgard:before {
   content: "\76";
 }
@@ -46,4 +39,9 @@
 }
 .icon-quill:before {
   content: "\71";
+}
+
+.icon-sweek:before {
+  content: "\73";
+  font-size: 1.4em;
 }
