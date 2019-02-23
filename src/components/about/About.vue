@@ -110,6 +110,9 @@ export default {
 <li>Publicação: sobre colocar sua história na frente de outras pessoas</li></ul></li>
 </ul>`
         }
+    },
+    mounted() {
+         document.getElementsByClassName('content')[0].classList.add('content-ready')
     }
 }
 </script>

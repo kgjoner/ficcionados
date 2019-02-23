@@ -1,5 +1,5 @@
-User Agent: *
-Disallow: /manutencao
-Disallow: /admin
-Disallow: /admin/dashboard
-Disallow: /admin/edit
+User-agent: *
+Disallow: /manutencao/
+Disallow: /admin/
+Disallow: /admin/dashboard/
+Disallow: /admin/edit/

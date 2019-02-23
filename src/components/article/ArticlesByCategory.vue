@@ -80,6 +80,7 @@ export default {
                 
                 if (res.data.length < 10) this.loadMore = false
             })
+            .then(document.getElementsByClassName('content')[0].classList.add('content-ready'))
         },
         getImages(ids) {
             const url = `${baseApiUrl}/cardimages?ids=${ids}`

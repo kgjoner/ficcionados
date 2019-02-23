@@ -8,11 +8,11 @@ module.exports = {
         new PrerenderSPAPlugin({
             staticDir: path.join(__dirname, 'dist'),
             routes: ['/',
-            '/artigos', 
-            '/sobre',
-            '/contato',
-            '/categorias/3',
-            '/desbloqueando-a-escrita',
+            //'/artigos', 
+            //'/sobre',
+            //'/contato',
+            //'/categorias/3',
+            //'/desbloqueando-a-escrita',
             '/artigo/sinopse-que-chama-atencao',
             '/artigo/como-preparar-o-seu-livro-para-autopublicacao-parte-2',
             '/artigo/como-preparar-o-seu-livro-para-autopublicacao-parte-1',
@@ -101,7 +101,8 @@ module.exports = {
                 prerendered: true
               },
               maxConcurrentRoutes: 4,
-              renderAfterDocumentEvent: 'app.rendered'
+              renderAfterElementExists: '.content-ready'
+              //renderAfterDocumentEvent: 'render-event'
             })
           })
       ]

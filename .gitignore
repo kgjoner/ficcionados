@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 /dist
+/public/pace.js
+/public/pace.css
 
 # local env files
 .env.local

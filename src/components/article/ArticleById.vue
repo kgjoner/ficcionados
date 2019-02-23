@@ -14,12 +14,12 @@
             <hr>
         </div>
         <div class="article-content" v-html="article.content"></div>
-        <div v-if="article.author" class="post-article">
+        <div v-if="article.author" class="post-article" ref="postArticle">
             <hr>
             <AuthorBox :author="author"></AuthorBox>
             <RelatedArticles v-if="article.parentId" :parentId="article.parentId || 3" :currentArticle="article.id" />
         </div>
-        <div class="comments">
+        <div v-if="showDisqus" class="comments">
             <vue-disqus shortname="ficcionados" :identifier="this.$route.params.slug" :url="'https://www.ficcionados.com.br' + this.$route.fullPath"></vue-disqus>
         </div>
     </div>
@@ -60,6 +60,7 @@ export default {
         return {
             article: {},
             readingTime: '',
+            showDisqus: false,
         }
     },
     computed: {
@@ -95,8 +96,18 @@ export default {
                     const artWords = this.article.content.split(' ').length
                     this.readingTime = Math.ceil(artWords/200)
                     this.checkActiveAccordions()
+                    if(this.author.name) {
+                        if(window["IntersectionObserver"]){
+                            this.createObserver()
+                        } else {
+                            this.showDisqus = true
+                        }
+                    }
                 })
-                .catch(() => this.$router.push({name: '404', params: {slug: this.$route.params.slug}}))
+                .then(() => {
+                    document.getElementsByClassName('content')[0].classList.add('content-ready')
+                })
+                //.catch(this.$router.push({name: '404', params: {slug: this.$route.params.slug}}))
         },
         getImage(id) {
             axios.get(`${baseApiUrl}/images/${id}`)
@@ -112,6 +123,22 @@ export default {
                 panel.style.maxHeight = panel.scrollHeight + "px";
             })
         },
+        handleIntersect(entries, observer) {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    this.showDisqus = true
+                    observer.unobserve(this.$refs.postArticle)
+                }
+            })
+        },
+        createObserver() {
+            const options = {
+                root: null,
+                threshold: "0"
+            }
+            const disqusObserver = new IntersectionObserver(this.handleIntersect, options)
+            disqusObserver.observe(this.$refs.postArticle)
+        }
     },
     watch: {
         $route(){
@@ -119,7 +146,7 @@ export default {
             this.readingTime = ''
             this.getArticle()
             this.$store.commit('toggleMenu', false)
-        }
+        },
     },
     created() {
         this.getArticle()
