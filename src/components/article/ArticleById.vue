@@ -39,14 +39,15 @@ export default {
     head: {
         title: function() {
             return {
-            inner: this.article.name,
+            inner: this.article.name || "Artigo",
             separator: "»",
             complement: "Ficcionados"
             }
         },
         meta: function() {
             return [
-                {name: "description", content: this.article.description}
+                {name: "description", content: this.article.description || `Coloque suas histórias no papel sem medo. Aqui você encontra dicas
+            de escrita, roteiro e publicação e conversas com a galera do nicho literário nacional. o/ `}
             ]
         },
         link: function() {

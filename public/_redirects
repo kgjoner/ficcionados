@@ -1,3 +1,85 @@
 # Netlify settings for single-page application
-/artigo/4-maneiras-de-escrever-cenas-de-acao    /artigo/4-maneiras-de-escrever-cenas-de-acao    200
+
+/sinopse-que-chama-atencao                                  /artigo/sinopse-que-chama-atencao   301
+/como-preparar-o-seu-livro-para-autopublicacao-parte-2      /artigo/como-preparar-o-seu-livro-para-autopublicacao-parte-2   301
+/como-preparar-o-seu-livro-para-autopublicacao-parte-1      /artigo/como-preparar-o-seu-livro-para-autopublicacao-parte-1   301
+/onde-publicar-sua-historia                                 /artigo/onde-publicar-sua-historia  301
+/as-cinco-etapas-da-revisao-parte-2                         /artigo/as-cinco-etapas-da-revisao-parte-2  301
+/as-cinco-etapas-da-revisao-parte-1                         /artigo/as-cinco-etapas-da-revisao-parte-1  301
+/mudancas-e-reacao-das-personagens                          /artigo/mudancas-e-reacao-das-personagens   301
+/o-ponto-sem-retorno                                        /artigo/o-ponto-sem-retorno 301
+/como-lidar-com-exposicao-em-narrativas                     /artigo/como-lidar-com-exposicao-em-narrativas  301
+/dialogos-naturais                                          /artigo/dialogos-naturais   301
+/exposicao-como-decidir-o-que-entra-e-o-que-nao-entra-na-sua-historia   /artigo/exposicao-como-decidir-o-que-entra-e-o-que-nao-entra-na-sua-historia    301
+/experiencia-nanowrimo-semana-4                             /artigo/experiencia-nanowrimo-semana-4  301
+/as-4-mais-importantes-licoes-de-escrita-que-aprendi-em-2017-thiago     /artigo/as-4-mais-importantes-licoes-de-escrita-que-aprendi-em-2017-thiago  301
+/as-5-mais-importantes-licoes-de-escrita-que-aprendi-em-2017            /artigo/as-5-mais-importantes-licoes-de-escrita-que-aprendi-em-2017 301
+/experiencia-no-nanowrimo-semana-3                          /artigo/experiencia-no-nanowrimo-semana-3   301
+/metas-do-escritor-para-2018                                /artigo/metas-do-escritor-para-2018 301
+/in-media-res-e-eucatastrofe                                /artigo/in-media-res-e-eucatastrofe 301
+/experiencia-no-nanowrimo-semana-2                          /artigo/experiencia-no-nanowrimo-semana-2   301
+# /artigo/7-livros
+# /artigo/cliffhanger
+# /artigo/como-expor
+# /artigo/save-the-cat-pet-the-dog-e-lampshading
+# /artigo/macguffin-deus-ex-machina-e-chekhovs-gun
+# /artigo/usando-saltos-temporais-na-sua-historia
+# /artigo/foreshadowing-red-herring-flashback
+# /artigo/dicas-para-escrever-bons-misterios
+# /artigo/dicas-para-turbinar-os-conflitos
+# /artigo/comeco-dos-comecos
+# /artigo/experiencia-no-nanowrimo-semana-1
+/tipos-de-conflito-em-narrativas                            /artigo/tipos-de-conflito-em-narrativas     301
+# /artigo/escrevendo-um-final-que-se-encaixa
+/como-usar-arquetipos-para-criar-e-desenvolver-personagens  /artigo/como-usar-arquetipos-para-criar-e-desenvolver-personagens   301
+# /artigo/planejando-o-planejamento
+# /artigo/thiago-devecque
+# /artigo/gustavo-avila
+# /artigo/tecnicas-de-produtividade-para-escrever-mais-e-preparar-se-para-o-nanowrimo
+# /artigo/revisao-perguntas
+# /artigo/jornada-do-escritor
+# /artigo/nanowrimo-prep
+# /artigo/como-lidar-com-as-insegurancas-na-hora-de-escrever
+# /artigo/voz-personagens
+# /artigo/como-construir-o-seu-proprio-mundo
+# /artigo/coisas-proposito
+# /artigo/como-colocar-o-cenario-nas-paginas-do-seu-livro  
+/revisao-cortando-10-do-seu-livro                           /artigo/revisao-cortando-10-do-seu-livro    301
+# /artigo/construcao-de-cenario
+# /artigo/scrivener-motivos
+# /artigo/como-melhorar-suas-descricoes
+# /artigo/como-dar-e-receber-criticas
+# /artigo/os-beneficios-de-um-grupo-de-escrita
+# /artigo/softwares-de-escrita-que-voce-ja-conhece-e-alguns-que-voce-deveria-conhecer
+# /artigo/criar-personagens-profundas-e-coerentes
+# /artigo/por-que-pensar-em-softwares-para-escrever-ficcao
+# /artigo/o-caminho-da-escrita-9-licoes-de-um-samurai-aplicadas-arte-de-escrever
+# /artigo/luciano-teixeira
+# /artigo/como-expandir-as-fronteiras-de-sua-mente-criativa
+/4-maneiras-de-escrever-cenas-de-acao                       /artigo/4-maneiras-de-escrever-cenas-de-acao    301
+# /artigo/as-barreiras-que-retem-a-sua-criatividade
+# /artigo/elements-of-style
+# /artigo/como-escrever-um-livro
+# /artigo/diego-schutt
+# /artigo/como-escrever-personagens-diferentes
+/writing-prompts                                            /artigo/writing-prompts 301
+# /artigo/como-ser-mais-produtivo-enquanto-escreve-um-livro
+/bloqueio-de-escritor                                       /artigo/bloqueio-de-escritor    301
+# /artigo/coisas-personagens
+# /artigo/generos-literarios-e-afins
+# /artigo/rodrigo-van-kampen
+# /artigo/diferenca-entre-forma-e-roteiro
+# /artigo/como-escrever-um-livro-esqueca-o-outline
+/comece-com-o-outline                                       /artigo/comece-com-o-outline    301
+# /artigo/laura-bacellar
+# /artigo/quando-comecar-a-escrever-o-seu-livro
+# /artigo/um-pais-onde-escrever-nao-e-levado-a-serio
+# /artigo/tornar-se-um-profissional
+# /artigo/por-que-o-escritor-deve-ler
+# /artigo/habito-de-escrever
+# /artigo/sites-sobre-escrita-e-ficcao
+# /artigo/coisas-que-voce-deve-fazer-quando-escreve-uma-historia
+# /artigo/comecar-a-escrever-sem-inspiracao
+# /artigo/quando-contar-e-quando-mostrar
+
 /*    /index.html   200
