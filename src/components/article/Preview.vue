@@ -1,5 +1,5 @@
 <template>
-    <div class="article-by-id">
+    <div class="article-preview">
         <div class="artpage-title">         
             <div v-show="articleLoaded">
                 <p>{{article.category}} ></p>
@@ -14,29 +14,18 @@
             <hr>
         </div>
         <div v-show="articleLoaded" class="article-content" v-html="article.content"></div>
-        <div v-if="article.author" class="post-article" ref="postArticle">
-            <hr>
-            <AuthorBox :author="author"></AuthorBox>
-            <RelatedArticles v-if="article.parentId" :parentId="article.parentId || 3" :currentArticle="article.id" />
-        </div>
-        <div v-if="showDisqus" class="comments">
-            <vue-disqus shortname="ficcionados" :identifier="this.$route.params.slug" :url="'https://www.ficcionados.com.br' + this.$route.fullPath"></vue-disqus>
-        </div>
     </div>
 </template>
 
 <script>
 
 import { baseApiUrl, baseImgUrl, toStandardDate } from '@/global'
-import { mapState } from 'vuex'
 import axios from 'axios'
-import AuthorBox from './AuthorBox'
-import RelatedArticles from './RelatedArticles'
 import Gravatar from 'vue-gravatar'
 
 export default {
     name: 'ArticleById',
-    components: { AuthorBox, RelatedArticles, Gravatar },
+    components: { Gravatar },
     head: {
         title: function() {
             return {
@@ -45,15 +34,12 @@ export default {
             complement: "Ficcionados"
             }
         },
-        meta: function() {
-            return [
-                {name: "description", content: this.article.description || `Coloque suas histórias no papel sem medo. Aqui você encontra dicas
-            de escrita, roteiro e publicação e conversas com a galera do nicho literário nacional. o/ `}
-            ]
-        },
+        meta: [
+                 {name: "robots", content: "noindex"}
+        ],
         link: function() {
             return [
-                {rel: 'canonical', href: `https://www.ficcionados.com.br${this.$route.fullPath}`, id: 'canonical' }
+                {rel: 'canonical', href: `https://www.ficcionados.com.br/artigo/${this.article.slug}`, id: 'canonical' }
             ]
         }
     },
@@ -61,12 +47,10 @@ export default {
         return {
             article: {},
             readingTime: '',
-            showDisqus: false,
             articleLoaded: false,
         }
     },
     computed: {
-        ...mapState(['user']),
         author() {
             return {
                 name: this.article.author,
@@ -83,38 +67,25 @@ export default {
     },
     methods: {
         getArticle() {
-            const url = `${baseApiUrl}/${this.$route.params.slug}`
+            const url = `${baseApiUrl}/preview?id=${this.$route.query.id}`
             axios.get(url)
                 .then(res => {
-                    if ((new Date(res.data.publishedAt)).getTime() > (new Date()).getTime()) {
-                        this.$router.push({name: '404', params: {slug: this.$route.params.slug}})
-                    }
                     this.getImage(res.data.imageId)
                     res.data.publishedAt = toStandardDate(res.data.publishedAt)
                     if (res.data.name.length>50) {
                         document.getElementsByClassName("artpage-title")[0].classList.add("long-title")
                     }
                     this.article = res.data
-                    this.$store.state.articleCategory = { name: res.data.category, order: res.data.order.toString() }
                     this.$emit('updateHead')
                 })
                 .then(() => {
                     const artWords = this.article.content.split(' ').length
                     this.readingTime = Math.ceil(artWords/200)
                     this.checkActiveAccordions()
-                    if(this.author.name) {
-                        if(window["IntersectionObserver"]){
-                            this.createObserver()
-                        } else {
-                            this.showDisqus = true
-                        }
-                    }
                 })
                 .then(() => {
                     this.articleLoaded = true;
-                    document.getElementsByClassName('content')[0].classList.add('content-ready')
                 })
-                //.catch(this.$router.push({name: '404', params: {slug: this.$route.params.slug}}))
         },
         getImage(id) {
             axios.get(`${baseApiUrl}/images/${id}`)
@@ -130,26 +101,9 @@ export default {
                 panel.style.maxHeight = panel.scrollHeight + "px";
             })
         },
-        handleIntersect(entries, observer) {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    this.showDisqus = true
-                    observer.unobserve(this.$refs.postArticle)
-                }
-            })
-        },
-        createObserver() {
-            const options = {
-                root: null,
-                threshold: "0"
-            }
-            const disqusObserver = new IntersectionObserver(this.handleIntersect, options)
-            disqusObserver.observe(this.$refs.postArticle)
-        }
     },
     watch: {
         $route(){
-            this.showDisqus = false
             this.articleLoaded = false;
             this.article = {}
             this.readingTime = ''
@@ -171,7 +125,7 @@ export default {
         --bkg-image: url('');
     }
 
-    .article-by-id {
+    .article-preview {
         background-color: #fafafa;
     }
 
@@ -228,7 +182,7 @@ export default {
         font-size: 0.9rem;
     }
 
-    .pre-article, .post-article {
+    .pre-article {
         margin-left: auto;
         margin-right: auto;     
         max-width: 45rem;
@@ -236,7 +190,7 @@ export default {
         color: #808080;
     }
 
-    .pre-article > *, .post-article > * {
+    .pre-article > * {
         margin-left: 20px;
         margin-right: 20px;
     }
@@ -320,12 +274,6 @@ export default {
         padding-top: 40px;
     }
 
-    .comments {
-        max-width: 50rem;
-        margin: 0px auto;
-        padding: 20px 0;
-    }
-
 
     @media(max-width:450px), (max-width:850px) and (max-height:500px) {
 
@@ -360,10 +308,6 @@ export default {
     .img-align-center {
         display: block;
         margin: 10px auto 10px auto;
-    }
-
-    #disqus_thread {
-        padding-bottom: 40px;
     }
 
 </style>

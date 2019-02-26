@@ -55,11 +55,19 @@ export default {
     },
     watch: {
         articleCategory() {
-            this.selected = this.$refs.tree.find(this.articleCategory)
+            let i = 0;
+            const exp = /(210\d+)|(211\d+)|(131\d+)/;
+            if(this.articleCategory.name === "Básico" || this.articleCategory.name === "Planejamento" || this.articleCategory.name === "Fundamentos") {
+                if(exp.test(this.articleCategory.order)) {
+                    i = 1;
+                }
+            }
+            this.selected = this.$refs.tree.findAll(this.articleCategory.name)[i]
             this.selectAdjust = true
             this.selected.select()
             this.selectAdjust = false
             this.selected[0].parent.expand()
+            if(this.selected[0].parent.parent) this.selected[0].parent.parent.expand()
         },
 
         $route(to) {

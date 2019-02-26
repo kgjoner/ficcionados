@@ -11,12 +11,13 @@
                             placeholder="Informe o título do artigo" />
                     </b-form-group>
                     <b-form-group label="Slug:" label-for="article-slug">
-                        <b-form-input id="article-slug" type="text" class="mb-5"
+                        <b-form-input id="article-slug" type="text" class="mb-3"
                             v-model="article.slug" required :formatter="formatSlug"
                             :readonly="mode === 'remove'" lazy-formatter
                             placeholder="Informe o slug do artigo" />
                     </b-form-group>
-                    <b-form-group label="Autor:" label-for="article-author">
+                    <a class="preview" v-show="article.id" :href="`/admin/previa?id=${article.id}`" target="_blank">Prévia</a>
+                    <b-form-group label="Autor:" label-for="article-author" :class="{'mt-5': !article.id, 'mt-4': article.id}">
                         <b-form-select id="article-author" v-model="article.userId" class="mb-3"
                             :disabled="mode === 'remove'">
                             <option v-for="u in adminUsers" :value="u.id" :key="u.id">{{u.name}}</option>
@@ -367,6 +368,19 @@ export default {
 
     .input-group-prepend {
         height: 100%;
+    }
+
+    .article-admin .preview {
+        padding: 5px 10px;
+        background-color: #1d7fd8;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-bottom: 20px;
+    }
+
+    .article-admin .preview:hover {
+        background-color: #2a8ce7;
     }
 
 </style>

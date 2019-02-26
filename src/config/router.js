@@ -14,6 +14,7 @@ import Contact from '@/components/contact/ContactPage'
 import EbookLP from '@/components/landingPage/EbookLP'
 import NotFound from '@/components/notFound/notFound'
 import Maintenance from '@/components/maintenance/Maintenance'
+import Preview from '@/components/article/Preview'
 
 import { userKey } from '@/global'
 
@@ -37,6 +38,11 @@ const routes = [{
     name: 'adminPages',
     path: '/admin/edit',
     component: AdminPages,
+    meta: { requiresAdmin: true }
+}, {
+    name: 'preview',
+    path: '/admin/previa',
+    component: Preview,
     meta: { requiresAdmin: true }
 }, {
     name: 'recentArticles',

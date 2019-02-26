@@ -3,3 +3,4 @@ Disallow: /manutencao/
 Disallow: /admin/
 Disallow: /admin/dashboard/
 Disallow: /admin/edit/
+Disallow: /admin/previa
