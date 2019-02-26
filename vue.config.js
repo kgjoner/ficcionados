@@ -59,7 +59,6 @@ module.exports = {
             '/artigo/como-colocar-o-cenario-nas-paginas-do-seu-livro',
             '/artigo/revisao-cortando-10-do-seu-livro',
             '/artigo/construcao-de-cenario',
-            '/artigo/scrivener-motivos',
             '/artigo/como-melhorar-suas-descricoes',
             '/artigo/como-dar-e-receber-criticas',
             '/artigo/os-beneficios-de-um-grupo-de-escrita',
