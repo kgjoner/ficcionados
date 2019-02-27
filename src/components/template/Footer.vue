@@ -5,12 +5,13 @@
                 <h3>Receba nossos conteúdos exclusivos</h3>
                 <div id="mc_embed_signup">
                     <form action="//ficcionados.us15.list-manage.com/subscribe/post?u=27613588b850606cebd9fa4cd&amp;id=c022e8edfb"
-                        method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="dummyframe"
-                        novalidate>
+                    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+                    novalidate>
                         <div id="mc_embed_signup_scroll">
-                            <!-- <div class="mc-field-group">
-                                <input type="text" v-model="name" value="" name="FNAME" class="required" id="mce-FNAME" placeholder="Nome">
-                            </div> -->
+                            <div class="mc-field-group">
+                                <label for="mce-FNAME" style="display: none;">Nome</label>
+                                <input style="display:none" type="text" value="ficcionado" name="FNAME" class="required" id="mce-FNAME" placeholder="Nome">
+                            </div>
                             <div class="mc-field-group">
                                 <label for="mce-EMAIL" style="display: none;">Email</label>
                                 <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="E-mail">
@@ -23,8 +24,7 @@
                             <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
                             <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_27613588b850606cebd9fa4cd_c022e8edfb"
                                     tabindex="-1" value=""></div>
-                            <div class="clear"><input type="submit" value="Junte-se a nós!" name="subscribe" id="mc-embedded-subscribe" 
-                                @click.prevent="afterSubscription" class="button"></div>
+                            <div class="clear"><input type="submit" value="Junte-se a nós!" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
                         </div>
                     </form>
                 </div>
