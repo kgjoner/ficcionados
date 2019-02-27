@@ -92,7 +92,7 @@ const routes = [{
 }, {
     path: '/*',
     redirect: to => {
-        return `/artigo${to.path}`
+        return `/404${to.path}`
     }
 }]
 
