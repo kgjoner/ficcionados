@@ -1,12 +1,16 @@
 <template>
     <div class="content">
         <router-view></router-view>
+        <Toggler />
     </div>
 </template>
 
 <script>
+import Toggler from '@/components/template/toggler'
+
 export default {
     name: 'Content',
+    components: { Toggler }
 }
 </script>
 

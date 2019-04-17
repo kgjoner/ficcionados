@@ -34,7 +34,8 @@ export default {
             return toStandardDate(this.article.publishedAt)
         },
         imgUrl() {
-            return `${baseImgUrl}/${this.article.image.filename.split('.').join('-240w.')}`
+            const reducer = this.article.image.format === 'svg' ? '.' : '-240w.'
+            return `${baseImgUrl}/${this.article.image.filename.split('.').join(reducer)}`
         }
     },
     watch: {

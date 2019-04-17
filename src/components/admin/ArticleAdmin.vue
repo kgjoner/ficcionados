@@ -63,7 +63,8 @@
             <b-row>
                 <b-col v-show="mode !== 'remove'">
                     <b-form-group label="Conteúdo:" label-for="article-content">
-                        <VueEditor id="article-content" v-model="article.content" class="mb-4"></VueEditor>
+                        <VueEditor id="article-content" v-model="article.content" class="mb-4"
+                            ref='editor'></VueEditor>
                     </b-form-group>
                 </b-col>
             </b-row>
@@ -297,7 +298,11 @@ export default {
                 .normalize('NFD').replace(/[\u0300-\u036f]/g, "")
                 .split(/[^\w]+|_/).join('-')
                 
-        }
+        },
+        // focusEditor() {
+        //     console.log(this.$refs.editor)
+        //     this.$refs.editor.quill.setSelection(0,1);
+        // }
     },
     watch: {
         currentPage() {
@@ -381,6 +386,13 @@ export default {
 
     .article-admin .preview:hover {
         background-color: #2a8ce7;
+    }
+
+    .ql-toolbar.ql-snow {
+        position: sticky;
+        top: 0;
+        background-color: rgba(255,255,255,1);
+        z-index: 2;
     }
 
 </style>

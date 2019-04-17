@@ -79,8 +79,7 @@ export default {
             complement: "Trazendo a ficção para a realidade"
         },
         meta: [
-            {name: "description", content: `Coloque suas histórias no papel sem medo. Aqui você encontra dicas
-            de escrita, roteiro e publicação e conversas com a galera do nicho literário nacional. o/ `}
+            {name: "description", content: `Coloque suas histórias no papel sem medo. Aqui você encontra dicas de escrita, roteiro e publicação e conversas com a galera do nicho literário nacional. o/ `}
         ]
     },
     data: function() {

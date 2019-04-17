@@ -15,11 +15,18 @@
       <loc>https://www.ficcionados.com.br/categorias/3</loc>
       <changefreq>monthly</changefreq>
    </url>
-    <url>
+   <url>
       <loc>https://www.ficcionados.com.br/sobre</loc>
       <priority>0.6</priority>
    </url>
-    <url>
+   <url>
+      <loc>https://www.ficcionados.com.br/artigo/a-estrutura-de-tres-atos</loc>
+      <priority>0.9</priority>
+   </url>
+   <url>
+      <loc>https://www.ficcionados.com.br/artigo/por-que-roteiro</loc>
+   </url>
+   <url>
       <loc>https://www.ficcionados.com.br/artigo/sinopse-que-chama-atencao</loc>
       <lastmod>2018-07-19</lastmod>
    </url>
@@ -338,7 +345,7 @@
       <priority>0.8</priority>
    </url>
     <url>
-      <loc>https://www.ficcionados.com.br/artigo/tornar-se-um-profissional></loc>
+      <loc>https://www.ficcionados.com.br/artigo/tornar-se-um-profissional</loc>
       <lastmod>2017-06-06</lastmod>
    </url>
     <url>
@@ -362,11 +369,9 @@
       <lastmod>2017-05-23</lastmod>
       <priority>0.8</priority>
    </url>
-    <url>
+   <url>
       <loc>https://www.ficcionados.com.br/artigo/quando-contar-e-quando-mostrar</loc>
       <lastmod>2017-05-23</lastmod>
       <priority>0.7</priority>
-   </url>
-    
-
+   </url>  
 </urlset> 

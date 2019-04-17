@@ -6,11 +6,24 @@
                 <h1> {{article.name}}</h1>
                 <em>{{article.publishedAt}}</em>
             </div>  
+            <div v-show="!articleLoaded" class="not-loaded">
+                <div class="not-loaded">
+                    <div class="category-block text-block"></div>
+                    <div class="title-block text-block"></div>
+                    <div class="publish-block text-block"></div>
+                </div>
+            </div>
         </div> 
         <div v-show="articleLoaded" class="pre-article">
             <Gravatar :email="article.email" alt="Autor" />
             <span>{{article.author}}</span>
             <em>{{readingTime}}min de leitura</em>
+            <hr>
+        </div>
+        <div v-show="!articleLoaded" class="pre-article">
+            <div class="not-loaded">
+                <div class="pre-block text-block"></div>
+            </div>
             <hr>
         </div>
         <div v-show="articleLoaded" class="article-content" v-html="article.content"></div>
@@ -47,8 +60,9 @@ export default {
         },
         meta: function() {
             return [
-                {name: "description", content: this.article.description || `Coloque suas histórias no papel sem medo. Aqui você encontra dicas
-            de escrita, roteiro e publicação e conversas com a galera do nicho literário nacional. o/ `}
+                {name: "description", content: this.article.description || 
+                    'Coloque suas histórias no papel sem medo. Aqui você encontra dicas de escrita, roteiro e publicação e conversas com a galera do nicho literário nacional. o/'},
+                { p: 'og:image', c: `${this.baseImgUrl}/${this.article.image.filename}`},
             ]
         },
         link: function() {
@@ -167,6 +181,44 @@ export default {
 
 <style>
 
+    .artpage-title div .not-loaded, .pre-article .not-loaded {
+        animation: text-load 1.5s;
+        overflow: hidden;
+        margin-bottom: 0;
+    }
+
+    .artpage-title > div .text-block {
+        background-color: #fafafaaa;
+        margin-bottom: 8px;
+    }
+
+    .artpage-title > div .category-block {
+        height: 18px;
+        width: 8rem;
+    }
+
+    .artpage-title > div .title-block {
+        height: 73px;
+        width: 30rem;
+    }
+
+    .artpage-title > div .publish-block {
+        height: 16px;
+        width: 12rem;
+    }
+
+    .pre-block {
+        height: 20px;
+        margin-left: 20px;
+        width: 40rem;
+        background-color: #e7e7e7;
+    }
+
+    @keyframes text-load {
+        0%{ width: 0}
+        100%{ width: 100%}
+    }
+
     :root {
         --bkg-image: url('');
     }
@@ -206,7 +258,7 @@ export default {
         align-items: flex-end;
     }
 
-    .artpage-title div {
+    .artpage-title > div {
         padding-left: 20px;
         padding-right: 20px;
         margin-bottom: 15vh;
@@ -292,6 +344,14 @@ export default {
         padding-right: 10px;
     }
 
+    .article-content h3 {
+        line-height: 175%;
+    }
+
+    .article-content h5 {
+        color: rgb(78, 78, 78);
+    }
+
     .article-content p {
         margin-bottom: 5px;
     }
@@ -315,6 +375,10 @@ export default {
         color: #4c4c4c
     }
 
+    .article-content .ql-indent-1 {
+        padding-left: 40px;
+    }
+
     .long-title.artpage-title {
         height: auto;
         padding-top: 40px;
@@ -334,7 +398,7 @@ export default {
             padding-top: 40px;
         }
 
-        .artpage-title div {
+        .artpage-title > div {
             margin-bottom: 10vh;
         }
 

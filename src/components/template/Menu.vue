@@ -94,6 +94,7 @@ export default {
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
+        z-index: 5;
     }
 
     .menu .tree {
