@@ -2,8 +2,10 @@
 import Vue from 'vue'
 
 export const userKey = '__knowledge_user'
-export const baseApiUrl = window.location.href.includes('http://localhost:8080/')? 'http://localhost:3000' : 'https://ficcionados-backend.herokuapp.com'  
-export const baseImgUrl = window.location.href.includes('http://localhost:8080/')? 'http://localhost:3000/' : 'https://res.cloudinary.com/hedf1kadi/image/upload/v1547811859/'
+//export const baseApiUrl = window.location.href.includes('http://localhost:8080/')? 'http://localhost:3000' : 'https://ficcionados-backend.herokuapp.com'  
+export const baseApiUrl = 'https://ficcionados-backend.herokuapp.com'  
+//export const baseImgUrl = window.location.href.includes('http://localhost:8080/')? 'http://localhost:3000/' : 'https://res.cloudinary.com/hedf1kadi/image/upload/v1547811859/'
+export const baseImgUrl = 'https://res.cloudinary.com/hedf1kadi/image/upload/v1547811859/'
 
 export function showError(e) {
     if(e && e.response && e.response.data) {
