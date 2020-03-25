@@ -1,6 +1,6 @@
 # Ficcionados Frontend
 
-A simple blog made with Vue.js
+My first project: a simple blog made with Vue.js.
 
 ## Project setup
 ```
