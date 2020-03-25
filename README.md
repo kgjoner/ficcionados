@@ -1,4 +1,6 @@
-# frontend
+# Ficcionados Frontend
+
+A simple blog made with Vue.js
 
 ## Project setup
 ```
