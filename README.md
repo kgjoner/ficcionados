@@ -2,6 +2,8 @@
 
 My first project: a simple blog made with Vue.js.
 
+The backend repository is here: [ficcionados-backend](https://github.com/kgjoner/ficcionados-backend)
+
 ## Project setup
 ```
 npm install
@@ -15,9 +17,4 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
