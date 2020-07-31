@@ -4,8 +4,7 @@
 			:hideToggle="this.$route.fullPath === 'insert-url-with-no-menu'" 
 			:hideUserDropdown="!user"></Header>
 		<Menu />
-		<Loading v-if="validatingToken" />
-		<Content v-else />
+		<Content />
 		<GoToTop />
 		<Footer v-if="!hideHeader"/>
 	</div>
@@ -26,64 +25,38 @@ import GoToTop from '@/components/template/goToTop'
 export default {
 	name: "App",
 	components: { Header, Menu, Content, Footer, Loading, GoToTop },
+	metaInfo: { 
+    titleTemplate: '%s » Ficcionados',
+    meta: [
+      { 
+        name: 'viewport', 
+        key: 'viewport',
+        content: 'width=device-width, initial-scale=1.0, maximum-scale=5.0' 
+      },
+      {
+        name: 'description',
+        content: 'Coloque suas histórias no papel sem medo. Aqui você encontra dicas de escrita, roteiro e publicação e conversas com a galera do nicho literário nacional. o/ '
+      }
+    ],
+  },
 	data: function() {
 		return {
-			validatingToken: false,
-			isLoginScreen: false,
 			maintenance: false,
 		}
 	},
 	computed: {
 		...mapState(['isMenuVisible', 'user']),
 		hideHeader() {
-			return this.$route.fullPath === '/admin' || this.$route.fullPath === '/desbloqueando-a-escrita'
+			return this.$route.fullPath === '/desbloqueando-a-escrita'
 				|| this.$route.fullPath === '/manutencao' || this.maintenance
 		}
 	},
-	methods: {
-		async validateToken() {
-			this.validatingToken = true
-
-			const json = localStorage.getItem(userKey)
-			const userData = JSON.parse(json)
-			this.$store.commit('setUser', null)
-
-			if(!userData) {
-				this.validatingToken = false
-				if(this.$route.fullPath.includes('/admin')) {
-					this.$router.push({ name: 'admin' })
-					this.maintenance = false
-				} else if (this.maintenance) {
-					this.$router.push({ name: 'maintenance' })
-				}
-				return
+	beforeRouteEnter(to, from, next) {
+		next(vm => {
+			if(vm.maintenance) {
+				next({ path: '/manutencao'})
 			}
-
-			const res = await axios.post(`${baseApiUrl}/validateToken`, userData)
-
-			if(res.data) {
-				this.$store.commit('setUser', userData)
-				this.maintenance = false
-				if(this.$route.fullPath === '/admin') {
-					this.$store.commit('toggleMenu', false)
-					this.$router.push({ name: 'board' })
-				}
-			} else {
-				localStorage.removeItem(userKey)
-				this.$router.push({ name: 'admin' })
-			}
-
-			this.$store.commit('toggleMenu', false)
-
-			this.validatingToken = false
-		},
-	},
-	
-	created() {
-		if(this.$route.fullPath.includes('/admin') || 
-		this.$route.fullPath === '/' || this.maintenance) {
-			this.validateToken()
-		}
+		})
 	}
 }
 </script>

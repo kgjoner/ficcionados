@@ -1,19 +1,19 @@
 
 import Vue from 'vue'
 
-export const userKey = '__knowledge_user'
-//export const baseApiUrl = window.location.href.includes('http://localhost:8080/')? 'http://localhost:3000' : 'https://ficcionados-backend.herokuapp.com'  
-export const baseApiUrl = 'https://ficcionados-backend.herokuapp.com'  
+export const userKey = '__ficcionados_user'
+export const baseApiUrl = 'http://localhost:3000'
+// export const baseApiUrl = 'https://ficcionados-backend.herokuapp.com'  
 //export const baseImgUrl = window.location.href.includes('http://localhost:8080/')? 'http://localhost:3000/' : 'https://res.cloudinary.com/hedf1kadi/image/upload/v1547811859/'
 export const baseImgUrl = 'https://res.cloudinary.com/hedf1kadi/image/upload/v1547811859/'
 
 export function showError(e) {
     if(e && e.response && e.response.data) {
-        Vue.toasted.global.defaultError({ msg: e.response.data })
+        Vue.toasted.error(e.response.data, { icon: 'times' })
     } else if (typeof e == 'string') {
-        Vue.toasted.global.defaultError({ msg: e })
+        Vue.toasted.error(e, { icon: 'times' })
     } else {
-        Vue.toasted.global.defaultError()
+        Vue.toasted.error('Ops... Erro inesperado.', { icon: 'times' })
     }
 }
 

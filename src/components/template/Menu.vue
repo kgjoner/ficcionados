@@ -1,167 +1,132 @@
 <template>
-    <aside class="menu" v-show="isMenuVisible">
-        <QueryField />
-        <Tree id="tree" :data="treeData" :options="treeOptions"
-            :filter="treeFilter" v-model="selected" ref="tree" />
-    </aside>
+	<aside class="menu" v-show="isMenuVisible">
+		<QueryField />
+		<MenuTree
+			:treeData="treeData"
+			v-model="selectedCategoryId"
+			@node:selected="toCategoryPage"
+			@node:dblClick="toCategoryPage"
+		/>
+	</aside>
 </template>
 
-<script>
+<static-query>
+query {
+  categories: allCategory {
+    edges {
+      node {
+        id
+        name
+        parentId
+        order
+        children
+      }
+    }
+  }
+}
+</static-query>
 
+<script>
 import { mapState } from 'vuex'
-import Tree from 'liquor-tree'
+import MenuTree from './MenuTree'
 import QueryField from './queryField'
-import { baseApiUrl } from '@/global'
 import axios from 'axios'
 
 export default {
-    name: 'Menu',
-    components: { Tree, QueryField },
-    computed: mapState(['isMenuVisible', 'articleCategory']),
-    data: function() {
-        return {
-            treeFilter: '',
-            treeData: this.getTreeData(),
-            treeOptions: {
-                propertyNames: { 'text': 'name' },
-                filter: { emptyText: 'Categoria não encontrada' }
-            },
-            selected: null,
-            selectAdjust: false,
-        }
-    },
-    methods: {
-        getTreeData() {
-            const url = `${baseApiUrl}/categories/tree`
-            return axios.get(url).then(res => res.data)
-        },
-        onNodeSelect(node) {
-            if (!this.selectAdjust) {
-                node.expand()
-                this.$router.push({
-                    name: 'articlesByCategory',
-                    params: { id: node.id }
-                })
-            }
+	name: 'Menu',
+	components: { MenuTree, QueryField },
+	data: function() {
+		return {
+			selectedCategoryId: null,
+			allowRouting: true,
+		}
+	},
+	computed: {
+		...mapState(['isMenuVisible', 'articleCategory']),
+		categories() {
+			return this.$static.categories.edges.map((c) => c.node)
+		},
+		treeData() {
+			const findChildren = (node) => {
+				let children = node.children.map((child) => {
+					return this.categories.find((c) => c.id == child)
+				})
+				children = children.map((child) => {
+					if (child.children) {
+						return findChildren(child)
+					} else {
+						return child
+					}
+				})
+				return {
+					...node,
+					children,
+				}
+			}
 
-            if(this.$mq == 'xs' || this.$mq == 'sm') {
-                this.$store.commit('toggleMenu', false)
-            }
-        },
-        onDblClick(node) {
-            node.unselect()
-            node.select()
-        }
-    },
-    watch: {
-        articleCategory() {
-            let i = 0;
-            const exp = /(210\d+)|(211\d+)|(131\d+)/;
-            if(this.articleCategory.name === "Básico" || this.articleCategory.name === "Planejamento" || this.articleCategory.name === "Fundamentos") {
-                if(exp.test(this.articleCategory.order)) {
-                    i = 1;
-                }
-            }
-            this.selected = this.$refs.tree.findAll(this.articleCategory.name)[i]
-            this.selectAdjust = true
-            this.selected.select()
-            this.selectAdjust = false
-            this.selected[0].parent.expand()
-            if(this.selected[0].parent.parent) this.selected[0].parent.parent.expand()
-        },
+			let tree = this.categories.filter((c) => !c.parentId)
+			tree = tree.map((node) => {
+				return findChildren(node)
+			})
+			return tree
+		},
+		categoryPathIdOrFalse() {
+			if (!this.$route.path.includes('categorias')) return false
+			return this.$route.path.match(/categorias\/(.+)\/?/)[1]
+		},
+	},
+	methods: {
+		toCategoryPage(node) {
+			if (!this.allowRouting || this.categoryPathIdOrFalse == node.id) return
 
-        $route(to) {
-            if(!to.path.match(/\/categorias\/\d+/) 
-                && !to.path.includes('/artigo/') && this.selected) {
-                this.selected.unselect()
-            }
-        }
-    },
-    mounted(){
-        this.$refs.tree.$on('node:selected', this.onNodeSelect)
-        this.$refs.tree.$on('node:dblclick', this.onDblClick)
-    }
+			this.$router.push({ path: `/categorias/${node.id}` })
+			if (this.$mq == 'xs' || this.$mq == 'sm') {
+				this.$store.commit('toggleMenu', false)
+			}
+		},
+		setSelectedCategoryId(newId) {
+			this.allowRouting = false
+			this.selectedCategoryId = newId
+			setTimeout(() => (this.allowRouting = true), 0)
+		},
+	},
+	watch: {
+		articleCategory(newValue) {
+			this.setSelectedCategoryId(newValue.id)
+		},
 
+		$route(to) {
+			if (
+				this.categoryPathIdOrFalse &&
+				this.categoryPathIdOrFalse !== this.selectedCategoryId
+			) {
+				this.setSelectedCategoryId(this.categoryPathIdOrFalse)
+			} else if (
+				!to.path.match(/\/categorias\/\d+/) &&
+				!to.path.includes('/artigo/') &&
+				this.selectedCategoryId
+			) {
+				this.selectedCategoryId = null
+			}
+		},
+	},
+	mounted() {
+		if (this.categoryPathIdOrFalse) {
+			this.setSelectedCategoryId(this.categoryPathIdOrFalse)
+		}
+	},
 }
 </script>
 
 <style>
-    .menu {
-        grid-area: menu;
-        position: relative;
-        background: linear-gradient(to right, #232536,#414345);
+.menu {
+	grid-area: menu;
+	position: relative;
+	background: linear-gradient(to right, #232536, #414345);
 
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        z-index: 5;
-    }
-
-    .menu .tree {
-        position: absolute;
-        height: calc(100% - 70px);
-        width: 100%;
-        left: 0px;
-        top: 70px;
-        overflow: auto;
-    }
-
-    .menu a,
-    .menu a:hover {
-        color: #fff;
-        text-decoration: none;
-    }
-
-    .menu .tree-node.selected > .tree-content {
-        background-color: #1d7ed8c9;
-    }
-
-    #tree .tree-node > .tree-content:hover {
-        background-color: #1d7ed8c9;
-    }
-
-    .tree-arrow.has-child {
-        filter: brightness(2);
-    }
-
-    .menu .menu-filter {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        margin: 20px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid #aaa;
-
-    }
-
-    .menu .menu-filter i {
-        color: #aaa;
-        margin-right: 10px;
-    }
-
-    .menu input {
-        color: #ccc;
-        font-size: 1.2rem;
-        border: 0;
-        outline: 0;
-        width: 100%;
-        background: transparent;
-    }
-
-    .tree-filter-empty {
-        color: #CCC;
-        margin-left: 20px;
-        font-size: 1.2rem;
-    }
-
-    @media (max-width: 767px) {
-        .menu .tree {
-            position: static;
-            height: 100%;
-            width: 100%;
-        }
-    }
-
-
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	z-index: 5;
+}
 </style>

@@ -1,47 +1,48 @@
 @font-face {
-  font-family: 'custicons';
-  src:  url('./fonts/icon/icomoon.ttf');
-  src:  url('./fonts/icon/icomoon.eot') format('embedded-opentype'),
-    url('./fonts/icon/icomoon.ttf') format('truetype'),
-    url('./fonts/icon/icomoon.woff') format('woff'),
-    url('./fonts/icon/icomoon.svg') format('svg');
-  }
+	font-family: 'custicons';
+	src: url('./fonts/icon/icomoon.ttf');
+	src: url('./fonts/icon/icomoon.eot') format('embedded-opentype'),
+		url('./fonts/icon/icomoon.ttf') format('truetype'),
+		url('./fonts/icon/icomoon.woff') format('woff'),
+		url('./fonts/icon/icomoon.svg') format('svg');
+}
 
-[class^="icon-"], [class*=" icon-"] {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'custicons' !important;
-  /* speak: none; */
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
+[class^='icon-'],
+[class*=' icon-'] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'custicons' !important;
+	/* speak: none; */
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
 
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 .icon-ficcionados:before {
-  content: "\66";
+	content: '\66';
 }
 
 .icon-velgard:before {
-  content: "\76";
+	content: '\76';
 }
 .icon-wattpad:before {
-  content: "\77";
-  /* color: #f68d12; */
+	content: '\77';
+	/* color: #f68d12; */
 }
 
 .icon-book:before {
-  content: "\62";
+	content: '\62';
 }
 .icon-quill:before {
-  content: "\71";
+	content: '\71';
 }
 
 .icon-sweek:before {
-  content: "\73";
-  font-size: 1.4em;
+	content: '\73';
+	font-size: 1.4em;
 }

@@ -1,21 +1,19 @@
-blockquote{
-    position: relative;
-    padding: 30px 30px 10px 70px;
-    font-style: italic;
+blockquote {
+	position: relative;
+	padding: 30px 30px 10px 70px;
+	font-style: italic;
 }
 
-
-blockquote:before{
-    position: absolute;
-    left: 20px;
-    top: 20%;
-    font-size: 34px;
-    color: #ccc;
-    color: rgba(0,0,0,.15);
-    font-family: FontAwesome;
-    font-style: normal;
-    speak: none;
-    font-weight: 400;
-    content: "\f10d";
-    -webkit-font-smoothing: antialiased;
+blockquote:before {
+	position: absolute;
+	left: 20px;
+	top: 20%;
+	font-size: 34px;
+	color: #ccc;
+	color: rgba(0, 0, 0, 0.15);
+	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: 400;
+	content: '\f10d';
+	-webkit-font-smoothing: antialiased;
 }
