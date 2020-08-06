@@ -16,38 +16,53 @@
 			<input type="hidden" name="form-name" value="Contact" />
 
 			<b-col md="6" sm="12">
-				<b-form-group label="Nome:" label-for="contact-name">
-					<b-form-input
+				<b-form-group label-for="contact-name">
+					<label for="contact-name" 
+						class="contact__label">
+						Nome:
+					</label>
+					<b-form-input 
 						id="contact-name"
-						type="text"
-						v-model="contact.name"
-						required
-					/>
+						name="name" type="text"  
+						v-model="contact.name" 
+						required />
 				</b-form-group>
-				<b-form-group label="E-mail:" label-for="contact-email">
+				<b-form-group label-for="contact-email">
+					<label for="contact-email" 
+						class="contact__label">
+						E-mail:
+					</label>
 					<b-form-input
 						id="contact-email"
-						type="text"
-						v-model="contact.from"
+						name="email" type="text"
+						v-model="contact.email"
 						required
 					/>
 				</b-form-group>
-				<b-form-group label="Assunto:" label-for="contact-subject">
+				<b-form-group label-for="contact-subject">
+					<label for="contact-subject" 
+						class="contact__label">
+						Assunto:
+					</label>
 					<b-form-input
 						id="contact-subject"
-						type="text"
+						name="subject" type="text"
 						v-model="contact.subject"
 						required
-						placeholder=""
 					/>
 				</b-form-group>
 			</b-col>
 
 			<b-col md="10" sm="12">
-				<b-form-group label="Mensagem:" label-for="contact-content">
+				<b-form-group label-for="contact-content">
+					<label for="contact-content" 
+						class="contact__label">
+						Mensagem:
+					</label>
 					<b-form-textarea 
 						id="contact-content" 
 						class="contact__content"
+						name="content"
 						v-model="contact.content" />
 				</b-form-group>
 			</b-col>
@@ -78,7 +93,7 @@ export default {
 		return {
 			contact: {
 				name: '',
-				from: '',
+				email: '',
 				subject: '',
 				content: ''
 			},
@@ -111,7 +126,7 @@ export default {
 				.then(() =>
 					this.$toasted.success('Mensagem enviada!', { icon: 'check' })
 				)
-				.then(() => this.contact = { name: '', from: '', subject: '', content: ''})
+				.then(() => this.contact = { name: '', email: '', subject: '', content: ''})
 				.catch(displayError)
 				.finally(() => (this.sending = false))
 		},

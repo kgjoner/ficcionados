@@ -28,24 +28,6 @@ export default {
 	metaInfo: {
 		title: '404',
 	},
-	methods: {
-		redirectRules(to = this.$route) {
-			if(to.path.includes('/entrevista-com-')) {
-				const interviewee = to.path.match(/entrevista-com-(.+)$/)[1]
-				this.$router.push({ path: `/artigo/${interviewee}` })
-			} else if (!to.path.includes('artigo')) {
-				this.$router.push({ path: `/artigo/${to.path}` })
-			}
-		}
-	},
-	watch: {
-		$route(to) {
-			this.redirectRules(to)
-		},
-	},
-	created() {
-		this.redirectRules()
-	},
 }
 </script>
 
