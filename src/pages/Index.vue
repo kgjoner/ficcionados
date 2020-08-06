@@ -28,10 +28,7 @@
 			</div>
 			<div class="interview-card-list">
 				<div v-for="(interview, i) in interviewArticles" :key="interview.id">
-					<InterviewCard
-						:slot="`${i}`"
-						:article="interview"
-					/>
+					<InterviewCard :slot="`${i}`" :article="interview" />
 				</div>
 			</div>
 		</div>
@@ -114,22 +111,29 @@ export default {
 	},
 	metaInfo: {
 		titleTemplate: 'Ficcionados » Trazendo a ficção para a realidade.',
+		mete: [
+			{
+				name: 'description',
+				content:
+					'Coloque suas histórias no papel sem medo. Aqui você encontra dicas de escrita, roteiro e publicação e conversas com a galera do nicho literário nacional. o/ ',
+			},
+		],
 	},
 	computed: {
 		standoutArticles() {
-			return this.$page.standout.edges.map((a) => a.node)
+			return this.$page.standout.edges.map(a => a.node)
 		},
 		recentArticles() {
-			return this.$page.recent.edges.map((a) => a.node)
+			return this.$page.recent.edges.map(a => a.node)
 		},
 		favArticles() {
 			return this.standoutArticles.filter(
-				(a) => a.category.name !== 'Entrevistas'
+				a => a.category.name !== 'Entrevistas'
 			)
 		},
 		interviewArticles() {
 			return this.standoutArticles.filter(
-				(a) => a.category.name === 'Entrevistas'
+				a => a.category.name === 'Entrevistas'
 			)
 		},
 	},
@@ -264,7 +268,6 @@ export default {
 [slot='1'] a {
 	flex-direction: row-reverse;
 }
-
 
 @media (max-width: 1000px) {
 	.home__section {

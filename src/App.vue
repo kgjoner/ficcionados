@@ -37,12 +37,7 @@ export default {
 				name: 'viewport',
 				key: 'viewport',
 				content: 'width=device-width, initial-scale=1.0, maximum-scale=5.0',
-			},
-			{
-				name: 'description',
-				content:
-					'Coloque suas histórias no papel sem medo. Aqui você encontra dicas de escrita, roteiro e publicação e conversas com a galera do nicho literário nacional. o/ ',
-			},
+			}
 		],
 	},
 	computed: {

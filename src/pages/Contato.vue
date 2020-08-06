@@ -76,7 +76,12 @@ export default {
 	},
 	data: function() {
 		return {
-			contact: {},
+			contact: {
+				name: '',
+				from: '',
+				subject: '',
+				content: ''
+			},
 			sending: false,
 		}
 	},
@@ -106,7 +111,7 @@ export default {
 				.then(() =>
 					this.$toasted.success('Mensagem enviada!', { icon: 'check' })
 				)
-				.then(() => this.reset())
+				.then(() => this.contact = { name: '', from: '', subject: '', content: ''})
 				.catch(displayError)
 				.finally(() => (this.sending = false))
 		},
