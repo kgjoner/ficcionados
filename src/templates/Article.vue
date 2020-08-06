@@ -1,32 +1,36 @@
 <template>
-	<div class="article-by-id">
+	<div class="article">
 		<div
-			class="artpage-title"
-			:class="{ 'long-title': $page.article.name.length > 50 }"
+			class="article__cover"
+			:class="{ 'article__cover--long-title': $page.article.name.length > 50 }"
 		>
 			<div v-show="articleLoaded">
-				<p>{{ $page.article.category.name }} ></p>
-				<h1>{{ $page.article.name }}</h1>
-				<em>{{ publishedAt }}</em>
+				<p class="article__category">
+					{{ $page.article.category.name }} >
+				</p>
+				<h1 class="article__title">
+					{{ $page.article.name }}
+				</h1>
+				<em class="article__publishing">
+					{{ publishedAt }}
+				</em>
 			</div>
-			<div v-show="!articleLoaded" class="not-loaded">
-				<div class="not-loaded">
+			<div v-show="!articleLoaded">
+				<div class="article__not-loaded">
 					<div class="category-block text-block"></div>
 					<div class="title-block text-block"></div>
 					<div class="publish-block text-block"></div>
 				</div>
 			</div>
 		</div>
-		<div v-show="articleLoaded" class="pre-article">
-			<ClientOnly>
-				<Gravatar :email="$page.article.email" alt="Autor" />
-			</ClientOnly>
+		<div v-show="articleLoaded" class="article__pre-content">
+			<Gravatar :email="$page.article.author.email" alt="Autor" />
 			<span>{{ $page.article.author.name }}</span>
 			<em>{{ readingTime }}min de leitura</em>
 			<hr />
 		</div>
-		<div v-show="!articleLoaded" class="pre-article">
-			<div class="not-loaded">
+		<div v-show="!articleLoaded" class="article__pre-content">
+			<div class="article__not-loaded">
 				<div class="pre-block text-block"></div>
 			</div>
 			<hr />
@@ -36,21 +40,22 @@
 			class="article-content"
 			v-html="$page.article.content"
 		></div>
-		<div v-if="$page.article.author" class="post-article" ref="postArticle">
+		<div class="article__post-content" ref="postArticle">
 			<hr />
-			<AuthorBox :author="author"></AuthorBox>
+			<AuthorBox v-if="$page.article.author" 
+				:author="author" />
 			<RelatedArticles
 				v-if="$page.article.category.parentId"
 				:parentId="$page.article.category.parentId || 1"
 				:currentArticle="$page.article.id"
 			/>
-		</div>
-		<div v-if="showDisqus" class="comments">
-			<vue-disqus
-				shortname="ficcionados"
-				:identifier="this.$route.params.slug"
-				:url="'https://www.ficcionados.com.br' + this.$route.fullPath"
-			></vue-disqus>
+			<div v-if="showDisqus" class="article__comments">
+				<vue-disqus
+					shortname="ficcionados"
+					:identifier="this.$route.params.slug"
+					:url="'https://www.ficcionados.com.br' + this.$route.fullPath"
+				></vue-disqus>
+			</div>
 		</div>
 	</div>
 </template>
@@ -92,18 +97,19 @@ query ($id: ID!) {
 </page-query>
 
 <script>
-import { baseApiUrl, baseImgUrl, toStandardDate } from '@/global'
-import axios from 'axios'
+import { BASE_IMG_URL } from '@/constants'
+import formatDate from '@/utils/formatDate'
+
 import AuthorBox from '@/components/article/AuthorBox'
 import RelatedArticles from '@/components/article/RelatedArticles'
-// import Gravatar from 'vue-gravatar'
+import Gravatar from 'vue-gravatar'
 
 export default {
 	name: 'ArticleById',
 	components: {
 		AuthorBox,
 		RelatedArticles,
-		Gravatar: () => import('vue-gravatar'),
+		Gravatar,
 	},
 	metaInfo() {
 		return {
@@ -117,7 +123,7 @@ export default {
 				},
 				{
 					p: 'og:image',
-					c: `${baseImgUrl}/${this.$page.article.image.filename}`,
+					c: `${BASE_IMG_URL}/${this.$page.article.image.filename}`,
 				},
 			],
 			link: () => [
@@ -128,8 +134,7 @@ export default {
 				},
 			],
 			script: [
-				{ src: `http://localhost:8080/articleFunctions.js`, defer: true },
-				// { src: `${baseApiUrl}/articleFunctions.js`, defer: true }
+				{ src: `/articleFunctions.js`, defer: true },
 			],
 		}
 	},
@@ -148,30 +153,35 @@ export default {
 			return Math.ceil(artWords / 200)
 		},
 		publishedAt() {
-			return toStandardDate(this.$page.article.publishedAt)
+			return formatDate(this.$page.article.publishedAt)
 		},
 	},
 	methods: {
-		formatQueriedData() {
-			this.$store.commit('setArticleCategory', {
-				name: this.$page.article.category.name,
-				id: this.$page.article.category.id,
-				order: this.$page.article.order.toString(),
-			})
+		articleSetupRoutine() {
+			this.$store.dispatch('hideMenu')
+
 			this.$el.style.setProperty(
 				'--bkg-image',
-				`url(${baseImgUrl}/${this.$page.article.image.filename})`
+				`url(${BASE_IMG_URL}/${this.$page.article.image.filename})`
 			)
+
+			this.$store.dispatch('updateSelectedCategory', {
+				name: this.$page.article.category.name,
+				id: this.$page.article.category.id,
+				order: this.$page.article.order,
+			})
+
 			this.checkActiveAccordions()
-			if (this.author.name) {
-				if (window['IntersectionObserver']) {
-					this.createObserver()
-				} else {
-					this.showDisqus = true
-				}
+
+			if (window['IntersectionObserver']) {
+				this.createObserver()
+			} else {
+				this.showDisqus = true
 			}
+
 			this.articleLoaded = true
 		},
+
 		checkActiveAccordions() {
 			const activeEls = process.isClient
 				? document.getElementsByClassName('accordion active')
@@ -181,6 +191,15 @@ export default {
 				panel.style.maxHeight = panel.scrollHeight + 'px'
 			})
 		},
+
+		createObserver() {
+			const disqusObserver = new IntersectionObserver(
+				this.handleIntersect,
+				{ root: null, threshold: '0' }
+			)
+			disqusObserver.observe(this.$refs.postArticle)
+		},
+
 		handleIntersect(entries, observer) {
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
@@ -189,85 +208,53 @@ export default {
 				}
 			})
 		},
-		createObserver() {
-			const options = {
-				root: null,
-				threshold: '0',
-			}
-			const disqusObserver = new IntersectionObserver(
-				this.handleIntersect,
-				options
-			)
-			disqusObserver.observe(this.$refs.postArticle)
-		},
 	},
 	watch: {
 		$route() {
 			this.showDisqus = false
 			this.articleLoaded = false
-			this.$store.commit('toggleMenu', false)
+			this.articleSetupRoutine()
 		},
 	},
 	mounted() {
-		this.formatQueriedData()
-		this.$store.commit('toggleMenu', false)
+		this.articleSetupRoutine()
 	},
+	destroyed() {
+		this.$store.dispatch('updateSelectedCategory', {})
+	}
 }
 </script>
 
 <style>
-.artpage-title div .not-loaded,
-.pre-article .not-loaded {
-	animation: text-load 1.5s;
-	overflow: hidden;
-	margin-bottom: 0;
-}
-
-.artpage-title > div .text-block {
-	background-color: #fafafaaa;
-	margin-bottom: 8px;
-}
-
-.artpage-title > div .category-block {
-	height: 18px;
-	width: 8rem;
-}
-
-.artpage-title > div .title-block {
-	height: 73px;
-	width: 30rem;
-}
-
-.artpage-title > div .publish-block {
-	height: 16px;
-	width: 12rem;
-}
-
-.pre-block {
-	height: 20px;
-	margin-left: 20px;
-	width: 40rem;
-	background-color: #e7e7e7;
-}
-
-@keyframes text-load {
-	0% {
-		width: 0;
-	}
-	100% {
-		width: 100%;
-	}
-}
-
 :root {
 	--bkg-image: url('../assets/article.png');
 }
 
-.article-by-id {
+.article {
 	background-color: #fafafa;
 }
 
-.artpage-title::before {
+.article__cover {
+	position: relative;
+	padding-top: 20px;
+	color: #fafafa;
+	min-height: 70vh;
+	overflow: hidden;
+
+	background-color: rgb(39, 68, 95);
+	border: solid 4px rgb(39, 68, 95);
+
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+}
+
+.article__cover--long-title {
+	height: auto;
+	padding-top: 40px;
+}
+
+.article__cover::before {
 	content: '';
 	position: absolute;
 	height: 100%;
@@ -288,22 +275,7 @@ export default {
 	filter: blur(8px);
 }
 
-.artpage-title {
-	position: relative;
-	padding-top: 20px;
-	color: #fafafa;
-	min-height: 70vh;
-	overflow: hidden;
-
-	background-color: rgb(39, 68, 95);
-	border: solid 4px rgb(39, 68, 95);
-
-	display: flex;
-	justify-content: center;
-	align-items: flex-end;
-}
-
-.artpage-title > div {
+.article__cover > div {
 	padding-left: 20px;
 	padding-right: 20px;
 	margin-bottom: 15vh;
@@ -311,7 +283,7 @@ export default {
 	z-index: 1;
 }
 
-.artpage-title h1 {
+.article__title {
 	font-family: 'Kaushan Script', 'PT Serif', cursive;
 	font-size: 3.4rem;
 	color: rgba(255, 255, 255, 0.9);
@@ -319,14 +291,14 @@ export default {
 	line-height: 140%;
 }
 
-.artpage-title p {
+.article__category {
 	text-transform: uppercase;
 	margin-bottom: 5px;
 	font-size: 0.9rem;
 }
 
-.pre-article,
-.post-article {
+.article__pre-content,
+.article__post-content {
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 45rem;
@@ -334,48 +306,85 @@ export default {
 	color: #808080;
 }
 
-.pre-article > *,
-.post-article > * {
+.article__pre-content > *,
+.article__post-content > * {
 	margin-left: 20px;
 	margin-right: 20px;
 }
 
-.pre-article img {
+.article__pre-content img {
 	max-height: 35px;
 	margin-right: 0px;
 	border-radius: 50%;
 }
 
-.pre-article em {
+.article__pre-content em {
 	float: right;
 }
 
-.long-title.artpage-title {
-	height: auto;
-	padding-top: 40px;
-}
-
-.comments {
+.article__comments {
 	max-width: 50rem;
 	margin: 0px auto;
 	padding: 20px 0;
 }
 
+.article__not-loaded {
+	animation: text-load 1.5s;
+	overflow: hidden;
+	margin-bottom: 0;
+}
+
+.article__not-loaded .text-block {
+	background-color: #fafafaaa;
+	margin-bottom: 8px;
+}
+
+.article__not-loaded .category-block {
+	height: 18px;
+	width: 8rem;
+}
+
+.article__not-loaded .title-block {
+	height: 73px;
+	width: 30rem;
+}
+
+.article__not-loaded .publish-block {
+	height: 16px;
+	width: 12rem;
+}
+
+.article__not-loaded .pre-block {
+	height: 20px;
+	margin-left: 20px;
+	width: 40rem;
+	background-color: #e7e7e7;
+}
+
+@keyframes text-load {
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 100%;
+	}
+}
+
 @media (max-width: 450px), (max-width: 850px) and (max-height: 500px) {
-	.artpage-title {
+	.article__cover {
 		height: auto;
 		padding-top: 40px;
 	}
 
-	.artpage-title > div {
+	.article__cover > div {
 		margin-bottom: 10vh;
 	}
 
-	.artpage-title h1 {
+	.article__title {
 		font-size: 2.7rem;
 	}
 
-	.artpage-title p {
+	.article__category {
 		font-size: 0.8rem;
 	}
 }

@@ -1,13 +1,13 @@
 <template>
 	<div class="navbar-dropdown">
 		<button
-			class="navbar-button"
-			:class="{ 'navbar-button-selected': !hideDropdown }"
+			class="navbar__button"
+			:class="{ 'navbar__button--selected': !hideDropdown }"
 			@click="toggleDropdown"
 		>
 			<i class="fa fa-bars"></i>
 		</button>
-		<div v-show="!hideDropdown" class="navbar-dropdown-content">
+		<div v-show="!hideDropdown" class="navbar-dropdown__content">
 			<Navbar></Navbar>
 		</div>
 	</div>
@@ -39,7 +39,7 @@ export default {
 	z-index: 98;
 }
 
-.navbar-dropdown .navbar-button {
+.navbar-dropdown .navbar__button {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -55,15 +55,15 @@ export default {
 	outline: none;
 }
 
-.navbar-dropdown:hover .navbar-button {
+.navbar-dropdown:hover .navbar__button {
 	background-color: rgba(0, 0, 0, 0.2);
 }
 
-.navbar-dropdown .navbar-button-selected {
+.navbar-dropdown .navbar__button--selected {
 	background-color: #1d7fd8 !important;
 }
 
-.navbar-dropdown-content {
+.navbar-dropdown__content {
 	position: absolute;
 	right: 0px;
 	background-color: #4c4c4c;
@@ -79,21 +79,21 @@ export default {
 	align-items: flex-end;
 }
 
-.navbar-dropdown-content .navbar ul {
+.navbar-dropdown__content .navbar ul {
 	flex-direction: column;
 }
 
-.navbar-dropdown-content .navbar li {
+.navbar-dropdown__content .navbar li {
 	height: 3em;
 }
 
-.navbar-dropdown-content .navbar a {
+.navbar-dropdown__content .navbar a {
 	display: block;
 	max-width: 300px;
 	padding: 5px 100px;
 }
 
-/* .navbar-dropdown:hover .navbar-dropdown-content {
+/* .navbar-dropdown:hover .navbar-dropdown__content {
         visibility: visible;
         opacity: 1;
     } */

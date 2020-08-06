@@ -2,24 +2,23 @@ import Vuex from 'vuex'
 import BootstrapVue from "bootstrap-vue"
 import VueDisqus from 'vue-disqus'
 import VueMq from 'vue-mq'
-// import DefaultLayout from '@/layouts/Default.vue'
 import LazyLoad from '@/directives/lazyLoad'
 
 import 'font-awesome/css/font-awesome.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import '@/assets/custom-icon.css'
-import '@/assets/tabs.css'
-import '@/assets/accordions.css'
-import '@/assets/quotes.css'
-import '@/assets/article.css'
+import '@/assets/css/global.css'
+import '@/assets/css/custom-icon.css'
+import '@/assets/css/tabs.css'
+import '@/assets/css/accordions.css'
+import '@/assets/css/quotes.css'
+import '@/assets/css/article.css'
 
 import './config/axios'
 import ArticleFunctions from '../static/articleFunctions'
-import store from './config/store'
+import store from './store'
 
 export default function (Vue, { appOptions, router, head, isClient }) {
-  // Vue.component('Layout', DefaultLayout)
   Vue.directive('lazyload', LazyLoad)
 
   Vue.use(Vuex)

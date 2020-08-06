@@ -1,16 +1,19 @@
 <template>
 	<div class="home-banner">
 		<div>
-			<h3>Liberte suas <strong>histórias</strong></h3>
-			<p>
+			<h3 class="home-banner__heading">
+				Liberte suas <strong>histórias</strong>
+			</h3>
+			<p class="home-banner__copy">
 				Nem sempre é fácil colocar uma história no papel. Pode ser que você mal
 				consiga tempo para escrever, e quando o faz, as palavras lhe escapam. Se
 				esse for o caso...
 			</p>
 		</div>
-		<a class="button" href="/desbloqueando-a-escrita" target="_blank"
-			>Descubra Mais</a
-		>
+		<g-link class="home-banner__btn" 
+			to="/desbloqueando-a-escrita/" target="_blank">
+			Descubra Mais
+		</g-link>
 	</div>
 </template>
 
@@ -37,7 +40,7 @@ export default {
 	background-image: url('../../assets/homebanner.webp');
 }
 
-.home-banner h3 {
+.home-banner__heading {
 	font-size: 2.5rem;
 	font-family: 'Kaushan Script';
 	color: #f2f2f2;
@@ -46,19 +49,19 @@ export default {
 	font-weight: bold;
 }
 
-.home-banner strong {
+.home-banner__heading strong {
 	color: #3ba0ff;
 	font-family: 'Kaushan Script';
 }
 
-.home-banner p {
+.home-banner__copy {
 	max-width: 40vw;
 	margin: 40px 0 0 18vw;
 	color: #eee;
 	font-size: 1.2rem;
 }
 
-.home-banner .button {
+.home-banner__btn {
 	margin-right: 10vw;
 	background-color: #f2f2f2;
 	padding: 15px 40px;
@@ -71,18 +74,18 @@ export default {
 	margin-top: 4rem;
 }
 
-.home-banner .button:hover {
+.home-banner__btn:hover {
 	background-color: #1d7fd8;
 	color: #f2f2f2;
 }
 
 @media (max-width: 900px) {
-	.home-banner h3,
-	.home-banner p {
+	.home-banner__heading,
+	.home-banner__copy {
 		margin-left: 10vw;
 	}
 
-	.home-banner button {
+	.home-banner__btn {
 		margin-right: 5vw;
 	}
 }
@@ -99,13 +102,13 @@ export default {
 		background-image: url('../../assets/homebanner-66.webp');
 	}
 
-	.home-banner h3,
-	.home-banner p {
+	.home-banner__heading,
+	.home-banner__copy {
 		margin-left: 0;
 		max-width: 70vw;
 	}
 
-	.home-banner button {
+	.home-banner__btn {
 		margin-right: 0;
 	}
 }

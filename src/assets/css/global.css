@@ -1,0 +1,23 @@
+@font-face {
+	font-family: 'Roboto';
+	font-display: auto;
+	src: url('../fonts/Roboto-Regular.ttf');
+}
+
+:root {
+	--main-color: #1d7fd8;
+	--main-rgb: 29,127,216;
+	--dark-color: #4c4c4c;
+}
+
+* {
+	font-family: 'Lato', sans-serif;
+}
+
+body {
+	margin: 0px;
+}
+
+a, a:hover {
+  text-decoration: none;
+}

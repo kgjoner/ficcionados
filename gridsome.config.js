@@ -16,12 +16,5 @@ module.exports = {
         duration: 5000
       },
     }
-    // {
-    //   use: '@gridsome/source-filesystem',
-    //   options: {
-    //     typeName: 'Projects',
-    //     path: './data/project/*.json',
-    //   }
-    // }
   ],
 }

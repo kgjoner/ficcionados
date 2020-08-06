@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'custicons';
-	src: url('./fonts/icon/icomoon.ttf');
-	src: url('./fonts/icon/icomoon.eot') format('embedded-opentype'),
-		url('./fonts/icon/icomoon.ttf') format('truetype'),
-		url('./fonts/icon/icomoon.woff') format('woff'),
-		url('./fonts/icon/icomoon.svg') format('svg');
+	src: url('../fonts/icon/icomoon.ttf');
+	src: url('../fonts/icon/icomoon.eot') format('embedded-opentype'),
+		url('../fonts/icon/icomoon.ttf') format('truetype'),
+		url('../fonts/icon/icomoon.woff') format('woff'),
+		url('../fonts/icon/icomoon.svg') format('svg');
 }
 
 [class^='icon-'],

@@ -1,6 +1,6 @@
 <template>
 	<aside class="menu" v-show="isMenuVisible">
-		<QueryField />
+		<SearchBox />
 		<MenuTree
 			:treeData="treeData"
 			v-model="selectedCategoryId"
@@ -29,12 +29,11 @@ query {
 <script>
 import { mapState } from 'vuex'
 import MenuTree from './MenuTree'
-import QueryField from './queryField'
-import axios from 'axios'
+import SearchBox from '../utils/SearchBox'
 
 export default {
 	name: 'Menu',
-	components: { MenuTree, QueryField },
+	components: { MenuTree, SearchBox },
 	data: function() {
 		return {
 			selectedCategoryId: null,
@@ -44,35 +43,37 @@ export default {
 	computed: {
 		...mapState(['isMenuVisible', 'articleCategory']),
 		categories() {
-			return this.$static.categories.edges.map((c) => c.node)
+			return this.$static.categories.edges.map(c => c.node)
 		},
 		treeData() {
-			const findChildren = (node) => {
-				let children = node.children.map((child) => {
-					return this.categories.find((c) => c.id == child)
+			const findChildren = node => {
+				let children = node.children.map(child => {
+					return this.categories.find(c => c.id == child)
 				})
-				children = children.map((child) => {
-					if (child.children) {
-						return findChildren(child)
-					} else {
-						return child
-					}
-				})
+				children = children
+					.map(child => {
+						if (child.children) {
+							return findChildren(child)
+						} else {
+							return child
+						}
+					})
+					.sort((a, b) => a.order - b.order)
 				return {
 					...node,
 					children,
 				}
 			}
 
-			let tree = this.categories.filter((c) => !c.parentId)
-			tree = tree.map((node) => {
+			let tree = this.categories.filter(c => !c.parentId)
+			tree = tree.map(node => {
 				return findChildren(node)
 			})
-			return tree
+			return tree.sort((a, b) => a.order - b.order)
 		},
 		categoryPathIdOrFalse() {
 			if (!this.$route.path.includes('categorias')) return false
-			return this.$route.path.match(/categorias\/(.+)\/?/)[1]
+			return this.$route.path.match(/categorias\/(\d+)\/?/)[1]
 		},
 	},
 	methods: {
@@ -80,9 +81,6 @@ export default {
 			if (!this.allowRouting || this.categoryPathIdOrFalse == node.id) return
 
 			this.$router.push({ path: `/categorias/${node.id}` })
-			if (this.$mq == 'xs' || this.$mq == 'sm') {
-				this.$store.commit('toggleMenu', false)
-			}
 		},
 		setSelectedCategoryId(newId) {
 			this.allowRouting = false

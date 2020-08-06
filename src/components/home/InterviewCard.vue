@@ -1,63 +1,51 @@
 <template>
 	<div class="interview-card">
-		<div v-if="false" class="admin-artconfig">
-			<input type="number" v-model="newStandOut" />
-			<button @click="updateStandOutArticles">Trocar Artigo</button>
-		</div>
-		<router-link :to="`/artigo/${article.slug}`" class="art-link">
-			<div v-lazyload="'background'" class="art-image" :data-url="imgUrl">
-				&nbsp;
+		<g-link 
+			:to="`/artigo/${article.slug}/`" 
+			class="interview-card__container"
+		>
+			<div 
+				v-lazyload="'background'" 
+				class="interview-card__picture" 
+				:data-url="imgUrl"
+			>
 			</div>
-			<div class="info">
-				<p>{{ article.description }}</p>
-				<hr />
+
+			<div class="interview-card__info">
+				<p class="interview-card__description"> 
+					{{ article.description }}
+				</p>
+				<hr class="interview-card__rule" />
 				<div>
-					<h4>{{ article.name }}</h4>
-					<span class="publish"
-						>em <strong>{{ publishingDate }}</strong></span
-					>
-					<button>Leia</button>
+					<h4 class="interview-card__heading">
+						{{ article.name }}
+					</h4>
+					<span class="interview-card__publishing-date">
+						em <strong>{{ publishedAt }}</strong>
+					</span>
+					<button class="interview-card__btn">
+						Leia
+					</button>
 				</div>
+				
 			</div>
-		</router-link>
+		</g-link>
 	</div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { baseApiUrl, baseImgUrl, showError, toStandardDate } from '@/global'
-import axios from 'axios'
+import { BASE_IMG_URL } from '@/constants'
+import formatDate from '@/utils/formatDate'
 
 export default {
 	name: 'InterviewCard',
-	props: ['article', 'standOutIndex'],
-	data: function() {
-		return {
-			category: '',
-			newStandOut: null,
-		}
-	},
+	props: ['article'],
 	computed: {
-		...mapState(['user']),
-		publishingDate() {
-			return toStandardDate(this.article.publishedAt)
+		publishedAt() {
+			return formatDate(this.article.publishedAt)
 		},
 		imgUrl() {
-			return baseImgUrl + this.article.image.filename.split('.').join('-480w.')
-		},
-	},
-	methods: {
-		updateStandOutArticles() {
-			const paramsStandOut = {
-				key: 'interviews',
-				index: this.standOutIndex,
-				article: this.newStandOut,
-			}
-			axios
-				.put(`${baseApiUrl}/standoutarticles`, paramsStandOut)
-				.then(this.$toasted.success('Atualizado!'))
-				.then(window.location.reload())
-				.catch(showError)
+			return BASE_IMG_URL + this.article.image.filename.split('.').join('-480w.')
 		},
 	},
 }
@@ -79,15 +67,13 @@ export default {
 	border-color: #4c4c4c;
 }
 
-.interview-card a {
+a.interview-card__container {
 	display: flex;
-}
-
-.interview-card .art-link {
 	text-decoration: none;
+	color: inherit;
 }
 
-.interview-card .art-image {
+.interview-card__picture {
 	position: relative;
 	flex-grow: 2;
 	min-width: 180px;
@@ -97,33 +83,14 @@ export default {
 	background-size: cover;
 }
 
-.interview-card .info {
+.interview-card__info {
 	padding: 5px 15px 5px;
 	display: flex;
 	flex-direction: column;
 	position: relative;
 }
 
-.interview-card h4 {
-	font-family: 'Philosopher';
-	padding-top: 5px;
-	margin: 0px;
-	font-weight: 600;
-	color: #777;
-	font-size: 1.4rem;
-}
-
-.interview-card .publish {
-	font-size: 0.8rem;
-	color: #777;
-}
-
-.interview-card .publish strong {
-	text-transform: uppercase;
-	font-size: 0.7rem;
-}
-
-.interview-card p {
+.interview-card__description {
 	padding: 15px 0 8px;
 	font-size: 1.1rem;
 	font-style: italic;
@@ -132,7 +99,31 @@ export default {
 	color: #444;
 }
 
-.interview-card .info button {
+.interview-card__rule {
+	height: 1px;
+	margin: 5px 0;
+}
+
+.interview-card__heading {
+	font-family: 'Philosopher';
+	padding-top: 5px;
+	margin: 0px;
+	font-weight: 600;
+	color: #777;
+	font-size: 1.4rem;
+}
+
+.interview-card__publishing-date {
+	font-size: 0.8rem;
+	color: #777;
+}
+
+.interview-card__publishing-date strong {
+	text-transform: uppercase;
+	font-size: 0.7rem;
+}
+
+.interview-card__btn {
 	width: 100px;
 	border: solid 1px #bbb;
 	border-radius: 4px;
@@ -147,65 +138,20 @@ export default {
 	cursor: pointer;
 }
 
-.interview-card:hover .info button {
+.interview-card:hover .interview-card__btn {
 	background-color: #4c4c4c;
 	border-color: #4c4c4c;
 	color: #fafafa;
 }
 
-.interview-card hr {
-	height: 1px;
-	margin: 5px 0;
-}
-
-.interview-category {
-	font-size: 0.8rem;
-	color: rgba(0, 0, 0, 0.5);
-}
-
-.interview-category a {
-	text-decoration: none;
-	padding-left: 2px;
-	color: rgba(0, 0, 0, 0.6);
-	display: inline-block;
-}
-
-.interview-category:hover,
-.interview-category:hover a {
-	color: #1d7fd8;
-}
-
-.admin-artconfig {
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
-
-	visibility: hidden;
-	opacity: 0;
-}
-
-.interview-card:hover .admin-artconfig {
-	visibility: visible;
-	opacity: 1;
-}
-
-.admin-artconfig input {
-	max-width: 4rem;
-}
-
-.admin-artconfig button {
-	background-color: #1d7fd8;
-	color: #fafafa;
-}
-
 @media (max-width: 768px) {
-	.interview-card a {
+	a.interview-card__container {
 		display: flex;
 		flex-direction: column;
 		max-width: 380px;
 	}
 
-	.interview-card .info {
+	.interview-card__info {
 		padding-bottom: 50px;
 	}
 }

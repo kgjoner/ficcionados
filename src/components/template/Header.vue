@@ -1,75 +1,50 @@
 <template>
 	<header class="header">
-		<a class="toggle" @click="toggleMenu" v-if="!hideToggle">
+		<button class="header__action" @click="toggleMenu" v-if="!hideToggle">
 			<img
 				src="@/assets/logomarca.svg"
-				class="brand"
+				class="header__logomark"
 				alt="ficcionados logomarca"
-				:class="icon"
+				:class="{ 'header__logomark--selected': isMenuVisible }"
 			/>
-		</a>
-		<router-link to="/" class="toggle toggle-off" v-else>
+		</button>
+		<g-link to="/" class="header__action" v-else>
 			<img
 				src="@/assets/logomarca.svg"
-				class="brand"
+				class="header__logomark"
 				alt="ficcionados logomarca"
-				:class="icon"
 			/>
-		</router-link>
-		<h1 class="title">
-			<router-link to="/">
-				<img
-					src="@/assets/logotipo.svg"
-					alt="ficcionados logotipo"
-					class="logotype"
-				/>
-			</router-link>
-		</h1>
-		<Navbar v-if="!hideNavbar"></Navbar>
+		</g-link>
+		<g-link to="/" class="header__logotype">
+			Ficcionados
+			<!-- <img
+				src="@/assets/logotipo.svg"
+				alt="ficcionados logotipo"
+				class="logotype"
+			/> -->
+		</g-link>
+		<Navbar v-if="this.$mq != 'xs' && this.$mq != 'sm'"></Navbar>
 		<NavDropdown v-else></NavDropdown>
 	</header>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Navbar from './navbar'
 import NavDropdown from './navDropdown'
 
 export default {
 	name: 'Header',
 	components: { Navbar, NavDropdown },
-	props: {
-		hideToggle: Boolean,
-		hideUserDropdown: Boolean,
-	},
-	data: function() {
-		return {
-			hideNavbar: false,
-		}
-	},
+	props: ['hideToggle'],
 	computed: {
-		icon() {
-			return this.$store.state.isMenuVisible ? 'brand-menu' : ''
-		},
-	},
-	watch: {
-		$mq() {
-			if (this.$mq != 'xs' && this.$mq != 'sm') {
-				this.hideNavbar = false
-			} else {
-				this.hideNavbar = true
-			}
-		},
+		...mapState(['isMenuVisible'])
 	},
 	methods: {
 		toggleMenu() {
-			this.$store.commit('toggleMenu')
+			this.$store.dispatch('toggleMenu')
 		},
-	},
-	mounted() {
-		if (this.$mq == 'xs' || this.$mq == 'sm') {
-			this.hideNavbar = true
-		}
-	},
+	}
 }
 </script>
 
@@ -82,53 +57,54 @@ export default {
 	align-items: center;
 }
 
-.header .title {
-	flex-grow: 1;
-	/* text-align: center; */
-}
-
-header.header > a.toggle {
+.header__action {
 	width: 60px;
-	min-width: 60px;
 	height: 100%;
+	min-width: 60px;
+	padding: 0;
 	color: #fff;
-	text-decoration: none;
+	background-color: transparent;
+	border: none;
 	justify-self: flex-start;
-	cursor: pointer;
+	text-decoration: none;
 
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-header.header > a.toggle:hover {
-	color: #fff;
+.header__action:hover {
 	background-color: rgba(0, 0, 0, 0.2);
 }
 
-header.header > a.toggle-off:hover {
+a.header__action:hover {
 	background-color: transparent;
 }
 
-.brand {
+.header__action:focus {
+	outline: none;
+}
+
+.header__logomark {
 	height: 100%;
 	width: 100%;
 	padding: 10px;
 }
 
-.brand-menu {
+.header__logomark--selected {
 	background-color: rgba(0, 0, 0, 0.4);
 }
 
-.logotype {
-	height: 50px;
-	padding-top: 5px;
+a.header__logotype {
+	flex-grow: 1;
+	color: rgba(255, 255, 255, 0.9);
+	font-family: 'Kaushan Script';
+	font-size: 40px;
 	margin-left: 5px;
 }
 
 @media (max-width: 916px) {
-	.logotype {
-		height: 40px;
+	a.header__logotype {
 		margin-left: 0;
 	}
 }

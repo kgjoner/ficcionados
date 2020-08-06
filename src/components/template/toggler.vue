@@ -1,12 +1,13 @@
 <template>
 	<div
 		class="toggler"
-		:class="{ 'toggle-on': isMenuVisible }"
+		:class="{ 'toggler--on': isMenuVisible }"
 		ref="toggler"
 		@click="toggleMenu"
 	>
-		<button v-if="isMenuVisible || keepToggler" class="toggler-button">
-			<i class="fa fa-sort-up" :class="{ 'toggle-on': isMenuVisible }"></i>
+		<button v-if="isMenuVisible || keepToggler" class="toggler__button">
+			<i class="fa fa-sort-up toggler__icon">
+			</i>
 		</button>
 	</div>
 </template>
@@ -27,7 +28,7 @@ export default {
 	},
 	methods: {
 		toggleMenu() {
-			this.$store.commit('toggleMenu')
+			this.$store.dispatch('toggleMenu')
 		},
 	},
 }
@@ -42,7 +43,11 @@ export default {
 	z-index: 4;
 }
 
-button.toggler-button {
+.toggler:hover {
+	width: 20px;
+}
+
+.toggler__button {
 	height: 50px;
 	width: 20px;
 	background-color: #1d7fd8;
@@ -54,19 +59,18 @@ button.toggler-button {
 	position: relative;
 	left: -9px;
 	cursor: pointer;
-	outline: none !important;
 }
 
-.toggler-button:hover {
+body:not(.tab-user) .toggler__button:focus {
+	outline: none;
+}
+
+.toggler__button:hover {
 	left: 0;
 	outline: none;
 }
 
-.toggler:hover {
-	width: 20px;
-}
-
-.toggler-button i {
+.toggler__icon {
 	color: #fafafa;
 	transform: rotate(90deg);
 	transition: 0.5s;
@@ -74,13 +78,7 @@ button.toggler-button {
 	left: 1px;
 }
 
-button.toggler-button.toggle-on {
-	transition: 0;
-	width: 10px;
-	left: 230px;
-}
-
-.toggler-button i.toggle-on {
+.toggler--on .toggler__icon {
 	transform: rotate(-90deg);
 	left: 7px;
 }

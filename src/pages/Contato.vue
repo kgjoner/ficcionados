@@ -1,11 +1,20 @@
 <template>
-	<div class="contact-page">
+	<div class="contact">
 		<PageTitle
-			icon="fa fa-folder-o"
 			main="Envie sua Mensagem!"
 			sub="Tem algo a dizer?"
+			center
 		/>
-		<b-form class="contact-form">
+		<b-form
+			class="contact__form"
+			name="Contact"
+			@submit.prevent="handleSubmit"
+			method="post"
+			data-netlify="true"
+			data-netlify-honeypot="bot-field"
+		>
+			<input type="hidden" name="form-name" value="Contact" />
+
 			<b-col md="6" sm="12">
 				<b-form-group label="Nome:" label-for="contact-name">
 					<b-form-input
@@ -33,14 +42,21 @@
 					/>
 				</b-form-group>
 			</b-col>
+
 			<b-col md="10" sm="12">
 				<b-form-group label="Mensagem:" label-for="contact-content">
-					<b-form-textarea id="contact-content" v-model="contact.content" />
+					<b-form-textarea 
+						id="contact-content" 
+						class="contact__content"
+						v-model="contact.content" />
 				</b-form-group>
 			</b-col>
-			<b-col class="send">
-				<b-button variant="primary" @click="send">Enviar</b-button>
-				<img v-if="sending" src="@/assets/loading2.gif" alt="" />
+
+			<b-col>
+				<b-button type="submit" variant="primary">
+					<Loading v-if="sending" />
+					<span v-else>Enviar</span>
+				</b-button>
 			</b-col>
 		</b-form>
 	</div>
@@ -48,8 +64,8 @@
 
 <script>
 import PageTitle from '@/components/template/pageTitle'
-import Loading from '@/components/template/Loading'
-import { baseApiUrl, showError } from '@/global'
+import Loading from '@/components/utils/Loading'
+import displayError from '@/utils/displayError'
 import axios from 'axios'
 
 export default {
@@ -65,59 +81,50 @@ export default {
 		}
 	},
 	methods: {
-		send() {
-			this.sending = true
-			axios
-				.post(`${baseApiUrl}/mailer`, this.contact)
-				.then(() => {
-					this.$toasted.success('Mensagem enviada!', { icon: 'check' })
-					this.reset()
-				})
-				.catch(showError)
-				.finally(() => (this.sending = false))
+		encode(data) {
+			return Object.keys(data)
+				.map(
+					(key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
+				)
+				.join('&')
 		},
-		reset() {
-			this.contact = {}
+
+		handleSubmit() {
+			this.sending = true
+			const axiosConfig = {
+				header: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			}
+			axios
+				.post(
+					'/',
+					this.encode({
+						'form-name': 'Contact',
+						...this.contact,
+					}),
+					axiosConfig
+				)
+				.then(() =>
+					this.$toasted.success('Mensagem enviada!', { icon: 'check' })
+				)
+				.then(() => this.reset())
+				.catch(displayError)
+				.finally(() => (this.sending = false))
 		},
 	},
 }
 </script>
 
 <style>
-.contact-page .page-title div {
-	margin-left: auto;
-	margin-right: auto;
-	width: 45rem;
-	padding-left: 20px;
-}
-
-.contact-page .page-title div hr {
-	display: none;
-}
-
-.contact-form {
+.contact__form {
 	padding: 20px;
 	margin: 20px auto;
 	background-color: #fff;
 	border: 1px solid rgba(0, 0, 0, 0.125);
 	border-radius: 0.25rem;
-
 	max-width: 45rem;
 }
 
-.contact-form .send {
-	display: flex;
-	align-items: flex-start;
-	max-height: 80px;
-}
-
-.send img {
-	height: 80px;
-	position: relative;
-	top: -20px;
-}
-
-.contact-form textarea.form-control {
+.contact__content {
 	min-height: 200px;
 }
 </style>

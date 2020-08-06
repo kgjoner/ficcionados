@@ -1,99 +1,27 @@
 <template>
 	<footer class="footer">
-		<div class="flex-footer">
-			<div class="med-footer">
-				<h3>Receba nossos conteúdos exclusivos</h3>
-				<div id="mc_embed_signup">
-					<form
-						action="//ficcionados.us15.list-manage.com/subscribe/post?u=27613588b850606cebd9fa4cd&amp;id=c022e8edfb"
-						method="post"
-						id="mc-embedded-subscribe-form"
-						name="mc-embedded-subscribe-form"
-						class="validate"
-						target="_blank"
-						novalidate
-					>
-						<div id="mc_embed_signup_scroll">
-							<div class="mc-field-group">
-								<label for="mce-FNAME" style="display: none;">Nome</label>
-								<input
-									style="display:none"
-									type="text"
-									value="ficcionado"
-									name="FNAME"
-									class="required"
-									id="mce-FNAME"
-									placeholder="Nome"
-								/>
-							</div>
-							<div class="mc-field-group">
-								<label for="mce-EMAIL" style="display: none;">Email</label>
-								<input
-									type="email"
-									value=""
-									name="EMAIL"
-									class="required email"
-									id="mce-EMAIL"
-									placeholder="E-mail"
-								/>
-							</div>
-							<input
-								type="checkbox"
-								value="4"
-								name="group[3581][4]"
-								id="mce-group[3581]-3581-0"
-								checked="true"
-								style="display:none"
-							/>
-							<div id="mce-responses" class="clear">
-								<div
-									class="response"
-									id="mce-error-response"
-									style="display:none"
-								></div>
-								<div
-									class="response"
-									id="mce-success-response"
-									style="display:none"
-								></div>
-							</div>
-							<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-							<div
-								style="position: absolute; left: -5000px;"
-								aria-hidden="true"
-							>
-								<input
-									type="text"
-									name="b_27613588b850606cebd9fa4cd_c022e8edfb"
-									tabindex="-1"
-									value=""
-								/>
-							</div>
+		<div class="footer__container">
 
-							<div class="clear">
-								<input
-									type="submit"
-									value="Junte-se a nós!"
-									name="subscribe"
-									id="mc-embedded-subscribe"
-									class="button"
-								/>
-							</div>
-						</div>
-					</form>
-				</div>
-				<p>dicas de escrita, publicação e muita motivação!</p>
-				<hr />
-				<div class="social-media">
+			<div class="footer__contact">
+				<h3 class="footer__title">
+					Receba nossos conteúdos exclusivos
+				</h3>
+				<MailchimpForm short addToList />
+				<p class="footer__content">
+					dicas de escrita, publicação e muita motivação!
+				</p>
+				<hr class="footer__rule" />
+
+				<div class="footer__medias">
 					<a
-						class="social-icon fb"
+						class="footer__social-icon footer__social-icon--fb"
 						href="https://www.facebook.com/blogficcionados/"
 						title="Facebook"
 					>
 						<i class="fa fa-facebook-f"></i
 					></a>
 					<a
-						class="social-icon"
+						class="footer__social-icon footer__social-icon--ig"
 						href="https://www.instagram.com/blogficcionados/"
 						title="Instagram"
 					>
@@ -101,23 +29,30 @@
 					></a>
 				</div>
 			</div>
-			<div class="upfront">
-				<h3>Transparência</h3>
-				<p>
+
+			<div class="footer__disclaimer">
+				<h3 class="footer__title">
+					Transparência
+				</h3>
+				<p class="footer__content">
 					Fazemos parte do programa
 					<a href="https://amzn.to/2Ej0SLD">Associados da Amazon</a>, isso
 					significa que nosso conteúdo é monetizado através de links
 					comissionados.
 				</p>
 			</div>
+
 		</div>
-		<span>© 2017–2019 Ficcionados | Feito com <i class="fa fa-heart"></i></span>
+		<span>© 2017–2020 Ficcionados | Feito com <i class="fa fa-heart"></i></span>
 	</footer>
 </template>
 
 <script>
+import MailchimpForm from '@/components/utils/MailchimpForm'
+
 export default {
 	name: 'Footer',
+	components: { MailchimpForm }
 }
 </script>
 
@@ -131,7 +66,7 @@ export default {
 	padding-top: 30px;
 }
 
-.flex-footer {
+.footer__container {
 	display: flex;
 	align-items: flex-start;
 	justify-content: flex-end;
@@ -139,16 +74,35 @@ export default {
 	margin-bottom: 40px;
 }
 
-.footer h3 {
+.footer__contact {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-grow: 6;
+	margin: 0 20px;
+	max-width: 800px;
+}
+
+.footer__title {
 	font-size: 1.6rem;
 	font-family: 'Philosopher';
 }
 
-.footer .med-footer h3 {
+.footer__contact .footer__title {
 	text-align: center;
+	margin-bottom: 24px;
 }
 
-.footer hr {
+.footer__content {
+	font-size: 0.9rem;
+}
+
+.footer__contact .footer__content {
+	margin-top: 8px;
+}
+
+.footer__rule {
 	width: 250px;
 	background: linear-gradient(
 		to right,
@@ -164,29 +118,17 @@ export default {
 	margin-bottom: 10px;
 }
 
-.footer .med-footer {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	flex-grow: 6;
-	margin: 0 20px;
-}
-
-.footer .med-footer .social-media {
+.footer__medias {
 	display: flex;
 	flex-grow: 1;
 	margin-top: 15px;
 }
 
-.footer .med-footer .social-media .social-icon {
+.footer__social-icon {
 	height: 35px;
 	width: 35px;
 	font-size: 1rem;
 	background-color: #f2f2f2;
-}
-
-.social-icon {
 	border-radius: 50%;
 	margin-left: 10px;
 	display: flex;
@@ -195,98 +137,37 @@ export default {
 	color: #4c4c4c;
 }
 
-.social-icon:hover {
+.footer__social-icon:hover {
 	color: #fafafa;
 	text-decoration: none;
 }
 
-.footer .med-footer .social-media [title='Facebook']:hover {
+.footer__social-icon--fb:hover {
 	background-color: rgba(66, 103, 178);
 }
 
-.footer .med-footer .social-media [title='Instagram']:hover {
+.footer__social-icon--ig:hover {
 	background-color: rgba(240, 102, 89);
 }
 
-.footer .med-footer {
-	max-width: 800px;
-}
-
-.footer .med-footer p {
-	font-size: 0.9rem;
-}
-
-.footer .upfront {
+.footer__disclaimer {
 	max-width: 22rem;
 	flex-grow: 1;
 }
 
-.footer .upfront p {
-	font-size: 0.9rem;
+.footer__disclaimer .footer__content {
 	margin: 20px 30px 0 0;
 	letter-spacing: 0.8px;
 }
 
-.footer .upfront a {
+.footer__disclaimer a {
 	text-decoration: none;
 	color: #2c8fec;
 	font-weight: 500;
 }
 
-.footer .upfront a:hover {
+.footer__disclaimer a:hover {
 	color: #4c9fec;
-}
-
-.footer #mc_embed_signup {
-	padding-top: 0;
-}
-
-.footer #mc_embed_signup form {
-	padding: 10px 0 10px 0;
-}
-
-.footer #mc_embed_signup_scroll {
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	flex-wrap: wrap;
-}
-
-.footer #mc_embed_signup .mc-field-group input {
-	margin-bottom: 0px;
-	margin-right: 5px;
-	width: 250px;
-	height: 32px;
-	border: 1px solid #abb0b2;
-	border-radius: 3px;
-	text-indent: 3px;
-}
-
-.footer #mc_embed_signup .mc-field-group input:focus {
-	outline-color: #1d7fd8;
-	box-shadow: 0 0 0 1px #1d7fd8aa;
-}
-
-.footer #mc_embed_signup .button {
-	background-color: #1d7fd8;
-	border: solid 1px #1660a5;
-	text-transform: none;
-	font-size: 1rem;
-	margin: 5px 0;
-	padding: 0;
-	height: 34px;
-	min-width: 0px;
-	width: 140px;
-	color: #fff;
-	transition: 0.23s ease-in-out;
-	font-weight: 400;
-	white-space: nowrap;
-	letter-spacing: 0.5px;
-	border-radius: 4px;
-}
-
-.footer #mc_embed_signup .button:hover {
-	background-color: #1c68af;
 }
 
 .footer span {
@@ -304,20 +185,20 @@ export default {
 }
 
 @media (max-width: 834px) {
-	.flex-footer {
+	.footer__container {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 	}
 
-	.footer .upfront {
+	.footer__disclaimer {
 		justify-self: flex-end;
 		margin: 60px 10px 20px 10px;
 	}
 }
 
 @media (max-width: 520px) {
-	.footer .med-footer {
+	.footer__contact {
 		margin: 5px;
 	}
 }

@@ -2,7 +2,7 @@
 	<div class="to-top" ref="toTopBtn">
 		<button
 			v-if="!hideButton"
-			class="to-top-btn"
+			class="to-top__btn"
 			title="Para cima!"
 			@click="goToTop"
 		>
@@ -60,19 +60,21 @@ export default {
 	transition: opacity 5s;
 }
 
-.to-top .to-top-btn {
+.to-top__btn {
 	width: 40px;
 	height: 40px;
-	/* border-radius: 4px; */
 	border: none;
 	color: #fafafa;
-	outline: 0;
 	opacity: 0.2;
 	background-color: #333;
 	cursor: pointer;
 }
 
-.to-top .to-top-btn:hover {
+body:not(.tab-user) .to-top__btn:focus {
+	outline: 0;
+}
+
+.to-top:hover .to-top__btn {
 	opacity: 0.5;
 }
 </style>

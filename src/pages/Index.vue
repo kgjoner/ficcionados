@@ -1,66 +1,53 @@
 <template>
 	<div class="home" ref="home">
-		<Cover />
-		<Directives />
-		<div class="favorite-articles">
-			<div class="art-title">
-				<img
-					src="@/assets/badge-heart.svg"
-					alt="Ícone de coração"
-					height="70px"
-				/>
-				<div>
-					<h2>Artigos Recomendados</h2>
-					<hr />
+		<Hero />
+		<HomeCalls />
+
+		<div class="home__section">
+			<div class="home__title-container">
+				<div class="home__icon-box">
+					<div class="home__icon heart"></div>
 				</div>
+				<h2 class="home__heading">
+					Artigos Recomendados
+				</h2>
 			</div>
-			<div class="fav-card-list">
-				<div v-for="(article, i) in favArticles" :key="article.slug">
-					<FavoriteCard :article="article" :standOutIndex="i" />
-				</div>
-			</div>
+			<ArticleList :articles="favArticles" vertical />
 		</div>
 
 		<HomeBanner ref="banner" />
 
-		<div class="interviews">
-			<div class="art-title">
-				<img
-					src="@/assets/badge-magnifier.svg"
-					alt="Ícone de lupa"
-					height="70px"
-				/>
-				<div>
-					<h2>Entrevistas</h2>
-					<hr />
+		<div class="home__section home__section--decoration">
+			<div class="home__title-container">
+				<div class="home__icon-box">
+					<div class="home__icon magnifier"></div>
 				</div>
+				<h2 class="home__heading">
+					Entrevistas
+				</h2>
 			</div>
 			<div class="interview-card-list">
-				<div v-for="(interview, i) in interviewArticles" :key="interview.slug">
+				<div v-for="(interview, i) in interviewArticles" :key="interview.id">
 					<InterviewCard
 						:slot="`${i}`"
 						:article="interview"
-						:standOutIndex="i"
 					/>
 				</div>
 			</div>
 		</div>
 
-		<div class="recent-art">
-			<div class="art-title">
-				<img src="@/assets/badge-sword.svg" alt="Ícone de lupa" height="70px" />
-				<div>
-					<h2>Artigos Recentes</h2>
-					<hr />
+		<div class="home__section">
+			<div class="home__title-container">
+				<div class="home__icon-box">
+					<div class="home__icon sword"></div>
 				</div>
+				<h2 class="home__heading">
+					Artigos Recentes
+				</h2>
 			</div>
-			<ul>
-				<li v-for="rarticle in recentArticles" :key="rarticle.id">
-					<ArticleCard :article="rarticle" :didGetImg="true" />
-				</li>
-			</ul>
-			<div class="load-more">
-				<router-link to="/artigos" class="btn btn-lg btn-outline-primary">
+			<ArticleList :articles="recentArticles" />
+			<div class="home__center-container">
+				<router-link to="/artigos/2" class="btn btn-lg btn-outline-primary">
 					Mais
 				</router-link>
 			</div>
@@ -110,37 +97,23 @@ fragment articleFields on Article {
 </page-query>
 
 <script>
-import { baseApiUrl } from '@/global'
-import axios from 'axios'
-
-import Cover from '@/components/home/Cover'
-import Directives from '@/components/home/Directives'
-import FavoriteCard from '@/components/home/FavoriteCard'
+import Hero from '@/components/home/Hero'
+import HomeCalls from '@/components/home/HomeCalls'
 import InterviewCard from '@/components/home/InterviewCard'
 import HomeBanner from '@/components/home/HomeBanner'
-import ArticleCard from '@/components/article/ArticleCard'
+import ArticleList from '@/components/utils/ArticleList'
 
 export default {
 	name: 'Home',
 	components: {
-		Cover,
-		Directives,
-		FavoriteCard,
+		Hero,
+		HomeCalls,
 		InterviewCard,
 		HomeBanner,
-		ArticleCard,
+		ArticleList,
 	},
 	metaInfo: {
 		titleTemplate: 'Ficcionados » Trazendo a ficção para a realidade.',
-	},
-	data: function() {
-		return {
-			page: 1,
-			loadMore: true,
-			imgQuery: true,
-			imgQuery2: true,
-			loading: false,
-		}
 	},
 	computed: {
 		standoutArticles() {
@@ -151,74 +124,121 @@ export default {
 		},
 		favArticles() {
 			return this.standoutArticles.filter(
-				(a) => a.category.name !== 'entrevista'
+				(a) => a.category.name !== 'Entrevistas'
 			)
 		},
 		interviewArticles() {
 			return this.standoutArticles.filter(
-				(a) => a.category.name === 'entrevista'
+				(a) => a.category.name === 'Entrevistas'
 			)
 		},
-	},
-	methods: {
-		canUseWebP() {
-			var elem = document.createElement('canvas')
-
-			if (elem.getContext && elem.getContext('2d')) {
-				if (elem.toDataURL('image/webp').indexOf('data:image/webp') == 0) {
-					this.$refs.home.classList.add('webp')
-				}
-			}
-		},
-	},
-	mounted() {
-		this.canUseWebP()
 	},
 }
 </script>
 
 <style>
-.favorite-articles {
+.home__section {
 	background-color: #fdfdfd;
-	padding: 50px 50px;
+	padding: 100px 50px 50px 50px;
 }
 
-.art-title {
+.home__title-container {
 	display: flex;
-	align-items: center;
-	padding-left: 20px;
+	align-items: bottom;
 	margin-bottom: 30px;
 }
 
-.art-title div {
-	vertical-align: top;
+.home__icon-box {
+	height: 60px;
+	width: 60px;
 	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	padding-left: 15px;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--main-color);
+	border-radius: 4px;
+	border-top-right-radius: 30%;
+	border-bottom-right-radius: 0;
 }
 
-.art-title h2 {
-	flex: 1;
-	margin-top: 20px;
+.home__icon {
+	mask-image: url('../assets/heart.svg');
+	mask-repeat: no-repeat;
+	mask-size: contain;
+	background-color: #fff;
+	height: 100%;
+	width: 100%;
+	padding: 0;
+}
+
+.home__icon.heart {
+	mask-image: url('../assets/heart.svg');
+	height: calc(100% - 8px);
+	width: calc(100% - 8px);
+}
+
+.home__icon.magnifier {
+	mask-image: url('../assets/magnifier.svg');
+}
+
+.home__icon.sword {
+	mask-image: url('../assets/sword.svg');
+}
+
+.home__heading {
+	padding: 8px 15px 0 10px;
+	margin-bottom: 0;
 	font-family: 'Kaushan Script';
 	font-size: 2.4rem;
 	color: rgba(50, 50, 50, 0.8);
+	border-bottom: 3px solid var(--main-color);
 }
 
-.art-title hr {
-	width: 250px;
-	margin-top: 0;
-	height: 1px;
-	border: none;
-	background: linear-gradient(
-		to right,
-		rgba(50, 50, 50, 0),
-		rgba(50, 50, 50, 0.6),
-		rgba(50, 50, 50, 0.6),
-		rgba(50, 50, 50, 0.6),
-		rgba(50, 50, 50, 0)
-	);
+.home__section--decoration {
+	position: relative;
+	overflow: hidden;
+}
+
+.home__section--decoration > * {
+	position: relative;
+	z-index: 1;
+}
+
+.home__section--decoration::before {
+	content: ' ';
+	position: absolute;
+	top: -15vw;
+	left: -15vw;
+	transform: rotate(-10deg);
+	width: 150vw;
+	height: 400px;
+	background-color: #1d7fd8;
+}
+
+.home__section--decoration::after {
+	content: ' ';
+	position: absolute;
+	bottom: -15vw;
+	right: -4vw;
+	transform: rotate(10deg);
+	width: 150vw;
+	height: 400px;
+	background-color: #1d7fd8;
+}
+
+.home__section--decoration .home__icon-box {
+	background-color: var(--dark-color);
+}
+
+.home__section--decoration .home__heading {
+	color: #f2f2f2;
+	border-color: var(--dark-color);
+}
+
+.home__center-container {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	top: -40px;
 }
 
 .fav-card-list {
@@ -245,80 +265,9 @@ export default {
 	flex-direction: row-reverse;
 }
 
-.interviews {
-	/* background-image: url('../../assets/blankcover.jpg'); */
-	padding: 50px 50px;
-	position: relative;
-	overflow: hidden;
-}
-
-.interviews:before {
-	content: ' ';
-	position: absolute;
-	top: -15vw;
-	left: -15vw;
-	transform: rotate(-10deg);
-	width: 150vw;
-	height: 400px;
-	background-color: #1d7fd8;
-}
-
-.interviews:after {
-	content: ' ';
-	position: absolute;
-	bottom: -15vw;
-	right: -4vw;
-	transform: rotate(10deg);
-	width: 150vw;
-	height: 400px;
-	background-color: #1d7fd8;
-}
-
-.interviews .art-title img {
-	z-index: 2;
-}
-
-.interviews .art-title h2 {
-	color: #f2f2f2;
-	z-index: 2;
-}
-
-.interviews .art-title hr {
-	width: 150px;
-	z-index: 2;
-	background: linear-gradient(
-		to right,
-		rgba(250, 250, 250, 0.4),
-		rgba(250, 250, 250, 0.8),
-		rgba(250, 250, 250, 0.8),
-		rgba(250, 250, 250, 0.8),
-		rgba(250, 250, 250, 0.4)
-	);
-}
-
-.recent-art {
-	padding: 50px;
-}
-
-.recent-art ul {
-	padding-top: 5px;
-	max-width: 60rem;
-	margin-left: auto;
-	margin-right: auto;
-	list-style-type: none;
-}
-
-.recent-art .load-more {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: 25px 0px;
-}
 
 @media (max-width: 1000px) {
-	.favorite-articles,
-	.interviews,
-	.recent-art {
+	.home__section {
 		padding: 50px 20px;
 	}
 
@@ -334,30 +283,16 @@ export default {
 }
 
 @media (max-width: 400px) {
-	.art-title {
+	.home__section {
+		padding: 50px 10px;
+	}
+
+	.home__title-container {
 		padding-left: 0;
 	}
 
-	.art-title div {
-		padding-left: 10px;
-	}
-
-	img[height] {
-		height: 60px;
-	}
-
-	.art-title h2 {
+	.home__heading {
 		font-size: 2.2rem;
-	}
-
-	.art-title hr {
-		width: 200px;
-	}
-
-	.favorite-articles,
-	.interviews,
-	.recent-art {
-		padding: 50px 10px;
 	}
 }
 </style>

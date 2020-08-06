@@ -16,18 +16,19 @@
 }
 
 .article-content a {
-  text-decoration: none;
-  color: #1d7fd8 !important;
+  font-weight: 600;
+  color: inherit !important;
+  border-bottom: 2px solid var(--main-color);
+  cursor: pointer;
 }
 
 .article-content a:hover {
-  text-decoration: none;
-  color: #2d7bc4c9 !important;
+  color: #2d7bc4 !important;
 }
 
 .article-content > p:first-of-type {
-  font-size: 1.3em;
-  line-height: 170%;
+  font-size: 1.15em;
+  line-height: 160%;
 }
 
 .article-content::first-letter {
@@ -36,7 +37,7 @@
   color: #1d7fd8;
   float: left;
   padding-top: 1rem;
-  padding-right: 10px;
+  padding-right: 8px;
 }
 
 .article-content h3 {

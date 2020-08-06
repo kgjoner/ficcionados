@@ -1,63 +1,64 @@
 <template>
 	<div class="not-found">
-		<PageTitle main="Página não encontrada" sub="Erro 404" />
-		<div class="not-found-body">
-			<p>A página que procura não existe ou nunca existiu.</p>
-			<p>
-				Você pode ir para a <a href="/">página inicial</a> ou usar a pesquisa
-				abaixo:
-			</p>
-			<QueryField />
+		<PageTitle 
+			main="Página não encontrada" 
+			sub="Erro 404"
+			center
+		/>
+		<div class="not-found__body">
+			<div class="not-found__text">
+				<p>A página que procura não existe ou nunca existiu.</p>
+				<p>
+					Você pode ir para a <a href="/">página inicial</a> ou usar a pesquisa
+					abaixo:
+				</p>
+			</div>
+			<SearchBox dark />
 		</div>
 	</div>
 </template>
 
 <script>
 import PageTitle from '@/components/template/pageTitle'
-import QueryField from '@/components/template/queryField'
+import SearchBox from '@/components/utils/SearchBox'
 
 export default {
 	name: 'NotFound',
-	components: { PageTitle, QueryField },
+	components: { PageTitle, SearchBox },
 	metaInfo: {
 		title: '404',
 	},
+	methods: {
+		redirectRules(to = this.$route) {
+			if(to.path.includes('/entrevista-com-')) {
+				const interviewee = to.path.match(/entrevista-com-(.+)$/)[1]
+				this.$router.push({ path: `/artigo/${interviewee}` })
+			} else if (!to.path.includes('artigo')) {
+				this.$router.push({ path: `/artigo/${to.path}` })
+			}
+		}
+	},
 	watch: {
 		$route(to) {
-			if (!to.path.includes('artigo')) {
-				this.$router.push({ path: `artigo/${to.path}` })
-			}
+			this.redirectRules(to)
 		},
 	},
 	created() {
-		if (!this.$route.path.includes('artigo')) {
-			this.$router.push({ path: `artigo/${this.$route.path}` })
-		}
+		this.redirectRules()
 	},
 }
 </script>
 
 <style>
-.not-found-body {
-	margin: 40px auto;
+.not-found__body {
+	margin: 80px auto 100px auto;
 	max-width: 45rem;
 	font-size: 1.15em;
 	letter-spacing: 0.8px;
 	line-height: 175%;
 }
 
-.not-found .query-field {
-	margin-top: 50px;
-	max-width: 20rem;
-	background-color: #fcfcfc;
-	border: none;
-}
-
-.not-found .query-field input {
-	color: #4c4c4c;
-}
-
-.not-found .query-button {
-	background-color: #1d7fd8;
+.not-found__text {
+	margin-bottom: 40px;
 }
 </style>

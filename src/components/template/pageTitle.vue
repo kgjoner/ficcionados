@@ -1,9 +1,10 @@
 <template>
-	<div class="page-title">
-		<div>
+	<div class="page-title"
+		:class="{'page-title--center': center}">
+		<div class="page-title__container">
 			<p>{{ sub }}</p>
 			<h1>{{ main }}</h1>
-			<hr />
+			<hr class="page-title__underscore"/>
 		</div>
 	</div>
 </template>
@@ -11,11 +12,28 @@
 <script>
 export default {
 	name: 'PageTitle',
-	props: ['icon', 'main', 'sub'],
+	props:{
+		main: String, 
+		sub: String, 
+		center: Boolean
+	},
 }
 </script>
 
 <style>
+.page-title {
+	position: relative;
+	padding-top: 20px;
+	color: #fafafa;
+	height: 12rem;
+
+	background-color: rgb(0, 0, 0, 0.2);
+
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
 .page-title::before {
 	content: '';
 	position: absolute;
@@ -37,41 +55,34 @@ export default {
 	filter: opacity(0.9);
 }
 
-.page-title {
-	position: relative;
-	padding-top: 20px;
-	color: #fafafa;
-	height: 12rem;
-
-	background-color: rgb(0, 0, 0, 0.2);
-
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-}
-
-.page-title div {
+.page-title__container {
 	padding-left: 50px;
 	padding-right: 20px;
 	max-width: 45rem;
 	z-index: 1;
 }
 
-.page-title h1 {
+.page-title--center .page-title__container {
+	margin-left: auto;
+	margin-right: auto;
+	width: 45rem;
+	padding-left: 20px;
+}
+
+.page-title__container h1 {
 	font-family: 'Kaushan Script', 'PT Serif';
 	font-size: 3rem;
-	/* font-weight: 600; */
 	line-height: 120%;
 	margin-bottom: 0;
 }
 
-.page-title p {
+.page-title__container p {
 	text-transform: uppercase;
 	margin-bottom: 5px;
 	font-size: 0.9rem;
 }
 
-.page-title hr {
+.page-title__underscore {
 	margin-top: 0;
 	height: 1px;
 	background: linear-gradient(
@@ -84,12 +95,16 @@ export default {
 	);
 }
 
+.page-title--center .page-title__underscore {
+	display: none;
+}
+
 @media (max-width: 450px) {
-	.page-title div {
+	.page-title__container {
 		padding-left: 20px;
 	}
 
-	.page-title h1 {
+	.page-title__container h1 {
 		font-size: 2.7rem;
 	}
 }

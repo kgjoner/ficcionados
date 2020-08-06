@@ -1,13 +1,17 @@
 <template>
-	<div class="cover">
-		<div class="cover-content">
-			<h1 class="home-title">Trazendo a ficção para a realidade.</h1>
-			<h3 class="home-sub">Pelo sonho de viver escrevendo.</h3>
-			<div class="flex-buttons">
-				<router-link to="/sobre" class="main-button button"
-					>O MANIFESTO</router-link
-				>
-				<a href="/artigos" class="sec-button button">ARTIGOS RECENTES</a>
+	<div class="hero">
+		<div class="hero__content">
+			<h1 class="hero__title">Trazendo a ficção para a realidade.</h1>
+			<h3 class="hero__subtitle">Pelo sonho de viver escrevendo.</h3>
+			<div class="hero__actions">
+				<g-link to="/sobre/" 
+					class="hero__action hero__action--main">
+					O MANIFESTO
+				</g-link>
+				<g-link to="/artigos/" 
+					class="hero__action hero__action--sec">
+					ARTIGOS RECENTES
+				</g-link>
 			</div>
 		</div>
 	</div>
@@ -15,12 +19,12 @@
 
 <script>
 export default {
-	name: 'Cover',
+	name: 'Hero',
 }
 </script>
 
 <style>
-.cover {
+.hero {
 	position: relative;
 	height: 90vh;
 	width: 100%;
@@ -29,18 +33,18 @@ export default {
 	background-position: center bottom;
 }
 
-.webp .cover {
+.webp .hero {
 	background-image: url('../../assets/homecover.webp');
 }
 
-.cover-content {
+.hero__content {
 	position: absolute;
 	bottom: 0px;
 	padding-bottom: 28vh;
 	padding-left: 20vw;
 }
 
-.home-title {
+.hero__title {
 	font-family: 'Kaushan Script', cursive;
 	color: rgba(255, 255, 255, 0.9);
 	font-size: 3rem;
@@ -48,7 +52,7 @@ export default {
 	line-height: 140%;
 }
 
-.home-sub {
+.hero__subtitle {
 	color: rgba(255, 255, 255, 0.7);
 	font-size: 1rem;
 	line-height: 140%;
@@ -58,12 +62,12 @@ export default {
 	text-transform: uppercase;
 }
 
-.flex-buttons {
+.hero__actions {
 	display: flex;
 	align-items: center;
 }
 
-.cover-content .button {
+.hero__action {
 	height: 60px;
 	width: 34vw;
 	min-width: 160px;
@@ -78,7 +82,7 @@ export default {
 	outline: 0;
 }
 
-.cover .cover-content .main-button {
+.hero__action--main {
 	margin-right: 20px;
 	background-color: #4d4d4d;
 	color: #fff;
@@ -87,12 +91,12 @@ export default {
 	box-shadow: 0px 0px 2px 0px #333;
 }
 
-.cover .cover-content .main-button:hover {
+.hero__action--main:hover {
 	background-color: #fff;
 	color: #4d4d4d;
 }
 
-.sec-button {
+.hero__action--sec {
 	background-color: transparent;
 	color: #fff;
 	border: solid 1px #fff;
@@ -100,42 +104,42 @@ export default {
 	box-shadow: 0px 0px 2px 0px #333;
 }
 
-.sec-button:hover {
+.hero__action--sec:hover {
 	background-color: #fff;
 	color: #1d7fd8;
 }
 
 @media (max-width: 1140px) {
-	.cover-content {
+	.hero__content {
 		padding-left: 20vw;
 		padding-right: 20px;
 	}
 }
 
 @media (max-width: 960px) {
-	.cover-content {
+	.hero__content {
 		padding-left: 15vw;
 		padding-right: 20px;
 	}
 }
 
 @media (max-width: 768px) {
-	.cover {
+	.hero {
 		background-image: url('../../assets/homecover-66.jpg');
 	}
 
-	.webp .cover {
+	.webp .hero {
 		background-image: url('../../assets/homecover-66.webp');
 	}
 
-	.cover-content {
+	.hero__content {
 		padding-left: 12vw;
 		padding-right: 10vw;
 	}
 }
 
 @media (max-width: 576px) {
-	.cover-content {
+	.hero__content {
 		padding-left: 5vw;
 		padding-right: 5vw;
 		padding-bottom: 23vh;
@@ -143,11 +147,11 @@ export default {
 }
 
 @media (max-width: 396px) {
-	.cover {
+	.hero {
 		background-image: url('../../assets/homecover-vt.jpg');
 	}
 
-	.cover-content {
+	.hero__content {
 		padding-bottom: 20vh;
 		padding-left: 10px;
 		padding-right: 5px;
@@ -155,41 +159,41 @@ export default {
 }
 
 @media (max-width: 850px) and (max-height: 500px) {
-	.cover-content {
+	.hero__content {
 		padding-bottom: 23vh;
 	}
 
-	.cover-content .button {
+	.hero__action {
 		height: 40px;
 		margin-top: 10px;
 		font-size: 13px;
 		width: 160px;
 	}
 
-	.home-title {
+	.hero__title {
 		font-size: 2.3rem;
 		line-height: 120%;
 	}
 
-	.home-sub {
+	.hero__subtitle {
 		font-size: 0.9rem;
 		line-height: 120%;
 	}
 }
 
 @media (max-width: 325px) {
-	.cover-content .button {
+	.hero__action {
 		margin-top: 20px;
 		font-size: 12px;
 		min-width: 135px;
 	}
 
-	.home-title {
+	.hero__title {
 		font-size: 2.3rem;
 		line-height: 120%;
 	}
 
-	.home-sub {
+	.hero__subtitle {
 		font-size: 0.9rem;
 		line-height: 120%;
 	}

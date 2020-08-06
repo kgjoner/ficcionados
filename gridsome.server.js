@@ -3,17 +3,11 @@
 // Learn more: https://gridsome.org/docs/server-api/
 
 const axios = require('axios');
-const category = require('../backend/api/category');
-// const baseApiUrl = 'https://ficcionados-backend.herokuapp.com'
-const baseApiUrl = 'http://localhost:3000'
+const baseApiUrl = 'https://ficcionados-backend.herokuapp.com'
+// const baseApiUrl = 'http://localhost:3000'
 
 module.exports = function (api) {
   api.loadSource(async actions => {
-    let standoutIds;
-    if(baseApiUrl.includes('localhost')) {
-      standoutIds = [1]
-    }
-
     const authorCollection = actions.addCollection('Author')
     const categoryCollection = actions.addCollection('Category')
     const imageCollection = actions.addCollection('ImageInfo')
@@ -24,19 +18,27 @@ module.exports = function (api) {
     const { data: images } = await axios.get(`${baseApiUrl}/images`)
     const { data: articles } = await axios.get(`${baseApiUrl}/build/articles`)
 
+    let standoutIds;
+    if(baseApiUrl.includes('localhost')) {
+      standoutIds = [1]
+    } else {
+      const { data: standout } = await axios.get(`${baseApiUrl}/standoutarticles`)
+      standoutIds = [...standout.recommended, ...standout.interviews]
+    }
+
     for (const user of users) {
       authorCollection.addNode({
         id: user.id,
         name: user.name,
         email: user.email,
-        bio: user.bio || false,
+        bio: user.bio || '',
         admin: user.admin,
-        facebook: user.facebook || false,
-        instagram: user.instagram || false,
-        twitter: user.twitter || false,
-        wattpad: user.wattpad || false,
-        website: user.website || false,
-        sweek: user.sweek || false,
+        facebook: user.facebook || '',
+        instagram: user.instagram || '',
+        twitter: user.twitter || '',
+        wattpad: user.wattpad || '',
+        website: user.website || '',
+        sweek: user.sweek || '',
       })
     }
 
@@ -55,7 +57,7 @@ module.exports = function (api) {
 
     for (const article of articles) {
       const category = categories.find(c => c.id === article.categoryId)
-      const parentCategory = categories.find(c => c.id === category.parentId)
+      const parentCategory = categories.find(c => c.id === category.parentId) || {}
       articleCollection.addNode({
         ...article,
         author: actions.store.createReference('Author', article.userId),
@@ -66,14 +68,6 @@ module.exports = function (api) {
         standout: standoutIds.includes(article.id)
       })
     }
-
-    // function getChildren(id) {
-    //   let children = categories.filter(c => c.parentId === id).map(c => c.id)
-    //   children.forEach(childId => {
-    //     children = [...children, ...getChildren(childId)]
-    //   })
-    //   return children
-    // }
 
   })
 

@@ -1,19 +1,21 @@
 <template>
 	<div class="about">
-		<div class="about-title">
-			<div>
+		<div class="about__cover">
+			<div class="about__title">
 				<p>a que viemos...</p>
 				<h1>O Manifesto do Escritor de Ficção</h1>
 			</div>
 		</div>
+
 		<div class="article-content" v-html="content"></div>
-		<div class="mailchimp-form">
+
+		<div class="about__post-content">
 			<hr />
 			<div class="article-content">
 				<p>Curtiu? Você também é um ficcionado?</p>
 				<p>Então fique por dentro de tudo o que acontece aqui no blog!</p>
 			</div>
-			<i class="fa fa-angle-double-down"></i>
+			<i class="about__icon fa fa-angle-double-down"></i>
 		</div>
 	</div>
 </template>
@@ -84,7 +86,19 @@ export default {
 </script>
 
 <style>
-.about-title::before {
+.about__cover {
+	height: 70vh;
+	padding-top: 20px;
+	color: #fafafa;
+	background-color: rgb(0, 0, 0, 0.2);
+
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	position: relative;
+}
+
+.about__cover::before {
 	content: '';
 	position: absolute;
 	height: 100%;
@@ -92,33 +106,19 @@ export default {
 	bottom: 0;
 	top: 0;
 
-	display: block;
 	background-image: linear-gradient(
 			to right,
 			rgba(0, 0, 0, 0.2),
 			rgba(0, 0, 0, 0.2)
 		),
 		url('../assets/homecover.jpg');
-	background-size: cover !important;
+	background-size: cover;
 	background-position: bottom center;
 
 	filter: opacity(0.9);
 }
 
-.about-title {
-	position: relative;
-	padding-top: 20px;
-	color: #fafafa;
-	height: 70vh;
-
-	background-color: rgb(0, 0, 0, 0.2);
-
-	display: flex;
-	justify-content: center;
-	align-items: flex-end;
-}
-
-.about-title div {
+.about__title {
 	padding-left: 20px;
 	padding-right: 20px;
 	margin-bottom: 20vh;
@@ -126,7 +126,7 @@ export default {
 	z-index: 1;
 }
 
-.about-title h1 {
+.about__title h1 {
 	font-family: 'Kaushan Script', 'PT Serif', cursive;
 	font-size: 3rem;
 	color: rgba(255, 255, 255, 0.9);
@@ -134,13 +134,13 @@ export default {
 	line-height: 140%;
 }
 
-.about-title p {
+.about__title p {
 	text-transform: uppercase;
 	margin-bottom: 5px;
 	font-size: 0.9rem;
 }
 
-.mailchimp-form {
+.about__post-content {
 	padding-left: 20px;
 	padding-right: 20px;
 	margin: 100px auto 50px auto;
@@ -148,66 +148,7 @@ export default {
 	line-height: 100%;
 }
 
-#mc_embed_signup {
-	max-width: 25rem;
-	padding-top: 50px;
-	color: #4c4c4c;
-}
-
-.mc-field-group {
-	display: flex;
-	flex-direction: column;
-}
-
-#mc_embed_signup form {
-	display: block;
-	position: relative;
-	text-align: left;
-	padding: 10px 0 10px 3%;
-}
-
-#mc_embed_signup input {
-	border: 1px solid #abb0b2;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-}
-
-#mc_embed_signup .button {
-	clear: both;
-	background-color: #1d7fd8;
-	border: 0 none;
-	border-radius: 4px;
-	transition: all 0.23s ease-in-out 0s;
-	color: #ffffff;
-	cursor: pointer;
-	display: inline-block;
-	font-size: 90%;
-	font-weight: normal;
-	height: 50px;
-	line-height: 32px;
-	margin: 10px 5px 10px 0;
-	padding: 0px 22px;
-	text-align: center;
-	text-decoration: none;
-	vertical-align: top;
-	white-space: nowrap;
-	min-width: 160px;
-	text-transform: uppercase;
-	letter-spacing: 0.5px;
-}
-
-#mc_embed_signup .button:hover {
-	background-color: #1d7ed8d0;
-}
-
-#mc_embed_signup .mc-field-group input {
-	padding: 8px 0;
-	text-indent: 2%;
-	margin-bottom: 20px;
-}
-
-.about i {
+.about__icon {
 	margin-top: 50px;
 	margin-left: 20vw;
 	font-size: 4rem;
@@ -216,7 +157,7 @@ export default {
 }
 
 @media (max-width: 850px) and (max-height: 500px), (max-width: 400px) {
-	.about-title h1 {
+	.about__title h1 {
 		font-size: 2.7rem;
 	}
 }

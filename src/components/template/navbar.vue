@@ -1,62 +1,73 @@
 <template>
-	<div class="navbar">
-		<ul>
-			<li>
-				<a href="/" :class="{ 'navbar-selected': this.$route.fullPath === '/' }"
-					>INÍCIO</a
-				>
+	<nav class="navbar">
+		<ul class="navbar__menu" role="menu">
+			<li class="navbar__item" role="menuitem">
+				<g-link to="/" 
+					class="navbar__link"
+					:class="{ 'navbar__link-selected': $route.fullPath === '/' }"
+					>INÍCIO
+				</g-link>
 			</li>
-			<li>
-				<a
-					href="/artigos"
+			<li class="navbar__item" role="menuitem">
+				<g-link
+					to="/artigos/"
+					class="navbar__link"
 					:class="{
-						'navbar-selected':
-							this.$route.fullPath === '/artigos' ||
-							this.$route.fullPath.match(
+						'navbar__link-selected': (
+							$route.fullPath.includes('/artigos') ||
+							$route.fullPath.includes('/artigo/') ||
+							$route.fullPath.match(
 								/\/categorias\/([0-2]|[4-9]|(\d\d+))/
-							) ||
-							this.$route.fullPath.includes('/artigo/'),
+							)
+						) && articleCategory.id != 3,
 					}"
-					>ARTIGOS</a
-				>
+					>ARTIGOS
+				</g-link>
 			</li>
-			<li>
-				<a
-					href="/categorias/3"
+			<li class="navbar__item" role="menuitem">
+				<g-link
+					to="/categorias/3/"
+					class="navbar__link"
 					:class="{
-						'navbar-selected':
-							this.$route.fullPath.match(/\/categorias\/3/) ||
-							this.$route.fullPath.includes('/entrevista/'),
+						'navbar__link-selected': 
+							$route.fullPath.match(/\/categorias\/3/) ||
+							$route.fullPath.includes('/entrevista/') ||
+							articleCategory.id == 3,
 					}"
-					>ENTREVISTAS</a
-				>
+					>ENTREVISTAS
+				</g-link>
 			</li>
-			<li>
-				<a
-					href="/sobre"
-					:class="{ 'navbar-selected': this.$route.fullPath === '/sobre' }"
-					>SOBRE</a
-				>
+			<li class="navbar__item" role="menuitem">
+				<g-link
+					to="/sobre/"
+					class="navbar__link"
+					:class="{ 'navbar__link-selected': $route.fullPath.includes('/sobre') }"
+					>SOBRE
+				</g-link>
 			</li>
-			<li>
-				<a
-					href="/contato"
-					:class="{ 'navbar-selected': this.$route.fullPath === '/contato' }"
-					>CONTATO</a
-				>
+			<li class="navbar__item" role="menuitem">
+				<g-link
+					to="/contato/"
+					class="navbar__link"
+					:class="{ 'navbar__link-selected': $route.fullPath.includes('/contato') }"
+					>CONTATO
+				</g-link>
 			</li>
 		</ul>
-	</div>
+	</nav>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
 	name: 'Navbar',
+	computed: mapState(['articleCategory'])
 }
 </script>
 
 <style>
-.navbar ul {
+.navbar__menu {
 	display: flex;
 	justify-content: space-between;
 	margin: 0px;
@@ -64,36 +75,36 @@ export default {
 	margin-right: 10px;
 }
 
-.navbar li {
+.navbar__item {
 	list-style-type: none;
 	font-size: 0.8rem;
 }
 
-.navbar a {
+.navbar__link {
 	color: rgba(255, 255, 255, 0.5);
 	text-decoration: none;
 	padding: 10px 20px;
 	border-bottom: solid 2px transparent;
 }
 
-.navbar a:hover {
+.navbar__link:hover {
 	color: #fff;
 	text-decoration: none;
 	border-bottom: solid 1px #1d7fd8;
 }
 
-.navbar .navbar-selected {
+.navbar__link-selected {
 	color: #fff;
 	border-bottom: solid 1px #1d7fd8;
 }
 
 @media (max-width: 855px) {
-	.navbar a {
-		padding: 10px 2vw;
+	.navbar__menu {
+		margin-right: 0px;
 	}
 
-	.navbar ul {
-		margin-right: 0px;
+	.navbar__link {
+		padding: 10px 2vw;
 	}
 }
 </style>

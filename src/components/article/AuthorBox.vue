@@ -1,17 +1,20 @@
 <template>
 	<div class="author-box">
-		<div>Sobre o Autor</div>
-		<div class="author-box-content">
-			<Gravatar :email="author.email" alt="Author" />
-			<div>
+		<div class="author-box__header">
+			Sobre o Autor
+		</div>
+		<div class="author-box__container">
+			<Gravatar class="author-box__picture"
+				:email="author.email" alt="Author" />
+			<div class="author-box__content">
 				<h5>{{ author.name }}</h5>
-				<em>{{ author.bio }}</em>
+				<p>{{ author.bio }}</p>
 			</div>
 		</div>
-		<div class="author-box-social">
-			<div>
+		<div class="author-box__external-links">
+			<div class="author-box__social-links">
 				<a
-					class="social-icon"
+					class="author-box__link-icon"
 					v-if="author.facebook"
 					:href="author.facebook"
 					title="Facebook"
@@ -19,7 +22,7 @@
 					<i class="fa fa-facebook-f"></i
 				></a>
 				<a
-					class="social-icon"
+					class="author-box__link-icon"
 					v-if="author.twitter"
 					:href="author.twitter"
 					title="Twitter"
@@ -27,7 +30,7 @@
 					<i class="fa fa-twitter"></i
 				></a>
 				<a
-					class="social-icon"
+					class="author-box__link-icon"
 					v-if="author.instagram"
 					:href="author.instagram"
 					title="Instagram"
@@ -35,11 +38,11 @@
 					<i class="fa fa-instagram"></i
 				></a>
 			</div>
-			<div>
+			<div class="author-box__author-links">
 				<span>Suas histórias:</span>
 				<!-- <a :href="/"><i class="fa fa-amazon"></i></a> -->
 				<a
-					class="social-icon"
+					class="author-box__link-icon"
 					v-if="author.wattpad"
 					:href="author.wattpad"
 					title="Wattpad"
@@ -47,14 +50,14 @@
 					<i class="icon-wattpad"></i
 				></a>
 				<a
-					class="social-icon"
+					class="author-box__link-icon"
 					v-if="author.sweek"
 					:href="author.sweek"
 					title="Sweek"
 				>
 					<i class="icon-sweek"></i
 				></a>
-				<a class="button" :href="author.website">
+				<a class="author-box__website-btn" :href="author.website">
 					<i v-if="author.name.includes('Kaio')" class="icon-velgard"></i>SITE
 				</a>
 			</div>
@@ -73,11 +76,6 @@ export default {
 </script>
 
 <style>
-.icon-velgard:before {
-	font-size: 1.4rem;
-	padding-right: 5px;
-}
-
 .author-box {
 	position: relative;
 	margin: 40px auto 0px auto;
@@ -85,7 +83,7 @@ export default {
 	max-width: 45rem;
 }
 
-.author-box > div:first-of-type {
+.author-box__header {
 	position: relative;
 	padding: 10px 10px 10px 20px;
 	width: 11rem;
@@ -98,7 +96,7 @@ export default {
 	font-size: 1.2em;
 }
 
-.author-box-content {
+.author-box__container {
 	border: solid 1px #ddd;
 	border-top-right-radius: 4px;
 	padding: 40px 20px;
@@ -107,26 +105,28 @@ export default {
 	align-items: flex-start;
 }
 
-.author-box img {
+.author-box__picture {
 	float: left;
 	width: 80px;
 	margin-right: 20px;
 	border-radius: 4px;
 }
 
-.author-box h5 {
+.author-box__content h5 {
 	font-family: 'PT Serif';
 	color: #5c5c5c;
 	font-size: 1.5em;
 }
 
-.author-box em {
+.author-box__content p {
 	line-height: 175%;
 	letter-spacing: 0.8px;
 	color: #4c4c4c;
+	font-style: italic;
+	margin: 0;
 }
 
-.author-box-social {
+.author-box__external-links {
 	background-color: #eaeaea;
 	height: 100%;
 
@@ -136,13 +136,13 @@ export default {
 	flex-wrap: wrap;
 }
 
-.author-box-social > div {
+.author-box__external-links > div {
 	display: flex;
 	align-items: center;
 	padding: 0.5rem 20px 0.5rem 10px;
 }
 
-.social-icon {
+.author-box__link-icon {
 	height: 2.5rem;
 	width: 2.5rem;
 	background-color: #fafafa;
@@ -158,13 +158,13 @@ export default {
 	justify-content: center;
 }
 
-.social-icon:hover {
+.author-box__link-icon:hover {
 	background-color: #4c4c4c;
 	text-decoration: none;
 	color: #fafafa;
 }
 
-.author-box-social span {
+.author-box__author-links span {
 	flex-grow: 1;
 	text-align: right;
 	font-size: 0.9em;
@@ -172,7 +172,7 @@ export default {
 	color: #4c4c4c;
 }
 
-.author-box-social .button {
+.author-box__website-btn {
 	min-width: 8rem;
 	height: 2.5rem;
 	float: right;
@@ -185,24 +185,29 @@ export default {
 	border-radius: 8px;
 	border: none;
 	padding: 0 10px;
-	/* font-weight: 500; */
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-.author-box-social .button:hover {
+.author-box__website-btn:hover {
 	background-color: #1d7ed8d0;
 	text-decoration: none;
+	color: #fafafa;
+}
+
+.icon-velgard:before {
+	font-size: 1.4rem;
+	padding-right: 5px;
 }
 
 @media (max-width: 610px) {
-	.author-box-social {
+	.author-box__external-links {
 		justify-content: flex-end;
 	}
 
-	.author-box-social > div:first-of-type {
+	.author-box__social-links {
 		display: none;
 	}
 }
