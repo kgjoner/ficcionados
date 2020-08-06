@@ -144,7 +144,7 @@ export default {
 
 .home__title-container {
 	display: flex;
-	align-items: bottom;
+	align-items: flex-end;
 	margin-bottom: 30px;
 }
 

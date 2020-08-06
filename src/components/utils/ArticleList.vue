@@ -1,8 +1,9 @@
 <template>
-	<div class="article-list" :class="{ 'article-list--vertical': vertical }">
+	<div class="article-list" :class="{ 'article-list--vertical': vertical || $mq == 'sm'|| $mq == 'xs' }">
 		<ul>
 			<li v-for="article in articles" :key="article.id">
-				<ArticleCard :article="article" :vertical="vertical" />
+				<ArticleCard :article="article" 
+					:vertical="vertical || $mq == 'sm'|| $mq == 'xs'" />
 			</li>
 		</ul>
 
@@ -79,10 +80,16 @@ export default {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: center;
 }
 
 .article-list--vertical li {
 	width: 32%;
+	min-width: 300px;
+	margin: 0 7px;
+}
+
+.b-pagination .page-link {
+	width: 100%;
 }
 </style>

@@ -70,7 +70,6 @@ export default {
 	display: flex;
 	align-items: flex-start;
 	justify-content: flex-end;
-	padding-left: 10px;
 	margin-bottom: 40px;
 }
 
@@ -203,9 +202,9 @@ export default {
 	}
 }
 
-@media (max-width: 428px) {
-	.footer #mc_embed_signup {
-		margin-left: 10vw;
+@media (max-width: 350px) {
+	.footer__disclaimer {
+		padding-left: 20px;
 	}
 }
 </style>

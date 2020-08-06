@@ -197,4 +197,21 @@ export default {
   font-size: 1rem;
   margin: 0;
 }
+
+@media(max-width: 500px) {
+  .mailchimp-form--short .mailchimp-form__scroll {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .mailchimp-form--short .mailchimp-form__field {
+    margin-bottom: 5px;
+    margin-right: 0;
+  }
+
+  .mailchimp-form--short .mailchimp-form__btn {
+    width: 250px;
+  }
+}
 </style>

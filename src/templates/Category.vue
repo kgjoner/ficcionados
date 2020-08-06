@@ -87,7 +87,6 @@ export default {
 			)
 		},
 		pageInfo() {
-			console.log(this.$route.query.page)
 			return {
 				currentPage: this.$route.query.page || 1,
 				totalItems: this.$page.category.belongsTo.edges.length,

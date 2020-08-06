@@ -37,6 +37,8 @@
 					Leia
 				</button>
 			</div>
+		</g-link>
+		<div class="article-card__container">
 			<g-link v-if="vertical"
 				class="article-card__category"
 				:to="`/categorias/${article.category.id}/`"
@@ -44,7 +46,7 @@
 				<i class="fa fa-folder"></i>
 				{{ article.category.name }}
 			</g-link>
-		</g-link>
+		</div>
 	</div>
 </template>
 
@@ -109,6 +111,9 @@ a.article-card__container {
 	background-color: rgba(0, 0, 0, 0.25);
 	border-radius: 5px;
 	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .article-card--vertical .article-card__picture {
@@ -124,8 +129,6 @@ a.article-card__container {
 .article-card--vertical .article-card__picture img {
 	height: auto;
 	width: 100%;
-	position: relative;
-	top: -20%;
 }
 
 .article-card__info {
@@ -237,10 +240,10 @@ a.article-card__container {
 
 .article-card__category {
 	text-decoration: none;
-	padding-left: 2px;
+	padding-left: 22px;
+	margin-bottom: 10px;
 	font-size: 0.8rem;
 	color: rgba(0, 0, 0, 0.6);
-	margin-top: 10px;
 }
 
 .article-card__category:hover {
@@ -251,11 +254,6 @@ a.article-card__container {
 	a.article-card__container {
 		padding: 10px;
 		flex-direction: column;
-	}
-
-	.article-card__picture {
-		padding-right: 0px;
-		padding-left: 5px;
 	}
 
 	.article-card__info {

@@ -29,6 +29,12 @@ export default {
 			this.hideDropdown = !this.hideDropdown
 		},
 	},
+	watch: {
+		$route() {
+			console.log('Foi!')
+			this.hideDropdown = true
+		}
+	}
 }
 </script>
 
@@ -66,7 +72,7 @@ export default {
 .navbar-dropdown__content {
 	position: absolute;
 	right: 0px;
-	background-color: #4c4c4c;
+	background-color: rgba(0, 0, 0, 0.85);
 	width: 100vw;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	padding: 10px;
