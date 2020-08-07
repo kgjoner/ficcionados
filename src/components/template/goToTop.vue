@@ -70,11 +70,15 @@ export default {
 	cursor: pointer;
 }
 
+.to-top:hover .to-top__btn {
+	opacity: 0.5;
+}
+
 body:not(.tab-user) .to-top__btn:focus {
 	outline: 0;
 }
 
-.to-top:hover .to-top__btn {
-	opacity: 0.5;
+.tab-user .to-top__btn:focus {
+	opacity: 1;
 }
 </style>

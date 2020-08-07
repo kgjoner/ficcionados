@@ -20,8 +20,10 @@ export default {
 				const nodeEl = document.createElement('li')
 				nodeEl.classList.add('menu-tree__node')
 				nodeEl.id = node.id
+				nodeEl.setAttribute('tabIndex', '0')
 				if (level === 0) {
 					nodeEl.addEventListener('click', this.handleClick)
+					nodeEl.addEventListener('keypress', this.handleEnter)
 					nodeEl.addEventListener('dblclick', this.handleDblClick)
 				}
 				parentEl.appendChild(nodeEl)
@@ -59,6 +61,10 @@ export default {
 			anchorEl.classList.add('menu-tree__anchor')
 			anchorEl.innerText = node.name
 			contentEl.appendChild(anchorEl)
+		},
+
+		handleEnter(e) {
+			if(e.key === 'Enter') this.handleClick(e)
 		},
 
 		handleClick(e) {

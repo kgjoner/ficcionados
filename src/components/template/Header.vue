@@ -1,6 +1,9 @@
 <template>
 	<header class="header">
-		<button class="header__action" @click="toggleMenu" v-if="!hideToggle">
+		<button v-if="!hideToggle" 
+			class="header__action" 
+			@click="toggleMenu"
+			aria-label="Abrir menu">
 			<img
 				src="@/assets/logomarca.svg"
 				class="header__logomark"
@@ -16,7 +19,7 @@
 			/>
 		</g-link>
 		<g-link to="/" class="header__logotype">
-			Ficcionados
+			<span>Ficcionados</span>
 			<!-- <img
 				src="@/assets/logotipo.svg"
 				alt="ficcionados logotipo"
@@ -81,10 +84,14 @@ a.header__action:hover {
 	background-color: transparent;
 }
 
-.header__action:focus {
+body:not(.tab-user) .header__action:focus {
 	outline: none;
 }
 
+.tab-user .header__action:focus {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+ 
 .header__logomark {
 	height: 100%;
 	width: 100%;
@@ -101,6 +108,14 @@ a.header__logotype {
 	font-family: 'Kaushan Script';
 	font-size: 40px;
 	margin-left: 5px;
+}
+
+a.header__logotype:focus {
+	outline: none
+}
+
+.tab-user a.header__logotype:focus span {
+	outline: 1px solid #fff;
 }
 
 @media (max-width: 916px) {

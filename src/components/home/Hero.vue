@@ -80,7 +80,10 @@ export default {
 	justify-content: center;
 	align-items: center;
 	text-decoration: none;
-	outline: 0;
+}
+
+body:not(.tab-user) .hero__action:focus {
+	outline: none;
 }
 
 .hero__action--main {

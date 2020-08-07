@@ -12,11 +12,11 @@
 				Dicas para refinar seus roteiros, encontrar seu estilo e ganhar
 				confiança em seus textos.
 			</p>
-			<button class="home-calls__btn">
+			<button class="home-calls__btn" tabindex="-1">
 				Saiba Mais
 			</button>
 		</g-link>
-		<g-link :to="{ path: '/categorias/2/' }" class="home-calls__option">
+		<g-link to="/categorias/2" class="home-calls__option">
 			<div class="home-calls__icon-box">
 				<i class="icon-book"></i>
 			</div>
@@ -28,7 +28,7 @@
 				Confira as etapas pelas quais um livro deve passar, desde a primeira
 				palavra escrita até tê-lo em suas mãos.
 			</p>
-			<button class="home-calls__btn">
+			<button class="home-calls__btn" tabindex="-1">
 				Saiba Mais
 			</button>
 		</g-link>

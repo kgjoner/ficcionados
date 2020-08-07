@@ -33,7 +33,7 @@
 						<strong>{{ publishedAt }}</strong>
 					</p>
 				</div>
-				<button class="article-card__btn">
+				<button class="article-card__btn" tabindex="-1">
 					Leia
 				</button>
 			</div>

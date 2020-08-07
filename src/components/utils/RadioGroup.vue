@@ -90,4 +90,8 @@ export default {
 .radio-group__input:checked ~ .radio-group__custom-box:after {
 	display: block;
 }
+
+.tab-user .radio-group__label:focus-within {
+	outline: 2px solid rgba(0,0,0,0.8);
+}
 </style>

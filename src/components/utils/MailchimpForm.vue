@@ -23,6 +23,7 @@
             class="required mailchimp-form__field "
             id="mce-FNAME"
             placeholder="Nome"
+            aria-label="Nome"
           />
         </div>
         <div class="mc-field-group">
@@ -34,6 +35,7 @@
             class="required email mailchimp-form__field"
             id="mce-EMAIL"
             placeholder="E-mail"
+            aria-label="Email"
           />
         </div>
         <input v-if="addToList"
