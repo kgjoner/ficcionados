@@ -5,8 +5,8 @@ module.exports = {
       path: node => `/artigo/${node.slug}`
     }, {
       name: 'redirects',
-      path: '/:slug',
-      component: './src/components/articles/ArticleRedirect.vue'
+      path: node => `/${node.slug}`,
+      component: './src/components/article/ArticleRedirect.vue'
     }],
     Category: [{
       path: node => `/categorias/${node.id}`
