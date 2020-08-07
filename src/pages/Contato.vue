@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import PageTitle from '@/components/template/pageTitle'
+import PageTitle from '@/components/template/PageTitle'
 import Loading from '@/components/utils/Loading'
 import displayError from '@/utils/displayError'
 import axios from 'axios'

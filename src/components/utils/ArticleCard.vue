@@ -21,9 +21,9 @@
 				/>
 			</figure>
 			<div class="article-card__info">
-				<h4 class="article-card__heading">
+				<h3 class="article-card__heading">
 					{{ article.name }}
-				</h4>
+				</h3>
 				<div class="article-card__flex-swap">
 					<p class="article-card__description"> 
 						{{ article.description }}

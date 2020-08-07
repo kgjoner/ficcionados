@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Toggler from '@/components/template/toggler'
+import Toggler from '@/components/template/Toggler'
 
 export default {
 	name: 'Content',
@@ -18,5 +18,6 @@ export default {
 .content {
 	grid-area: content;
 	background-color: #efefef;
+	max-width: 100vw;
 }
 </style>

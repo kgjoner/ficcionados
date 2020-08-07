@@ -2,7 +2,7 @@
 	<nav class="navbar">
 		<ul class="navbar__menu" role="menu">
 			<li class="navbar__item" role="menuitem">
-				<g-link to="/" 
+				<g-link to="/" rel="nofollow"
 					class="navbar__link"
 					:class="{ 'navbar__link-selected': $route.fullPath === '/' }"
 					>INÍCIO

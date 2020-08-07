@@ -2,7 +2,7 @@
 	<div class="hero">
 		<div class="hero__content">
 			<h1 class="hero__title">Trazendo a ficção para a realidade.</h1>
-			<h3 class="hero__subtitle">Pelo sonho de viver escrevendo.</h3>
+			<p class="hero__subtitle">Pelo sonho de viver escrevendo.</p>
 			<div class="hero__actions">
 				<g-link to="/sobre/" 
 					class="hero__action hero__action--main">
@@ -58,6 +58,7 @@ export default {
 	line-height: 140%;
 	padding: 10px;
 	letter-spacing: 0.8px;
+	margin-bottom: 8px;
 	font-style: italic;
 	text-transform: uppercase;
 }

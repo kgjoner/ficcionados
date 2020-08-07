@@ -14,7 +14,7 @@ import axios from 'axios'
 import { BASE_API_URL } from '@/constants'
 import displayError from '@/utils/displayError'
 
-import PageTitle from '@/components/template/pageTitle'
+import PageTitle from '@/components/template/PageTitle'
 import ArticleList from '@/components/utils/ArticleList'
 import Loading from '@/components/utils/Loading'
 
@@ -65,6 +65,7 @@ export default {
 					})
 					resolve(res.data)
 				})
+				.catch(e => displayError(e))
 			})
 		},
 	},

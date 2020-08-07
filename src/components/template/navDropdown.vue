@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Navbar from './navbar'
+import Navbar from './Navbar'
 
 export default {
 	name: 'NavDropdown',
@@ -31,7 +31,6 @@ export default {
 	},
 	watch: {
 		$route() {
-			console.log('Foi!')
 			this.hideDropdown = true
 		}
 	}

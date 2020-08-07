@@ -114,7 +114,6 @@ export default {
         this.existOrError(this.name, 'O nome não foi informado.')
 				this.existOrError(this.email, 'O e-mail não foi informado.')
 			} catch (e) {
-        console.log(e)
 				return displayError(e)
 			}
 

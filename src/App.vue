@@ -25,7 +25,7 @@ import Header from '@/components/template/Header'
 import Menu from '@/components/template/Menu'
 import Content from '@/components/template/Content'
 import Footer from '@/components/template/Footer'
-import GoToTop from '@/components/template/goToTop'
+import GoToTop from '@/components/template/GoToTop'
 
 export default {
 	name: 'App',
@@ -37,6 +37,10 @@ export default {
 				name: 'viewport',
 				key: 'viewport',
 				content: 'width=device-width, initial-scale=1.0, maximum-scale=5.0',
+			},
+			{
+				'http-equiv': 'content-language',
+				content: 'pt-br'
 			}
 		],
 	},
@@ -110,6 +114,7 @@ export default {
 	-moz-osx-font-smoothing: grayscale;
 
 	height: 100vh;
+	max-width: 100vw;
 	display: grid;
 	grid-template-rows: 60px 2fr 1fr;
 	grid-template-columns: 230px 1fr;

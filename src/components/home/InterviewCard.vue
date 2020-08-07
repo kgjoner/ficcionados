@@ -17,9 +17,9 @@
 				</p>
 				<hr class="interview-card__rule" />
 				<div>
-					<h4 class="interview-card__heading">
+					<h3 class="interview-card__heading">
 						{{ article.name }}
-					</h4>
+					</h3>
 					<span class="interview-card__publishing-date">
 						em <strong>{{ publishedAt }}</strong>
 					</span>

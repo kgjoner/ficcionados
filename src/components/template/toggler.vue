@@ -2,28 +2,28 @@
 	<div
 		class="toggler"
 		:class="{ 'toggler--on': isMenuVisible }"
-		ref="toggler"
-		@click="toggleMenu"
 	>
-		<button v-if="isMenuVisible || keepToggler" class="toggler__button">
-			<i class="fa fa-sort-up toggler__icon">
-			</i>
+		<button v-if="(isMenuVisible || keepToggler)
+			&& $mq !== 'sm' && $mq !== 'xs'" 
+			class="toggler__button"
+			@click="toggleMenu">
+				<i class="fa fa-sort-up toggler__icon"></i>
 		</button>
 	</div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import { ROUTES_WITH_MENU_DISPLAYED_BY_DEFAULT } from '@/constants'
 
 export default {
 	name: 'Toggler',
 	computed: {
 		...mapState(['isMenuVisible']),
 		keepToggler() {
-			return (
-				this.$route.fullPath == '/artigos' ||
-				this.$route.fullPath == `/entrevistas`
-			)
+			return !!ROUTES_WITH_MENU_DISPLAYED_BY_DEFAULT.find(route => {
+				return this.$route.fullPath.match(route)
+			})
 		},
 	},
 	methods: {

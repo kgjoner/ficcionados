@@ -45,7 +45,7 @@
 			<ArticleList :articles="recentArticles" />
 			<div class="home__center-container">
 				<router-link to="/artigos/2" class="btn btn-lg btn-outline-primary">
-					Mais
+					Mais Artigos
 				</router-link>
 			</div>
 		</div>
@@ -111,7 +111,7 @@ export default {
 	},
 	metaInfo: {
 		titleTemplate: 'Ficcionados » Trazendo a ficção para a realidade.',
-		mete: [
+		meta: [
 			{
 				name: 'description',
 				content:

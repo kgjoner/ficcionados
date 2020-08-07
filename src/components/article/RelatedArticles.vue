@@ -19,6 +19,7 @@
 <script>
 import { BASE_API_URL } from '@/constants'
 import axios from 'axios'
+import displayError from '@/utils/displayError'
 
 export default {
 	name: 'RelatedArticles',
@@ -39,9 +40,11 @@ export default {
 			const url = `${BASE_API_URL}/categories/${this.parentId}/articles?page=${
 				this.currentArticle
 			}&order=random`
-			axios(url).then(res => {
-				this.articles = this.articles.concat(res.data)
-			})
+			axios(url)
+				.then(res => {
+					this.articles = [...res.data]
+				})
+				.catch(e => displayError(e))
 		},
 	},
 	watch: {

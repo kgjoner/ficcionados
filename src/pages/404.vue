@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import PageTitle from '@/components/template/pageTitle'
+import PageTitle from '@/components/template/PageTitle'
 import SearchBox from '@/components/utils/SearchBox'
 
 export default {

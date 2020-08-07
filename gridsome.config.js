@@ -6,7 +6,7 @@ module.exports = {
     }, {
       name: 'redirects',
       path: '/:slug',
-      component: './src/components/Redirect.vue'
+      component: './src/components/articles/ArticleRedirect.vue'
     }],
     Category: [{
       path: node => `/categorias/${node.id}`

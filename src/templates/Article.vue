@@ -125,6 +125,10 @@ export default {
 					p: 'og:image',
 					c: `${BASE_IMG_URL}/${this.$page.article.image.filename}`,
 				},
+				{
+					name: 'author',
+					content: this.$page.article.author.name
+				}
 			],
 			link: () => [
 				{

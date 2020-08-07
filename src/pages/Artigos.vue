@@ -46,7 +46,7 @@ query($page: Int) {
 
 <script>
 import { Pager } from 'gridsome'
-import PageTitle from '@/components/template/pageTitle'
+import PageTitle from '@/components/template/PageTitle'
 import ArticleList from '@/components/utils/ArticleList'
 
 export default {

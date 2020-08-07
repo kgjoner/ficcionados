@@ -1,9 +1,9 @@
 <template>
 	<div class="home-banner">
 		<div>
-			<h3 class="home-banner__heading">
+			<h2 class="home-banner__heading">
 				Liberte suas <strong>histórias</strong>
-			</h3>
+			</h2>
 			<p class="home-banner__copy">
 				Nem sempre é fácil colocar uma história no papel. Pode ser que você mal
 				consiga tempo para escrever, e quando o faz, as palavras lhe escapam. Se
