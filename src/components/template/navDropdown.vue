@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Navbar from './Navbar'
+import Navbar from '@/components/template/Navbar'
 
 export default {
 	name: 'NavDropdown',

@@ -43,7 +43,9 @@
 			</div>
 
 		</div>
-		<span>© 2017–2020 Ficcionados | Feito com <i class="fa fa-heart"></i></span>
+		<p class="footer__copyright">
+			© 2017–2020 Ficcionados | Feito com <i class="fa fa-heart"></i>
+		</p>
 	</footer>
 </template>
 
@@ -169,16 +171,17 @@ export default {
 	color: #4c9fec;
 }
 
-.footer span {
+.footer__copyright {
 	position: absolute;
 	margin-top: 30px;
+	margin-bottom: 0;
 	padding: 10px 30px;
 	bottom: 0px;
 	right: 0px;
 	letter-spacing: 0.8px;
 }
 
-.footer span i {
+.footer__copyright i {
 	color: rgb(212, 65, 65);
 	margin-left: 2px;
 }

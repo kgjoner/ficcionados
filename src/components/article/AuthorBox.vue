@@ -1,17 +1,22 @@
 <template>
-	<div class="author-box">
-		<div class="author-box__header">
-			Sobre o Autor
-		</div>
+	<section class="author-box">
+		<header class="author-box__header">
+			<h2>Sobre o Autor</h2>
+		</header>
+
 		<div class="author-box__container">
-			<Gravatar class="author-box__picture"
-				:email="author.email" alt="Author" />
+			<Gravatar
+				class="author-box__picture"
+				:email="author.email"
+				alt="Autor"
+			/>
 			<div class="author-box__content">
-				<h5>{{ author.name }}</h5>
+				<h3>{{ author.name }}</h3>
 				<p>{{ author.bio }}</p>
 			</div>
 		</div>
-		<div class="author-box__external-links">
+
+		<address class="author-box__external-links">
 			<div class="author-box__social-links">
 				<a
 					class="author-box__link-icon"
@@ -39,7 +44,7 @@
 				></a>
 			</div>
 			<div class="author-box__author-links">
-				<span>Suas histórias:</span>
+				<p>Suas histórias:</p>
 				<!-- <a :href="/"><i class="fa fa-amazon"></i></a> -->
 				<a
 					class="author-box__link-icon"
@@ -57,12 +62,16 @@
 				>
 					<i class="icon-sweek"></i
 				></a>
-				<a class="author-box__website-btn" :href="author.website">
+				<a
+					class="author-box__website-btn"
+					:href="author.website"
+					title="Website"
+				>
 					<i v-if="author.name.includes('Kaio')" class="icon-velgard"></i>SITE
 				</a>
 			</div>
-		</div>
-	</div>
+		</address>
+	</section>
 </template>
 
 <script>
@@ -90,10 +99,14 @@ export default {
 	background-color: #1d7fd8;
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
+}
 
-	color: #fafafa;
+.author-box__header h2 {
 	letter-spacing: 0.8px;
+	line-height: 150%;
 	font-size: 1.2em;
+	margin: 0;
+	color: #fafafa;
 }
 
 .author-box__container {
@@ -112,7 +125,7 @@ export default {
 	border-radius: 4px;
 }
 
-.author-box__content h5 {
+.author-box__content h3 {
 	font-family: 'PT Serif';
 	color: #5c5c5c;
 	font-size: 1.5em;
@@ -164,12 +177,13 @@ export default {
 	color: #fafafa;
 }
 
-.author-box__author-links span {
+.author-box__author-links p {
 	flex-grow: 1;
 	text-align: right;
 	font-size: 0.9em;
 	letter-spacing: 0.8px;
 	color: #4c4c4c;
+	margin-bottom: 0;
 }
 
 .author-box__website-btn {
@@ -181,7 +195,6 @@ export default {
 	background-color: #1d7fd8;
 	color: #fafafa;
 	text-decoration: none;
-	outline: 0;
 	border-radius: 8px;
 	border: none;
 	padding: 0 10px;
@@ -189,6 +202,10 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+body:not(.tab-user) .author-box__website-btn:focus {
+	outline: 0;
 }
 
 .author-box__website-btn:hover {

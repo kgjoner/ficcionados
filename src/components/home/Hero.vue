@@ -1,5 +1,5 @@
 <template>
-	<div class="hero">
+	<section class="hero">
 		<div class="hero__content">
 			<h1 class="hero__title">Trazendo a ficção para a realidade.</h1>
 			<p class="hero__subtitle">Pelo sonho de viver escrevendo.</p>
@@ -14,7 +14,7 @@
 				</g-link>
 			</div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>

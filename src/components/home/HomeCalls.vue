@@ -1,5 +1,5 @@
 <template>
-	<div class="home-calls">
+	<section class="home-calls">
 		<g-link to="/categorias/1/" class="home-calls__option">
 			<div class="home-calls__icon-box">
 				<i class="icon-quill"></i>
@@ -32,7 +32,7 @@
 				Saiba Mais
 			</button>
 		</g-link>
-	</div>
+	</section>
 </template>
 
 <script>

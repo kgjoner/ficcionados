@@ -1,5 +1,5 @@
 <template>
-	<div class="interview-card">
+	<article class="interview-card">
 		<g-link 
 			:to="`/artigo/${article.slug}/`" 
 			class="interview-card__container"
@@ -23,14 +23,14 @@
 					<span class="interview-card__publishing-date">
 						em <strong>{{ publishedAt }}</strong>
 					</span>
-					<button class="interview-card__btn">
+					<button class="interview-card__btn" tabindex="-1">
 						Leia
 					</button>
 				</div>
 				
 			</div>
 		</g-link>
-	</div>
+	</article>
 </template>
 
 <script>

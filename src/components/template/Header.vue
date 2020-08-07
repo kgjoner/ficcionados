@@ -33,8 +33,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import Navbar from './Navbar'
-import NavDropdown from './NavDropdown'
+import Navbar from '@/components/template/Navbar'
+import NavDropdown from '@/components/template/NavDropdown'
 
 export default {
 	name: 'Header',

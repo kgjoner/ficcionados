@@ -1,19 +1,21 @@
 <template>
-	<div class="related-articles">
-		<h4 class="related-articles__title">
+	<section class="related-articles">
+		<h2 class="related-articles__title">
 			Artigos Relacionados
-		</h4>
+		</h2>
 		<hr class="related-articles__rule" />
 		<ul class="related-articles__list">
 			<li v-for="article in articles" :key="article.id">
 				<g-link :to="`/artigo/${article.slug}/`">
 					<div class="related-articles__proper-link">
-						<span>{{ article.name }}</span>
+						<span class="related-articles__article-title">
+							{{ article.name }}
+						</span>
 					</div>
 				</g-link>
 			</li>
 		</ul>
-	</div>
+	</section>
 </template>
 
 <script>
@@ -68,6 +70,7 @@ export default {
 .related-articles__title {
 	color: #4c4c4c;
 	font-family: 'Philosopher';
+	font-size: 1.5rem;
 }
 
 .related-articles__rule {
@@ -90,13 +93,13 @@ export default {
 	border-radius: 4px;
 }
 
-.related-articles__proper-link span {
+.related-articles__article-title {
 	margin-bottom: 5px;
 	font-size: 1.3rem;
 	border-bottom: solid 1px #1d7fd8aa;
 }
 
-.related-articles__proper-link span::before {
+.related-articles__article-title::before {
 	font-family: 'custicons';
 	content: 'q';
 	font-size: 0.8em;

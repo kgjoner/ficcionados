@@ -1,5 +1,5 @@
 <template>
-	<div class="article-card"
+	<article class="article-card"
 		:class="{'article-card--vertical': vertical}"
 	>
 		<g-link 
@@ -47,7 +47,7 @@
 				{{ article.category.name }}
 			</g-link>
 		</div>
-	</div>
+	</article>
 </template>
 
 <script>

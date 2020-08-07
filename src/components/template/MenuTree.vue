@@ -158,6 +158,10 @@ export default {
 	overflow: hidden;
 }
 
+body:not(.tab-user) .menu-tree__node:focus {
+	outline: none;
+}
+
 .menu-tree__node > .menu-tree__nodes {
 	display: none;
 	position: relative;

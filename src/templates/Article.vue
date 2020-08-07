@@ -1,6 +1,6 @@
 <template>
-	<div class="article">
-		<div
+	<article class="article">
+		<header
 			class="article__cover"
 			:class="{ 'article__cover--long-title': $page.article.name.length > 50 }"
 		>
@@ -11,9 +11,10 @@
 				<h1 class="article__title">
 					{{ $page.article.name }}
 				</h1>
-				<em class="article__publishing">
+				<time class="article__publishing"
+					:datetime="$page.article.publishedAt">
 					{{ publishedAt }}
-				</em>
+				</time>
 			</div>
 			<div v-show="!articleLoaded">
 				<div class="article__not-loaded">
@@ -22,25 +23,30 @@
 					<div class="publish-block text-block"></div>
 				</div>
 			</div>
-		</div>
-		<div v-show="articleLoaded" class="article__pre-content">
+		</header>
+
+		<section v-show="articleLoaded" class="article__pre-content">
 			<Gravatar :email="$page.article.author.email" alt="Autor" />
 			<span>{{ $page.article.author.name }}</span>
-			<em>{{ readingTime }}min de leitura</em>
+			<p class="article__reading-time">
+				{{ readingTime }}min de leitura
+			</p>
 			<hr />
-		</div>
-		<div v-show="!articleLoaded" class="article__pre-content">
+		</section>
+		<section v-show="!articleLoaded" class="article__pre-content">
 			<div class="article__not-loaded">
 				<div class="pre-block text-block"></div>
 			</div>
 			<hr />
-		</div>
-		<div
+		</section>
+
+		<section
 			v-show="articleLoaded"
 			class="article-content"
 			v-html="$page.article.content"
-		></div>
-		<div class="article__post-content" ref="postArticle">
+		></section>
+
+		<section class="article__post-content" ref="postArticle">
 			<hr />
 			<AuthorBox v-if="$page.article.author" 
 				:author="author" />
@@ -56,8 +62,8 @@
 					:url="'https://www.ficcionados.com.br' + this.$route.fullPath"
 				></vue-disqus>
 			</div>
-		</div>
-	</div>
+		</section>
+	</article>
 </template>
 
 <page-query>
@@ -301,6 +307,10 @@ export default {
 	font-size: 0.9rem;
 }
 
+.article__publishing {
+	font-style: italic;
+}
+
 .article__pre-content,
 .article__post-content {
 	margin-left: auto;
@@ -322,8 +332,10 @@ export default {
 	border-radius: 50%;
 }
 
-.article__pre-content em {
+.article__reading-time {
 	float: right;
+	font-style: italic;
+	margin-bottom: 0;
 }
 
 .article__comments {

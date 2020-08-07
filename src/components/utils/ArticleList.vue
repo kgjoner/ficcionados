@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import ArticleCard from './ArticleCard'
+import ArticleCard from '@/components/utils/ArticleCard'
 
 export default {
 	name: 'ArticleList',

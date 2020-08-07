@@ -1,5 +1,5 @@
 <template>
-	<div class="home-banner">
+	<section class="home-banner">
 		<div>
 			<h2 class="home-banner__heading">
 				Liberte suas <strong>histórias</strong>
@@ -14,7 +14,7 @@
 			to="/desbloqueando-a-escrita/" target="_blank">
 			Descubra Mais
 		</g-link>
-	</div>
+	</section>
 </template>
 
 <script>

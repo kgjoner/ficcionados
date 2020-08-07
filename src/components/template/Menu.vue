@@ -29,8 +29,8 @@ query {
 
 <script>
 import { mapState } from 'vuex'
-import MenuTree from './MenuTree'
-import SearchBox from '../utils/SearchBox'
+import MenuTree from '@/components/template/MenuTree'
+import SearchBox from '@/components/utils/SearchBox'
 
 export default {
 	name: 'Menu',
