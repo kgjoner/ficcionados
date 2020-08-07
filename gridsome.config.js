@@ -3,6 +3,10 @@ module.exports = {
   templates: {
     Article: [{
       path: node => `/artigo/${node.slug}`
+    }, {
+      name: 'redirects',
+      path: '/:slug',
+      component: './src/components/Redirect.vue'
     }],
     Category: [{
       path: node => `/categorias/${node.id}`
