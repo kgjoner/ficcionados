@@ -58,6 +58,7 @@ export default {
 	border-radius: 4px;
 	border: none;
 	outline: none;
+	padding: 0;
 }
 
 .navbar-dropdown:hover .navbar__button {

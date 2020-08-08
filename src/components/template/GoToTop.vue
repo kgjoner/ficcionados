@@ -1,7 +1,7 @@
 <template>
 	<div class="to-top" ref="toTopBtn">
 		<button
-			v-if="!hideButton"
+			v-if="wasMounted && !hideButton"
 			class="to-top__btn"
 			title="Para cima!"
 			@click="goToTop"
@@ -17,6 +17,7 @@ export default {
 	data: function() {
 		return {
 			hideButton: true,
+			wasMounted: false
 		}
 	},
 	methods: {
@@ -44,6 +45,7 @@ export default {
 	},
 	mounted() {
 		window.addEventListener('scroll', this.checkHideButton)
+		this.wasMounted = true
 	},
 	destroyed() {
 		window.removeEventListener('scroll', this.checkHideButton)

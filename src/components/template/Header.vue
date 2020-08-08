@@ -1,6 +1,6 @@
 <template>
 	<header class="header">
-		<button v-if="!hideToggle" 
+		<button v-if="wasMounted && !hideToggle" 
 			class="header__action" 
 			@click="toggleMenu"
 			aria-label="Abrir menu">
@@ -11,7 +11,7 @@
 				:class="{ 'header__logomark--selected': isMenuVisible }"
 			/>
 		</button>
-		<g-link to="/" class="header__action" v-else>
+		<g-link v-else-if="wasMounted" to="/" class="header__action">
 			<img
 				src="@/assets/logomarca.svg"
 				class="header__logomark"
@@ -26,8 +26,8 @@
 				class="logotype"
 			/> -->
 		</g-link>
-		<Navbar v-if="this.$mq != 'xs' && this.$mq != 'sm'"></Navbar>
-		<NavDropdown v-else></NavDropdown>
+		<Navbar v-if="wasMounted && this.$mq != 'xs' && this.$mq != 'sm'"></Navbar>
+		<NavDropdown v-else-if="wasMounted"></NavDropdown>
 	</header>
 </template>
 
@@ -40,6 +40,11 @@ export default {
 	name: 'Header',
 	components: { Navbar, NavDropdown },
 	props: ['hideToggle'],
+	data: function() {
+		return {
+			wasMounted: false
+		}
+	},
 	computed: {
 		...mapState(['isMenuVisible'])
 	},
@@ -47,6 +52,9 @@ export default {
 		toggleMenu() {
 			this.$store.dispatch('toggleMenu')
 		},
+	},
+	mounted() {
+		this.wasMounted = true
 	}
 }
 </script>
@@ -58,6 +66,7 @@ export default {
 
 	display: flex;
 	align-items: center;
+	max-width: 100vw;
 }
 
 .header__action {
@@ -104,10 +113,13 @@ body:not(.tab-user) .header__action:focus {
 
 a.header__logotype {
 	flex-grow: 1;
-	color: rgba(255, 255, 255, 0.9);
-	font-family: 'Kaushan Script';
-	font-size: 40px;
 	margin-left: 5px;
+}
+
+a.header__logotype > span {
+	color: rgba(255, 255, 255, 0.9);
+	font-family: 'Kaushan Script', sans-serif;
+	font-size: 40px;
 }
 
 a.header__logotype:focus {
@@ -121,6 +133,12 @@ a.header__logotype:focus {
 @media (max-width: 916px) {
 	a.header__logotype {
 		margin-left: 0;
+	}
+}
+
+@media (max-width: 350px) {
+	a.header__logotype > span {
+		font-size: 32px;
 	}
 }
 </style>

@@ -2,7 +2,6 @@
 	<aside class="menu" v-show="isMenuVisible">
 		<SearchBox />
 		<MenuTree
-			v-if="treeData"
 			:treeData="treeData"
 			v-model="selectedCategoryId"
 			@node:selected="toCategoryPage"

@@ -12,7 +12,7 @@
 			<img src="../assets/desbloqueando-a-escrita.jpg" alt="" />
 		</div>
 
-		<div v-if="!hasSubscribed" class="landing__container">
+		<div v-if="wasMounted && !hasSubscribed" class="landing__container">
 			<h2 class="landing__title">
 				Liberte As Suas Histórias!
 			</h2>
@@ -44,7 +44,7 @@
 			</p>
 		</div>
 
-		<div v-else class="landing__container landing__container--subscribed">
+		<div v-else-if="wasMounted" class="landing__container landing__container--subscribed">
 			<h2 class="landing__title">
 				Seu ebook está pronto...
 			</h2>
@@ -76,7 +76,8 @@ export default {
 	},
 	data: function() {
 		return {
-			hasSubscribed: false
+			hasSubscribed: false,
+			wasMounted: false
 		}
 	},
 	methods: {
@@ -84,6 +85,9 @@ export default {
 			this.hasSubscribed = true
 		}
 	},
+	mounted() {
+		this.wasMounted = true
+	}
 }
 </script>
 

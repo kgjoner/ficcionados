@@ -3,7 +3,7 @@
 		class="toggler"
 		:class="{ 'toggler--on': isMenuVisible }"
 	>
-		<button v-if="(isMenuVisible || keepToggler)
+		<button v-if="wasMounted && (isMenuVisible || keepToggler)
 			&& $mq !== 'sm' && $mq !== 'xs'" 
 			class="toggler__button"
 			@click="toggleMenu">
@@ -18,6 +18,11 @@ import { ROUTES_WITH_MENU_DISPLAYED_BY_DEFAULT } from '@/constants'
 
 export default {
 	name: 'Toggler',
+	data: function() {
+		return {
+			wasMounted: false
+		}
+	},
 	computed: {
 		...mapState(['isMenuVisible']),
 		keepToggler() {
@@ -31,6 +36,9 @@ export default {
 			this.$store.dispatch('toggleMenu')
 		},
 	},
+	mounted() {
+		this.wasMounted = true
+	}
 }
 </script>
 

@@ -3,8 +3,8 @@
 // Learn more: https://gridsome.org/docs/server-api/
 
 const axios = require('axios');
-const baseApiUrl = 'https://ficcionados-backend.herokuapp.com'
-// const baseApiUrl = 'http://localhost:3000'
+// const baseApiUrl = 'https://ficcionados-backend.herokuapp.com'
+const baseApiUrl = 'http://localhost:3000'
 
 module.exports = function (api) {
   api.loadSource(async actions => {

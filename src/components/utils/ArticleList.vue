@@ -8,7 +8,7 @@
 		</ul>
 
 		<b-pagination
-			v-if="pageInfo && pageInfo.totalPages > 1"
+			v-if="wasMounted && pageInfo && pageInfo.totalPages > 1"
 			:value="pageInfo.currentPage"
 			@input="this.changePage"
 			:total-rows="pageInfo.totalItems"
@@ -28,6 +28,11 @@ export default {
 		vertical: Boolean,
 	},
 	components: { ArticleCard },
+	data: function() {
+		return {
+			wasMounted: false
+		}
+	},
 	methods: {
 		changePage(page) {
 			if(this.$route.path.includes('busca')) {
@@ -55,6 +60,9 @@ export default {
 			this.changePage(this.pageInfo.totalPages)
 		}
 	},
+	mounted() {
+		this.wasMounted = true
+	}
 }
 </script>
 

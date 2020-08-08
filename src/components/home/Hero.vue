@@ -45,7 +45,7 @@ export default {
 }
 
 .hero__title {
-	font-family: 'Kaushan Script', cursive;
+	font-family: 'Kaushan Script', sans-serif;
 	color: rgba(255, 255, 255, 0.9);
 	font-size: 3rem;
 	letter-spacing: 1px;
@@ -150,18 +150,6 @@ body:not(.tab-user) .hero__action:focus {
 	}
 }
 
-@media (max-width: 396px) {
-	.hero {
-		background-image: url('../../assets/homecover-vt.jpg');
-	}
-
-	.hero__content {
-		padding-bottom: 20vh;
-		padding-left: 10px;
-		padding-right: 5px;
-	}
-}
-
 @media (max-width: 850px) and (max-height: 500px) {
 	.hero__content {
 		padding-bottom: 23vh;
@@ -185,11 +173,24 @@ body:not(.tab-user) .hero__action:focus {
 	}
 }
 
-@media (max-width: 325px) {
+@media (max-width: 400px) {
+	.hero {
+		background-image: url('../../assets/homecover-vt.jpg');
+	}
+
+	.hero__content {
+		padding-bottom: 20vh;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+	.hero__actions {
+		flex-wrap: wrap;
+	}
+
 	.hero__action {
 		margin-top: 20px;
 		font-size: 12px;
-		min-width: 135px;
 	}
 
 	.hero__title {
@@ -199,7 +200,6 @@ body:not(.tab-user) .hero__action:focus {
 
 	.hero__subtitle {
 		font-size: 0.9rem;
-		line-height: 120%;
 	}
 }
 </style>
