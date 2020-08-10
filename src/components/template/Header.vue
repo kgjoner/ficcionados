@@ -1,33 +1,25 @@
 <template>
 	<header class="header">
-		<button v-if="wasMounted && !hideToggle" 
-			class="header__action" 
-			@click="toggleMenu"
-			aria-label="Abrir menu">
-			<img
-				src="@/assets/logomarca.svg"
-				class="header__logomark"
-				alt="ficcionados logomarca"
-				:class="{ 'header__logomark--selected': isMenuVisible }"
-			/>
-		</button>
-		<g-link v-else-if="wasMounted" to="/" class="header__action">
-			<img
-				src="@/assets/logomarca.svg"
-				class="header__logomark"
-				alt="ficcionados logomarca"
-			/>
-		</g-link>
+		<div>
+			<button
+				class="header__action" 
+				@click="toggleMenu"
+				aria-label="Abrir menu">
+				<img
+					src="@/assets/logomarca.svg"
+					class="header__logomark"
+					alt="ficcionados logomarca"
+					:class="{ 'header__logomark--selected': isMenuVisible }"
+				/>
+			</button>
+		</div>
 		<g-link to="/" class="header__logotype">
-			<span>Ficcionados</span>
-			<!-- <img
-				src="@/assets/logotipo.svg"
-				alt="ficcionados logotipo"
-				class="logotype"
-			/> -->
+			Ficcionados
 		</g-link>
-		<Navbar v-if="wasMounted && this.$mq != 'xs' && this.$mq != 'sm'"></Navbar>
-		<NavDropdown v-else-if="wasMounted"></NavDropdown>
+		<div class="header__nav">
+			<NavDropdown v-if="this.$mq == 'xs' || this.$mq == 'sm'"></NavDropdown>
+			<Navbar v-else></Navbar>
+		</div>
 	</header>
 </template>
 
@@ -40,11 +32,6 @@ export default {
 	name: 'Header',
 	components: { Navbar, NavDropdown },
 	props: ['hideToggle'],
-	data: function() {
-		return {
-			wasMounted: false
-		}
-	},
 	computed: {
 		...mapState(['isMenuVisible'])
 	},
@@ -53,9 +40,6 @@ export default {
 			this.$store.dispatch('toggleMenu')
 		},
 	},
-	mounted() {
-		this.wasMounted = true
-	}
 }
 </script>
 
@@ -112,22 +96,21 @@ body:not(.tab-user) .header__action:focus {
 }
 
 a.header__logotype {
-	flex-grow: 1;
 	margin-left: 5px;
-}
-
-a.header__logotype > span {
 	color: rgba(255, 255, 255, 0.9);
 	font-family: 'Kaushan Script', sans-serif;
 	font-size: 40px;
+	padding-right: 5px;
 }
 
-a.header__logotype:focus {
+body:not(.tab-user) .header__logotype:focus {
 	outline: none
 }
 
-.tab-user a.header__logotype:focus span {
-	outline: 1px solid #fff;
+.header__nav {
+	flex-grow: 1;
+	display: flex;
+	justify-content: flex-end;
 }
 
 @media (max-width: 916px) {

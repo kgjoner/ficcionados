@@ -7,18 +7,18 @@
 			class="article-card__container"
 		>
 			<figure class="article-card__picture">
-				<img v-if="article.image && !vertical"
+				<img v-if="article.image"
 					v-lazyload
 					:data-url="imgUrl"
 					src=""
 					:alt="article.image.alt"
 					:title="article.image.title"
 				/>
-				<img v-else-if="article.image"
+				<!-- <img v-else-if="article.image"
 					:src="imgUrl"
 					:alt="article.image.alt"
 					:title="article.image.title"
-				/>
+				/> -->
 			</figure>
 			<div class="article-card__info">
 				<h3 class="article-card__heading">
@@ -39,7 +39,7 @@
 			</div>
 		</g-link>
 		<div class="article-card__container">
-			<g-link v-if="vertical"
+			<g-link v-show="vertical"
 				class="article-card__category"
 				:to="`/categorias/${article.category.id}/`"
 			>
@@ -104,6 +104,7 @@ a.article-card__container {
 .article-card__picture {
 	height: 150px;
 	min-width: 200px;
+	max-width: 100%;
 	margin-right: 20px;
 	margin-bottom: 0;
 	padding-right: 0;

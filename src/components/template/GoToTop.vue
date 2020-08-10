@@ -1,7 +1,7 @@
 <template>
-	<div class="to-top" ref="toTopBtn">
+	<div class="to-top" ref="toTopBtn" aria-hidden>
 		<button
-			v-if="wasMounted && !hideButton"
+			v-show="!hideButton"
 			class="to-top__btn"
 			title="Para cima!"
 			@click="goToTop"
@@ -17,7 +17,6 @@ export default {
 	data: function() {
 		return {
 			hideButton: true,
-			wasMounted: false
 		}
 	},
 	methods: {
@@ -31,7 +30,7 @@ export default {
 					cosParameter * Math.cos(Math.PI * progress) + cosParameter
 				)
 				window.scrollTo(0, position)
-				if (window.scrollY > 0) {
+				if (window.scrollY > 0 && progress <= 1000) {
 					window.requestAnimationFrame(stepUp)
 				}
 			}
@@ -45,7 +44,6 @@ export default {
 	},
 	mounted() {
 		window.addEventListener('scroll', this.checkHideButton)
-		this.wasMounted = true
 	},
 	destroyed() {
 		window.removeEventListener('scroll', this.checkHideButton)

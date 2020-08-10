@@ -4,6 +4,7 @@ export default {
 			if (binding.value === 'background') {
 				el.style.setProperty('background-image', `url(${el.dataset.url})`)
 			} else {
+				if(!el.dataset.url || el.src.includes('cloudinary')) return
 				el.src = el.dataset.url
 			}
 		}

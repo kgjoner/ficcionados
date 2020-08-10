@@ -2,14 +2,11 @@
 	<div class="app" 
 		:class="{ 'app--with-menu': isMenuVisible, 
 			'app--no-header': hideHeader }">
-		<Header
-			v-if="wasMounted && !hideHeader"
-			:hideToggle="this.$route.fullPath === 'insert-url-with-no-menu'"
-		></Header>
-		<Menu />
+		<Header v-show="!hideHeader" />
+		<Menu v-show="isMenuVisible" />
 		<Content />
 		<GoToTop />
-		<Footer v-if="wasMounted && !hideHeader" />
+		<Footer v-show="!hideHeader" />
 	</div>
 </template>
 
@@ -43,11 +40,6 @@ export default {
 				content: 'pt-br'
 			}
 		],
-	},
-	data: function() {
-		return {
-			wasMounted: false,
-		}
 	},
 	computed: {
 		...mapState(['isMenuVisible', 'isHeaderVisible']),
@@ -106,7 +98,6 @@ export default {
 		}
 	},
 	mounted() {
-		this.wasMounted = true
 		window.addEventListener('keydown', this.setTabUser)
 		this.canUseWebP()
 		this.controlMenu()

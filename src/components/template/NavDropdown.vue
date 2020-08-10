@@ -48,7 +48,7 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: #4c4c4c;
+	background: transparent;
 	color: #fff;
 	font-weight: 100;
 	font-size: 1.2em;
@@ -61,12 +61,9 @@ export default {
 	padding: 0;
 }
 
-.navbar-dropdown:hover .navbar__button {
+.navbar-dropdown:hover .navbar__button,
+.navbar__button--selected {
 	background-color: rgba(0, 0, 0, 0.2);
-}
-
-.navbar-dropdown .navbar__button--selected {
-	background-color: #1d7fd8 !important;
 }
 
 .navbar-dropdown__content {

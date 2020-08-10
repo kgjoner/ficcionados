@@ -1,5 +1,5 @@
 <template>
-	<aside class="menu" v-show="isMenuVisible">
+	<aside class="menu">
 		<SearchBox />
 		<MenuTree
 			:treeData="treeData"
@@ -41,7 +41,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['isMenuVisible', 'articleCategory']),
+		...mapState(['articleCategory']),
 		categories() {
 			return this.$static.categories.edges.map(c => c.node)
 		},
