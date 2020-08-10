@@ -37,7 +37,7 @@ export default {
 		changePage(page) {
 			if(this.$route.path.includes('busca')) {
 				this.$router.push({
-					path: `/busca?s=${this.$route.query.s}&page=${page}`,
+					path: `/busca?term=${this.$route.query.s}&page=${page}`,
 				})
 			} else if(this.$route.path.includes('categorias')) {
 				const path = this.$route.path.replace(

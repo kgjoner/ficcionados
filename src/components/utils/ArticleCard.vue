@@ -14,11 +14,6 @@
 					:alt="article.image.alt"
 					:title="article.image.title"
 				/>
-				<!-- <img v-else-if="article.image"
-					:src="imgUrl"
-					:alt="article.image.alt"
-					:title="article.image.title"
-				/> -->
 			</figure>
 			<div class="article-card__info">
 				<h3 class="article-card__heading">
@@ -39,12 +34,12 @@
 			</div>
 		</g-link>
 		<div class="article-card__container">
-			<g-link v-show="vertical"
+			<g-link v-show="vertical && article.category"
 				class="article-card__category"
-				:to="`/categorias/${article.category.id}/`"
+				:to="`/categorias/${article.category ? article.category.id : 1}/`"
 			>
 				<i class="fa fa-folder"></i>
-				{{ article.category.name }}
+				{{ article.category ? article.category.name : '' }}
 			</g-link>
 		</div>
 	</article>

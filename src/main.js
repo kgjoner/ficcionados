@@ -14,8 +14,6 @@ import '@/assets/css/accordions.css'
 import '@/assets/css/quotes.css'
 import '@/assets/css/article.css'
 
-import './config/axios'
-import ArticleFunctions from '../static/articleFunctions'
 import store from './store'
 
 export default function (Vue, { appOptions, router, head, isClient }) {
@@ -24,7 +22,6 @@ export default function (Vue, { appOptions, router, head, isClient }) {
   Vue.use(Vuex)
   appOptions.store = new Vuex.Store(store)
   
-  Vue.use(ArticleFunctions)
   Vue.use(BootstrapVue)
   Vue.use(VueDisqus)
   if(isClient) {

@@ -28,7 +28,7 @@ export default {
 	},
 	methods: {
 		toQueryPage() {
-			this.$router.push({ path: `/busca?s=${this.term}&page=1` })
+			this.$router.push({ path: `/busca?term=${this.term}&page=1` })
 		},
 	},
 }

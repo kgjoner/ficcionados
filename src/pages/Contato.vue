@@ -1,10 +1,6 @@
 <template>
 	<div class="contact">
-		<PageTitle
-			main="Envie sua Mensagem!"
-			sub="Tem algo a dizer?"
-			center
-		/>
+		<PageTitle main="Envie sua Mensagem!" sub="Tem algo a dizer?" center />
 		<b-form
 			class="contact__form"
 			name="Contact"
@@ -17,36 +13,37 @@
 
 			<b-col md="6" sm="12">
 				<b-form-group label-for="contact-name">
-					<label for="contact-name" 
-						class="contact__label">
+					<label for="contact-name" class="contact__label">
 						Nome:
 					</label>
-					<b-form-input 
+					<b-form-input
 						id="contact-name"
-						name="name" type="text"  
-						v-model="contact.name" 
-						required />
+						name="name"
+						type="text"
+						v-model="contact.name"
+						required
+					/>
 				</b-form-group>
 				<b-form-group label-for="contact-email">
-					<label for="contact-email" 
-						class="contact__label">
+					<label for="contact-email" class="contact__label">
 						E-mail:
 					</label>
 					<b-form-input
 						id="contact-email"
-						name="email" type="text"
+						name="email"
+						type="text"
 						v-model="contact.email"
 						required
 					/>
 				</b-form-group>
 				<b-form-group label-for="contact-subject">
-					<label for="contact-subject" 
-						class="contact__label">
+					<label for="contact-subject" class="contact__label">
 						Assunto:
 					</label>
 					<b-form-input
 						id="contact-subject"
-						name="subject" type="text"
+						name="subject"
+						type="text"
 						v-model="contact.subject"
 						required
 					/>
@@ -55,15 +52,15 @@
 
 			<b-col md="10" sm="12">
 				<b-form-group label-for="contact-content">
-					<label for="contact-content" 
-						class="contact__label">
+					<label for="contact-content" class="contact__label">
 						Mensagem:
 					</label>
-					<b-form-textarea 
-						id="contact-content" 
+					<b-form-textarea
+						id="contact-content"
 						class="contact__content"
 						name="content"
-						v-model="contact.content" />
+						v-model="contact.content"
+					/>
 				</b-form-group>
 			</b-col>
 
@@ -78,10 +75,11 @@
 </template>
 
 <script>
+import { submitFormToNetlify } from '@/api/netlifyForms'
+import displayError from '@/utils/displayError'
+
 import PageTitle from '@/components/template/PageTitle'
 import Loading from '@/components/utils/Loading'
-import displayError from '@/utils/displayError'
-import axios from 'axios'
 
 export default {
 	name: 'ContactPage',
@@ -95,39 +93,22 @@ export default {
 				name: '',
 				email: '',
 				subject: '',
-				content: ''
+				content: '',
 			},
 			sending: false,
 		}
 	},
 	methods: {
-		encode(data) {
-			return Object.keys(data)
-				.map(
-					(key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
-				)
-				.join('&')
-		},
-
 		handleSubmit() {
 			this.sending = true
-			const axiosConfig = {
-				header: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			}
-			axios
-				.post(
-					'/',
-					this.encode({
-						'form-name': 'Contact',
-						...this.contact,
-					}),
-					axiosConfig
+			submitFormToNetlify(this.contact)
+				.then(
+					() => {
+						this.$toasted.success('Mensagem enviada!', { icon: 'check' })
+						this.contact = { name: '', email: '', subject: '', content: '' }
+					},
+					e => displayError(e)
 				)
-				.then(() =>
-					this.$toasted.success('Mensagem enviada!', { icon: 'check' })
-				)
-				.then(() => this.contact = { name: '', email: '', subject: '', content: ''})
-				.catch(displayError)
 				.finally(() => (this.sending = false))
 		},
 	},

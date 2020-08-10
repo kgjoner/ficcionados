@@ -1,7 +1,7 @@
 export default {
 	state: {
 		isMenuVisible: false,
-		articleCategory: {}, //só id serve?
+		articleCategory: {},
 	},
 	mutations: {
 		setMenuVisibility(state, isVisible) {

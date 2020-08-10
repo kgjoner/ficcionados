@@ -19,8 +19,7 @@
 </template>
 
 <script>
-import { BASE_API_URL } from '@/constants'
-import axios from 'axios'
+import { getRelatedArticles } from '@/api/backend'
 import displayError from '@/utils/displayError'
 
 export default {
@@ -39,14 +38,10 @@ export default {
 	},
 	methods: {
 		getArticles() {
-			const url = `${BASE_API_URL}/categories/${this.parentId}/articles?page=${
-				this.currentArticle
-			}&order=random`
-			axios(url)
-				.then(res => {
-					this.articles = [...res.data]
-				})
-				.catch(e => displayError(e))
+			getRelatedArticles(this.parentId, this.currentArticle).then(
+				data => this.articles = [...data],
+				err => displayError(err)
+			)
 		},
 	},
 	watch: {
