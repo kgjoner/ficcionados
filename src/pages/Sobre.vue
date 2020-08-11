@@ -111,7 +111,7 @@ export default {
 			rgba(0, 0, 0, 0.2),
 			rgba(0, 0, 0, 0.2)
 		),
-		url('../assets/homecover.jpg');
+		url('../assets/img/homecover.jpg');
 	background-size: cover;
 	background-position: bottom center;
 

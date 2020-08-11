@@ -48,7 +48,7 @@ export default {
 			rgba(0, 0, 0, 0.2),
 			rgba(0, 0, 0, 0.2)
 		),
-		url('../../assets/blankcover.jpg');
+		url('../../assets/img/blankcover.jpg');
 	background-size: cover !important;
 	background-position: bottom center;
 

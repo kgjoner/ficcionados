@@ -237,7 +237,7 @@ export default {
 
 <style>
 :root {
-	--bkg-image: url('../assets/article.png');
+	--bkg-image: url('../assets/img/article-fallback.jpg');
 }
 
 .article {

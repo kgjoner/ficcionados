@@ -165,7 +165,6 @@ export default {
 }
 
 .home__icon {
-	mask-image: url('../assets/heart.svg');
 	mask-repeat: no-repeat;
 	mask-size: contain;
 	background-color: #fff;
@@ -175,17 +174,17 @@ export default {
 }
 
 .home__icon.heart {
-	mask-image: url('../assets/heart.svg');
+	mask-image: url('../assets/img/heart.svg');
 	height: calc(100% - 8px);
 	width: calc(100% - 8px);
 }
 
 .home__icon.magnifier {
-	mask-image: url('../assets/magnifier.svg');
+	mask-image: url('../assets/img/magnifier.svg');
 }
 
 .home__icon.sword {
-	mask-image: url('../assets/sword.svg');
+	mask-image: url('../assets/img/sword.svg');
 }
 
 .home__heading {

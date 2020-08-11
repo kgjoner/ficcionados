@@ -6,7 +6,7 @@
 				@click="toggleMenu"
 				aria-label="Abrir menu">
 				<img
-					src="@/assets/logomarca.svg"
+					src="@/assets/img/logomarca.svg"
 					class="header__logomark"
 					alt="ficcionados logomarca"
 					:class="{ 'header__logomark--selected': isMenuVisible }"

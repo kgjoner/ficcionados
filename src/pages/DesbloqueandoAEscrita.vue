@@ -9,7 +9,7 @@
 				id="dummyframe"
 				style="display:none"
 			></iframe>
-			<img src="../assets/desbloqueando-a-escrita.jpg" alt="" />
+			<img src="../assets/img/desbloqueando-a-escrita.jpg" alt="" />
 		</div>
 
 		<div v-if="wasMounted && !hasSubscribed" class="landing__container">

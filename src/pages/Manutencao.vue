@@ -1,7 +1,7 @@
 <template>
 	<div class="maintenance">
 		<div class="maintenance__container">
-			<img src="@/assets/logomarca.svg" alt="Ficcionados" />
+			<img src="@/assets/img/logomarca.svg" alt="Ficcionados" />
 			<h1 class="maintenance__title">
 				Ops... Estamos em manutenção
 			</h1>
@@ -39,7 +39,7 @@ export default {
 
 <style>
 .maintenance {
-	background-image: url('../assets/blankcover.jpg');
+	background-image: url('../assets/img/blankcover.jpg');
 	background-size: cover;
 	min-height: 100vh;
 	padding: 20px;

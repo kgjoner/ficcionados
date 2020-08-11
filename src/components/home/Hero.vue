@@ -28,13 +28,13 @@ export default {
 	position: relative;
 	height: 90vh;
 	width: 100%;
-	background-image: url('../../assets/homecover.jpg');
+	background-image: url('../../assets/img/homecover.jpg');
 	background-size: cover;
 	background-position: center bottom;
 }
 
 .webp .hero {
-	background-image: url('../../assets/homecover.webp');
+	background-image: url('../../assets/img/homecover.webp');
 }
 
 .hero__content {
@@ -129,11 +129,11 @@ body:not(.tab-user) .hero__action:focus {
 
 @media (max-width: 768px) {
 	.hero {
-		background-image: url('../../assets/homecover-66.jpg');
+		background-image: url('../../assets/img/homecover-66.jpg');
 	}
 
 	.webp .hero {
-		background-image: url('../../assets/homecover-66.webp');
+		background-image: url('../../assets/img/homecover-66.webp');
 	}
 
 	.hero__content {
@@ -175,7 +175,7 @@ body:not(.tab-user) .hero__action:focus {
 
 @media (max-width: 400px) {
 	.hero {
-		background-image: url('../../assets/homecover-vt.jpg');
+		background-image: url('../../assets/img/homecover-vt.jpg');
 	}
 
 	.hero__content {

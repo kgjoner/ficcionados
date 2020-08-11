@@ -25,7 +25,7 @@ export default {
 
 <style>
 .home-banner {
-	background-image: url('../../assets/homebanner.jpg');
+	background-image: url('../../assets/img/homebanner.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
@@ -37,7 +37,7 @@ export default {
 }
 
 .webp .home-banner {
-	background-image: url('../../assets/homebanner.webp');
+	background-image: url('../../assets/img/homebanner.webp');
 }
 
 .home-banner__heading {
@@ -95,11 +95,11 @@ export default {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		background-image: url('../../assets/homebanner-66.jpg');
+		background-image: url('../../assets/img/homebanner-66.jpg');
 	}
 
 	.webp .home-banner {
-		background-image: url('../../assets/homebanner-66.webp');
+		background-image: url('../../assets/img/homebanner-66.webp');
 	}
 
 	.home-banner__heading,
