@@ -19,6 +19,12 @@ module.exports = {
         iconPack: 'fontawesome',
         duration: 5000
       },
+    },
+    {
+      use: '@gridsome/plugin-google-analytics',
+      options: {
+        id: 'UA-99215702-1'
+      }
     }
   ],
 }
